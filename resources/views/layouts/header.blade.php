@@ -17,11 +17,21 @@
                                     $userId = json_decode($myInfo)[0]->user_id;
                                     $RealName = json_decode(DB::table('users')->where('id', $userId)->get())[0]->name;
                                     $RealCom = json_decode(DB::table('communities')->where('id', json_decode(DB::table('users')->where('id', $userId)->get())[0]->community_id)->get())[0]->name;
+                                   
                                 }
                             } catch (Exception $e) {
                                 Session::forget('session');
                                 Session::flash('sessiondestroy','true');
                             }
+
+                            $Sessionuserinfo = Session::get('session');
+                            $infoarr = explode(",", $Sessionuserinfo);
+                                $user_level = DB::table('logins')
+                                        ->leftjoin('users', 'logins.user_id','=','users.id')
+                                        ->where('logins.username','=',$infoarr[0])
+                                        ->where('logins.encrypted','=',$infoarr[1])
+                                        ->get('leveluser')->toArray();
+
                         ?>
                         @if (Session::get('sessiondestroy') == 'true')
                             <form style="display: none;" method="GET" action="/signout"><input id="signoutBtn"/></form>
@@ -55,13 +65,15 @@
                                         </span>
                                         <i class="menu-arrow"></i>
                                     </a>
-                                    <a href="usermanage" class="dropdown-item">
-                                        <span class="menu-text boxed-btn btn-rounded">
-                                            <span class="iconify" data-icon="wpf:administrator" data-inline="false"></span>
-                                            Admin
-                                        </span>
-                                        <i class="menu-arrow"></i>
-                                    </a>
+                                    @if ($user_level[0]->leveluser > 0)
+                                        <a href="usermanage" class="dropdown-item">
+                                            <span class="menu-text boxed-btn btn-rounded">
+                                                <span class="iconify" data-icon="wpf:administrator" data-inline="false"></span>
+                                                Admin
+                                            </span>
+                                            <i class="menu-arrow"></i>
+                                        </a>
+                                    @endif
                                     {{-- <a href="#" class="dropdown-item">
                                         <span class="menu-text boxed-btn btn-rounded">
                                             <span class="iconify" data-icon="ic:twotone-contact-support" data-inline="false"></span>

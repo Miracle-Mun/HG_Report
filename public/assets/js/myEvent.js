@@ -117,6 +117,7 @@ async function setValFrom(val) {
         localStorage.setItem('period_id_from', finalVal['caption']);
         $(val).attr({ 'value': finalVal['caption'], 'date': finalVal['id'] });
     }
+    $('.datepicker').hide();
 }
 
 async function setValTo(val) {
@@ -152,6 +153,7 @@ async function setValTo(val) {
         localStorage.setItem('period_id_to', finalVal['caption']);
         $(val).attr({ 'value': finalVal['caption'], 'date': finalVal['id'] });
     }
+    $('.datepicker').hide();
 }
 
 function hgreportAlert(data) {
@@ -200,6 +202,13 @@ function suhgreportAlert(data) {
 $('body').on('click', '#login_signup_form [class="dropdown-item"]', function() {
     $(this).parent().prev().text($(this).text());
 })
+
+
+$('body').on('click', '.viewreportcommon .dropdown-menu ul li', function() {
+    $('.viewreportcommon').prev().attr('value', communities.filter(item => item.name == $(this).text().trim())[0]['id']);
+})
+
+
 $('body').on('click', '.mainContainer ul li', function() {
     if ($(this).attr('cId')) {
         $(this).parent().parent().parent().prev().children().children().children().attr('value', $(this).attr('cId'));
@@ -511,10 +520,6 @@ $('body').on('click', '.EditactionCencaps a', function() {
             $(this).parent().parent().parent().parent().parent().parent().next().attr('value', buildingsData[i]['id']);
         }
     }
-})
-
-$('body').on('click', '.viewreportcommon .dropdown-menu ul li', function() {
-    $('.viewreportcommon').prev().attr('value', communities.filter(item => item.name == $(this).text().trim())[0]['id']);
 })
 
 async function refresh(parent) {
