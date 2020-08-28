@@ -531,3 +531,32 @@ async function refresh(parent) {
 $('body').on('click', '.leveladdDropdown dropdown-item', function() {
     console.log($(this).attr('type'));
 })
+
+
+let tid = "#kt_datatable2";
+let headers = document.querySelectorAll(tid + " th");
+
+// Sort the table element when clicking on the table headers
+headers.forEach(function(element, i) {
+    element.addEventListener("click", function() {
+        // w3.sortHTML(tid, "tbody .spanloadtr", "td:nth-child(" + (i + 1) + ")");
+        $(this).append('<i class="fa fa-spinner fa-spin qqq-spin" style="font-size: 1rem;"></i>');
+        setTimeout(function() {
+            $('.qqq-spin').remove();
+        }, 1000);
+        setTimeout(function() {
+            if (i == 0) {
+                w3.sortHTML(tid, "tbody .spanloadtr", "td:nth-child(" + (i + 1) + ") span span");
+            }
+            if (i == 1) {
+                w3.sortHTML(tid, "tbody .spanloadtr", "td:nth-child(" + (i + 1) + ") span div .ml-4 div");
+            }
+            if (i == 3) {
+                w3.sortHTML(tid, "tbody .spanloadtr", "td:nth-child(" + (i + 1) + ") span");
+            }
+            if (i == 4 || i == 6 || i == 7 || i == 8) {
+                w3.sortHTML(tid, "tbody .spanloadtr", "td:nth-child(" + (i + 1) + ") span div");
+            }
+        }, 100);
+    });
+});

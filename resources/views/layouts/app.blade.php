@@ -143,6 +143,7 @@
         <!--begin::Page Scripts(used by this page)-->
         <script src="assets/js/pages/widgets79e8.js?v=7.0.3"></script>
         <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+        <script src="https://www.w3schools.com/lib/w3.js"></script>
         <script src="/assets/js/myEvent.js"></script>
         <!--end::Page Scripts-->
     </body>

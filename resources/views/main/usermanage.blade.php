@@ -45,9 +45,9 @@
     <div class="card-body">
         <!--begin: Datatable-->
         <div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded" id="kt_datatable" style="">
-            <table class="datatable-table  table-sm table-hover" style="display: block;">
+            <table class="datatable-table  table-sm table-hover" id="kt_datatable2" style="display: block;">
                 <thead class="datatable-head">
-                    <tr class="datatable-row" style="left: 0px;">
+                    <tr class="datatable-row spanloadtr" style="left: 0px;">
                         <th data-field="RecordID" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
                             <span style="width: 40px;">#
                                 <i class="flaticon2-arrow-up"></i>
@@ -109,7 +109,7 @@
                         $iNum = 0;
                     ?>
                     @foreach ($result as $item)
-                        <tr data-row="0" class="datatable-row" style="left: 0px;" nameValue = "{{ $item->name }}" id-value = "{{ $item->user_id }}">
+                        <tr data-row="0" class="datatable-row spanloadtr" style="left: 0px;" nameValue = "{{ $item->name }}" id-value = "{{ $item->user_id }}">
                             <td class="datatable-cell-sorted datatable-cell-left datatable-cell" data-field="RecordID" aria-label="1">
                                 <span style="width: 40px;">
                                     <span class="font-weight-bolder">{{ $iNum++ }}</span>
