@@ -65,7 +65,7 @@
                                         </span>
                                         <i class="menu-arrow"></i>
                                     </a>
-                                    @if ($user_level[0]->leveluser > 0)
+                                    @if ($user_level[0]->leveluser > 0 || $user_level[0]->leveluser < 4)
                                         <a href="usermanage" class="dropdown-item">
                                             <span class="menu-text boxed-btn btn-rounded">
                                                 <span class="iconify" data-icon="wpf:administrator" data-inline="false"></span>

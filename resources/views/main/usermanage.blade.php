@@ -88,10 +88,21 @@
                         $logins = new logins;
                         $users = new users;
                         $Communities = new Communities;
+                        
+                        $Sessionuserinfo = Session::get('session');
 
-                        // $result = $logins->belongsTo('App\model\users', 'user_id', 'id');
-                        // $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.id', 'users.name','users.community_id','users.position','users.email','logins.inactive']));
-                        $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.*','logins.*']));
+                        $infoarr = explode(",", $Sessionuserinfo);
+                        $user_level = DB::table('logins')
+                                ->leftjoin('users', 'logins.user_id','=','users.id')
+                                ->where('logins.username','=',$infoarr[0])
+                                ->where('logins.encrypted','=',$infoarr[1])
+                                ->get(['leveluser', 'community_id'])->toArray();
+
+                        if($user_level[0]->leveluser == 1) {
+                            $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->where(['community_id' => $user_level[0]->community_id])->get([ 'users.*','logins.*']));
+                        } else {
+                            $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.*','logins.*']));
+                        }
 
                         $arr = ['success', 'danger', 'warning', 'primary'];
                         // print_r(floor(mt_rand()*4));
