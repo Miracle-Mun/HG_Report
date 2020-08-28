@@ -186,7 +186,7 @@
                                 </span>
                             </td>
                             <td style="display: none;">
-                                <span id="infoCenter" style="display: none;" type0="{{ $item->username }}" type1="{{ $item->community_id }}" type2="{{ $item->name }}" type3="{{ $item->email }}" type4="{{ $item->position }}" type5="{{ $item->leveledit }}" type6="{{ $item->levelreport }}" type7="{{ $item->levelcompany }}" type8="{{ $item->leveluser }}"></span>
+                                <span id="infoCenter" style="display: none;" type0="{{ $item->username }}" type1="{{ $item->community_id }}" type2="{{ $item->name }}" type3="{{ $item->email }}" type4="{{ $item->position }}" type5="{{ $item->leveledit }}" type6="{{ $item->levelreport }}" type7="{{ $item->levelcompany }}" type8="{{ $item->leveluser }}" type9="{{ $item->leveladd }}"></span>
                             </td>
                         </tr>
                     @endforeach
@@ -424,6 +424,20 @@
                         <div class="form-group mb-5">
                             <input class="form-control h-auto form-control-solid py-4 px-8 mPosition" type="text" placeholder="Position" name="position" required />
                         </div>
+                        <div class="form-group mb-5 adds">
+                            <div class="btn-group mLeveladd_value">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Adds</button>
+                                <input style="display: none;" class="mLeveladd" value="0" name="leveladd">
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" type="0" href="#">No Adds</a>
+                                    <a class="dropdown-item" type="1" href="#">Add Non-Locked</a>
+                                    <a class="dropdown-item" type="2" href="#">Add Local Locked</a>
+                                    <a class="dropdown-item" type="3" href="#">Add Any</a>
+                                    <a class="dropdown-item" type="4" href="#">Add Any (root)</a>
+                                </div>
+                            </div>
+                        </div>
+                        
                         <div class="form-group mb-5 edits">
                             <div class="btn-group mLeveledit_value">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Edits</button>

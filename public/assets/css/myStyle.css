@@ -4,6 +4,9 @@
 .edits button,
 .edits .dropdown-menu,
 .edits .btn-group,
+.adds button,
+.adds .dropdown-menu,
+.adds .btn-group,
 .reports button,
 .reports .dropdown-menu,
 .reports .btn-group,
@@ -18,6 +21,7 @@
 
 .communities a,
 .edits a,
+.adds a,
 .reports a,
 .companyReports a,
 .role a {

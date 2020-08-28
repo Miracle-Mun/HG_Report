@@ -62,7 +62,8 @@ class authController extends Controller
             'leveledit' => $_POST['leveledit'],
             'levelreport' => $_POST['levelreport'],
             'levelcompany' => $_POST['levelcompany'],
-            'leveluser' => $_POST['leveluser']
+            'leveluser' => $_POST['leveluser'],
+            'leveladd' => $_POST['leveladd']
         );
 
         $usersTable->insert($user);

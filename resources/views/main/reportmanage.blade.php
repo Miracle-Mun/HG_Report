@@ -45,9 +45,9 @@
     <div class="card-body">
         <!--begin: Datatable-->
         <div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded" id="kt_datatable" style="">
-            <table class="datatable-table  table-sm table-hover" style="display: block;">
+            <table class="datatable-table  table-sm table-hover" id="kt_datatable2" style="display: block;">
                 <thead class="datatable-head">
-                    <tr class="datatable-row" style="left: 0px;">
+                    <tr class="datatable-row spanloadtr" style="left: 0px;">
                         <th data-field="RecordID" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
                             <span style="width: 40px;">#
                                 <i class="flaticon2-arrow-up"></i>
@@ -88,17 +88,28 @@
                         $logins = new logins;
                         $users = new users;
                         $Communities = new Communities;
+                        
+                        $Sessionuserinfo = Session::get('session');
 
-                        // $result = $logins->belongsTo('App\model\users', 'user_id', 'id');
-                        // $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.id', 'users.name','users.community_id','users.position','users.email','logins.inactive']));
-                        $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.*','logins.*']));
+                        $infoarr = explode(",", $Sessionuserinfo);
+                        $user_level = DB::table('logins')
+                                ->leftjoin('users', 'logins.user_id','=','users.id')
+                                ->where('logins.username','=',$infoarr[0])
+                                ->where('logins.encrypted','=',$infoarr[1])
+                                ->get(['leveluser', 'community_id'])->toArray();
+
+                        if($user_level[0]->leveluser == 1) {
+                            $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->where(['community_id' => $user_level[0]->community_id])->get([ 'users.*','logins.*']));
+                        } else {
+                            $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.*','logins.*']));
+                        }
 
                         $arr = ['success', 'danger', 'warning', 'primary'];
                         // print_r(floor(mt_rand()*4));
                         $iNum = 0;
                     ?>
                     @foreach ($result as $item)
-                        <tr data-row="0" class="datatable-row" style="left: 0px;" nameValue = "{{ $item->name }}" id-value = "{{ $item->user_id }}">
+                        <tr data-row="0" class="datatable-row spanloadtr" style="left: 0px;" nameValue = "{{ $item->name }}" id-value = "{{ $item->user_id }}">
                             <td class="datatable-cell-sorted datatable-cell-left datatable-cell" data-field="RecordID" aria-label="1">
                                 <span style="width: 40px;">
                                     <span class="font-weight-bolder">{{ $iNum++ }}</span>
@@ -289,7 +300,7 @@
                             <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Position" name="position" required />
                         </div>
                         <div class="form-group mb-5 edits">
-                            <div class="btn-group">
+                            <div class="btn-group leveladdDropdown">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Adds</button>
                                 <input style="display: none;" value="0" name="leveladd">
                                 <div class="dropdown-menu">

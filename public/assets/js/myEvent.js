@@ -286,7 +286,11 @@ $('body').on('click', '.OrderName', function() {
     $('.mLeveluser').attr('value', mainValue.attr('type8'));
     $('.mLeveluser_value button').text($(".mLeveluser_value [type='" + mainValue.attr('type8') + "']").text());
 
+    $('.mLeveladd').attr('value', mainValue.attr('type9'));
+    $('.mLeveladd_value button').text($(".mLeveladd_value [type='" + mainValue.attr('type9') + "']").text());
+
     $('body #UpdateUserModal').click();
+
 })
 $('body').on('click', '.inactiveBtn', function() {
     $('#activeId').attr('value', $(this).parent().parent().parent().attr('id-value'));
@@ -526,6 +530,7 @@ async function refresh(parent) {
     var finalVal = await getExactlyDate(parent);
     $(parent).prev().prev().attr('value', finalVal['id']);
     $(parent).prev().click();
+    $('.datepicker').hide();
 }
 
 $('body').on('click', '.leveladdDropdown dropdown-item', function() {
