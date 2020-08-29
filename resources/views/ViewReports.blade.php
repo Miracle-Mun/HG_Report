@@ -47,7 +47,7 @@
                             @endforeach
                             <select class="form-control selectpicker w-20 viewreportcommon" data-live-search="true" tabindex="null">
                                 @foreach ($viewitems as $item)
-                                    @if($Communities->where(['id' => $info[0]])->get())[0]->id == $item->id)
+                                    @if($info[0] == $item->id)
                                         <option data-tokens="mustard" selected="selected">
                                             {{ $item->name }}
                                         </option>
