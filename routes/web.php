@@ -32,6 +32,7 @@ Route::post('/changeStatus' , 'authController@changeStatus')->middleware('CheckS
 Route::get('/main' , 'HomeController@index')->name('index');
 Route::get('/usermanage', 'HomeController@usermanage')->middleware('CheckSession');
 Route::get('/reportmanage', 'HomeController@reportmanage')->middleware('CheckSession');
+Route::post('/reportmanage', 'HomeController@reportmanage')->middleware('CheckSession');
 
 // Load Reports
 Route::post('/reportSummary', 'ViewReports@getinfo')->middleware('CheckSession');
