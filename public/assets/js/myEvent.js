@@ -544,7 +544,6 @@ let headers = document.querySelectorAll(tid + " th");
 // Sort the table element when clicking on the table headers
 headers.forEach(function(element, i) {
     element.addEventListener("click", function() {
-        // w3.sortHTML(tid, "tbody .spanloadtr", "td:nth-child(" + (i + 1) + ")");
         $(this).append('<i class="fa fa-spinner fa-spin qqq-spin" style="font-size: 1rem;"></i>');
         setTimeout(function() {
             $('.qqq-spin').remove();
@@ -561,6 +560,27 @@ headers.forEach(function(element, i) {
             }
             if (i == 4 || i == 6 || i == 7 || i == 8) {
                 w3.sortHTML(tid, "tbody .spanloadtr", "td:nth-child(" + (i + 1) + ") span div");
+            }
+        }, 100);
+    });
+});
+
+let tId = "#kt_datatable23";
+let headerss = document.querySelectorAll(tId + " th");
+
+// Sort the table element when clicking on the table headers
+headerss.forEach(function(element, i) {
+    element.addEventListener("click", function() {
+        $(this).append('<i class="fa fa-spinner fa-spin qqq-spin" style="font-size: 1rem;"></i>');
+        setTimeout(function() {
+            $('.qqq-spin').remove();
+        }, 1000);
+        setTimeout(function() {
+            if (i == 0) {
+                w3.sortHTML(tId, "tbody .spanloadtrfir", "td:nth-child(" + (i + 1) + ") span span");
+            }
+            if (i == 1 || i == 2 || i == 3 || i == 5 || i == 6) {
+                w3.sortHTML(tId, "tbody .spanloadtrfir", "td:nth-child(" + (i + 1) + ") span div");
             }
         }, 100);
     });

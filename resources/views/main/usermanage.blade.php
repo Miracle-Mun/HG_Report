@@ -48,34 +48,34 @@
             <table class="datatable-table  table-sm table-hover" id="kt_datatable2" style="display: block;">
                 <thead class="datatable-head">
                     <tr class="datatable-row spanloadtr" style="left: 0px;">
-                        <th data-field="RecordID" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
-                            <span style="width: 40px;">#
+                        <th data-field="RecordID" style="width: 5%;" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
+                            <span>#
                                 <i class="flaticon2-arrow-up"></i>
                             </span>
                         </th>
-                        <th data-field="Name" class="datatable-cell datatable-cell-sort">
-                            <span style="width: 255px;">Name</span>
+                        <th data-field="Name" style="width: 30%;" class="datatable-cell datatable-cell-sort">
+                            <span>Name</span>
                         </th>
-                        <th data-field="Community" class="datatable-cell datatable-cell-sort">
-                            <span style="width: 50px;">state</span>
+                        <th data-field="Community" style="width: 5%;" class="datatable-cell datatable-cell-sort">
+                            <span>state</span>
                         </th>
-                        <th data-field="Community" class="datatable-cell datatable-cell-sort">
-                            <span style="width: 170px;">Community</span>
+                        <th data-field="Community" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                            <span>Community</span>
                         </th>
-                        <th data-field="Position" class="datatable-cell datatable-cell-sort">
-                            <span style="width: 125px;">Position</span>
+                        <th data-field="Position" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                            <span>Position</span>
                         </th>
-                        <th data-field="password" class="datatable-cell datatable-cell-sort">
-                            <span style="width: 90px;">Password</span>
+                        <th data-field="password" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                            <span>Password</span>
                         </th>
-                        <th data-field="Status" class="datatable-cell datatable-cell-sort">
-                            <span style="width: 85px;">Status</span>
+                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                            <span>Status</span>
                         </th>
-                        <th data-field="Status" class="datatable-cell datatable-cell-sort">
-                            <span style="width: 105px;">Created Date</span>
+                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                            <span>Created Date</span>
                         </th>
-                        <th data-field="Status" class="datatable-cell datatable-cell-sort">
-                            <span style="width: 105px;">Last Login</span>
+                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                            <span>Last Login</span>
                         </th>
                     </tr>
                 </thead>
@@ -110,13 +110,13 @@
                     ?>
                     @foreach ($result as $item)
                         <tr data-row="0" class="datatable-row spanloadtr" style="left: 0px;" nameValue = "{{ $item->name }}" id-value = "{{ $item->user_id }}">
-                            <td class="datatable-cell-sorted datatable-cell-left datatable-cell" data-field="RecordID" aria-label="1">
-                                <span style="width: 40px;">
+                            <td class="datatable-cell-sorted datatable-cell-left datatable-cell" style="width: 5%;" data-field="RecordID" aria-label="1">
+                                <span>
                                     <span class="font-weight-bolder">{{ $iNum++ }}</span>
                                 </span>
                             </td>
-                            <td data-field="OrderID" aria-label="64616-103" class="datatable-cell OrderName">
-                                <span style="width: 245px;">
+                            <td data-field="OrderID" aria-label="64616-103" style="width: 30%; word-break: break-word;" class="datatable-cell OrderName">
+                                <span>
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-40 symbol-light-{{ $arr[rand(0,3)] }} flex-shrink-0">
                                             <span class="symbol-label font-size-h4 font-weight-bold">{{ $item->name[0] }}</span>
@@ -128,23 +128,23 @@
                                     </div>
                                 </span>
                             </td>
-                            <td data-field="Country" aria-label="Brazil" class="datatable-cell">
-                                <span style="width: 28px;">
+                            <td data-field="Country" aria-label="Brazil" style="width: 5%;" class="datatable-cell">
+                                <span>
                                     <div class="font-weight-bolder font-size-lg mb-0">{{ $item->state }}</div>
                                 </span>
                             </td>
-                            <td data-field="Country" aria-label="Brazil" class="datatable-cell">
-                                <span style="width: 128px;">
+                            <td data-field="Country" aria-label="Brazil" style="width: 10%;" class="datatable-cell">
+                                <span>
                                     <div class="font-weight-bolder font-size-lg mb-0">{{ json_decode($Communities->where(['id'=>$item->community_id])->get())[0]->name }}</div>
                                 </span>
                             </td>
-                            <td data-field="ShipDate" aria-label="10/15/2017" class="datatable-cell">
-                                <span style="width: 158px;">
+                            <td data-field="ShipDate" style="width: 10%;" aria-label="10/15/2017" class="datatable-cell">
+                                <span>
                                     <div class="font-weight-bolder text-primary mb-0">{{ $item->position }}</div>
                                 </span>
                             </td>
-                            <td data-field="Actions" data-autohide-disabled="false" aria-label="null" class="datatable-cell">
-                                <span style="overflow: visible; position: relative; width: 70px;">
+                            <td data-field="Actions" style="width: 10%;" data-autohide-disabled="false" aria-label="null" class="datatable-cell">
+                                <span style="overflow: visible; position: relative;">
                                     <a href="javascript:;" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2 changePasswordModal" title="Edit details">
                                         <span class="svg-icon svg-icon-md">
                                             <svg
@@ -160,8 +160,8 @@
                                     </a>
                                 </span>
                             </td>
-                            <td data-field="CompanyName" aria-label="Casper-Kerluke" class="datatable-cell">
-                                <span style="width: 90px;">
+                            <td data-field="CompanyName" style="width: 10%;" aria-label="Casper-Kerluke" class="datatable-cell">
+                                <span>
                                     <div class="font-weight-bold inactiveBtn">
                                         @if ( $item->inactive == 0 )
                                             Inactive
@@ -171,15 +171,15 @@
                                     </div>
                                 </span>
                             </td>
-                            <td data-field="CompanyName" aria-label="Casper-Kerluke" class="datatable-cell">
-                                <span style="width: 80px;">
+                            <td data-field="CompanyName" style="width: 10%;" aria-label="Casper-Kerluke" class="datatable-cell">
+                                <span>
                                     <div class="font-weight-bold ">
                                         {{ $item->created_date }}
                                     </div>
                                 </span>
                             </td>
-                            <td data-field="CompanyName" aria-label="Casper-Kerluke" class="datatable-cell">
-                                <span style="width: 80px;">
+                            <td data-field="CompanyName" style="width: 10%;" aria-label="Casper-Kerluke" class="datatable-cell">
+                                <span>
                                     <div class="font-weight-bold ">
                                         {{ $item->last_login }}
                                     </div>
