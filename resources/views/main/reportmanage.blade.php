@@ -1,6 +1,65 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+
+<!-- Button trigger modal-->
+<button type="button" class="btn btn-primary dn uploadBtn" data-toggle="modal" data-target="#exampleModalCustomScrollable">
+    Launch demo modal
+</button>
+
+<!-- Modal-->
+<div class="modal fade" id="exampleModalCustomScrollable" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">File Upload</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div data-scroll="true" data-height="300">
+                    <div class="container mt-5">
+                        <form action="{{route('fileUpload')}}" method="post" enctype="multipart/form-data">
+                            <h3 class="text-center mb-5">Please upload only "csv" file</h3>
+                                @csrf
+                                @if ($message = Session::get('success'))
+                                <div class="alert alert-success">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @endif
+                        
+                            @if (count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                    
+                            <div class="custom-file">
+                                <input type="file" name="file" class="custom-file-input" id="chooseFile">
+                                <label class="custom-file-label" for="chooseFile">Select file</label>
+                            </div>
+                    
+                            <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
+                                Upload File
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 <div class="card card-custom" style="margin-top: 30px;">
     @if (Session::get('doesntmatch') != null)
         <h4>{{ Session::get('doesntmatch') }}</h4>
@@ -52,6 +111,7 @@
                     </tr>
                 </thead>
                 <tbody class="datatable-body" style="">
+                    <tr></tr>
                     @foreach ($data as $key => $item)
                         <tr data-row="0" class="datatable-row spanloadtrfir" style="left: 0px;">
                             <td class="datatable-cell-sorted datatable-cell-left datatable-cell" style="width: 5%;" data-field="RecordID" aria-label="1">
@@ -78,7 +138,7 @@
                             </td>
                             <td data-field="Actions" data-autohide-disabled="false" style="width: 5%;" aria-label="null" class="datatable-cell">
                                 @if (date('w') == 4)
-                                    <span style="overflow: visible; position: relative;display:inline-block;" data-toggle="tooltip" data-theme="dark" title="Add">
+                                    <span style="overflow: visible; position: relative;display:inline-block;" class="addBtn" data-toggle="tooltip" data-theme="dark" title="Add">
                                         <a href="javascript:;" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2 changePasswordModal" title="Edit details">
                                             <span class="svg-icon svg-icon-md">
                                                 <span class="svg-icon svg-icon-primary svg-icon-2x"><!--begin::Svg Icon | path:/home/keenthemes/www/metronic/themes/metronic/theme/html/demo2/dist/../src/media/svg/icons/Files/File-plus.svg--><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
@@ -142,66 +202,4 @@
     <input name="sortTypeagain" id="sortTypeagain" value="null">
     <input type="submit" class="clickMeforReload" />
 </form>
-<script>
-    document.querySelector(".locationReport1").onclick = function() {
-        document.getElementById('sortType').value = 'locationReport1';
-        if(localStorage.getItem('sortType') == 'locationReport1') {
-            document.getElementById('sortTypeagain').value = 'locationReport1';
-            localStorage.clear();
-        } else {
-            localStorage.setItem('sortType','locationReport1');
-        }
-        document.querySelector('.clickMeforReload').click();
-    };
-    document.querySelector(".dateofreport1").onclick = function() {
-        document.getElementById('sortType').value = 'dateofreport1';
-        if(localStorage.getItem('sortType') == 'dateofreport1') {
-            document.getElementById('sortTypeagain').value = 'dateofreport1';
-            localStorage.clear();
-        } else {
-            localStorage.setItem('sortType','dateofreport1');
-        }
-        document.querySelector('.clickMeforReload').click();
-    };
-    document.querySelector(".user1").onclick = function() {
-        document.getElementById('sortType').value = 'user1';
-        if(localStorage.getItem('sortType') == 'user1') {
-            document.getElementById('sortTypeagain').value = 'user1';
-            localStorage.clear();
-        } else {
-            localStorage.setItem('sortType','user1');
-        }
-        document.querySelector('.clickMeforReload').click();
-    };
-    document.querySelector(".status").onclick = function() {
-        document.getElementById('sortType').value = 'status';
-        if(localStorage.getItem('sortType') == 'status') {
-            document.getElementById('sortTypeagain').value = 'status';
-            localStorage.clear();
-        } else {
-            localStorage.setItem('sortType','status');
-        }
-        document.querySelector('.clickMeforReload').click();
-    };
-    document.querySelector(".timeoftheedit1").onclick = function() {
-        document.getElementById('sortType').value = 'timeoftheedit1';
-        if(localStorage.getItem('sortType') == 'timeoftheedit1') {
-            document.getElementById('sortTypeagain').value = 'timeoftheedit1';
-            localStorage.clear();
-        } else {
-            localStorage.setItem('sortType','timeoftheedit1');
-        }
-        document.querySelector('.clickMeforReload').click();
-    };
-    document.querySelector(".whatwasedit1").onclick = function() {
-        document.getElementById('sortType').value = 'timeoftheedit1';
-        if(localStorage.getItem('sortType') == 'timeoftheedit1') {
-            document.getElementById('sortTypeagain').value = 'timeoftheedit1';
-            localStorage.clear();
-        } else {
-            localStorage.setItem('sortType','whatwasedit1');
-        }
-        document.querySelector('.clickMeforReload').click();
-    };
-</script>
 @endsection

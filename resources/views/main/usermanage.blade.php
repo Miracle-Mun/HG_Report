@@ -35,7 +35,6 @@
                     </svg>
                     <!--end::Svg Icon-->
                 </span>	New User
-
             </a>
             <!--end::Button-->
         </div>
@@ -53,61 +52,34 @@
                                 <i class="flaticon2-arrow-up"></i>
                             </span>
                         </th>
-                        <th data-field="Name" style="width: 30%;" class="datatable-cell datatable-cell-sort">
+                        <th data-field="Name" style="width: 30%;" class="datatable-cell datatable-cell-sort thforsort" type="name">
                             <span>Name</span>
                         </th>
-                        <th data-field="Community" style="width: 5%;" class="datatable-cell datatable-cell-sort">
+                        <th data-field="Community" style="width: 5%;" class="datatable-cell datatable-cell-sort thforsort" type="state">
                             <span>state</span>
                         </th>
-                        <th data-field="Community" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                        <th data-field="Community" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="Community">
                             <span>Community</span>
                         </th>
-                        <th data-field="Position" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                        <th data-field="Position" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="Position">
                             <span>Position</span>
                         </th>
-                        <th data-field="password" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                        <th data-field="password" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="Password">
                             <span>Password</span>
                         </th>
-                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="Status">
                             <span>Status</span>
                         </th>
-                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="CreatedDate">
                             <span>Created Date</span>
                         </th>
-                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort">
+                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="LastLogin">
                             <span>Last Login</span>
                         </th>
                     </tr>
                 </thead>
                 <tbody class="datatable-body" style="">
-                    <?php
-                        use App\model\logins;
-                        use App\model\users;
-                        use App\model\Communities;
-
-                        $logins = new logins;
-                        $users = new users;
-                        $Communities = new Communities;
-                        
-                        $Sessionuserinfo = Session::get('session');
-
-                        $infoarr = explode(",", $Sessionuserinfo);
-                        $user_level = DB::table('logins')
-                                ->leftjoin('users', 'logins.user_id','=','users.id')
-                                ->where('logins.username','=',$infoarr[0])
-                                ->where('logins.encrypted','=',$infoarr[1])
-                                ->get(['leveluser', 'community_id'])->toArray();
-
-                        if($user_level[0]->leveluser == 1) {
-                            $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->where(['community_id' => $user_level[0]->community_id])->get([ 'users.*','logins.*']));
-                        } else {
-                            $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.*','logins.*']));
-                        }
-
-                        $arr = ['success', 'danger', 'warning', 'primary'];
-                        // print_r(floor(mt_rand()*4));
-                        $iNum = 0;
-                    ?>
+                    <tr></tr>
                     @foreach ($result as $item)
                         <tr data-row="0" class="datatable-row spanloadtr" style="left: 0px;" nameValue = "{{ $item->name }}" id-value = "{{ $item->user_id }}">
                             <td class="datatable-cell-sorted datatable-cell-left datatable-cell" style="width: 5%;" data-field="RecordID" aria-label="1">
@@ -135,7 +107,7 @@
                             </td>
                             <td data-field="Country" aria-label="Brazil" style="width: 10%;" class="datatable-cell">
                                 <span>
-                                    <div class="font-weight-bolder font-size-lg mb-0">{{ json_decode($Communities->where(['id'=>$item->community_id])->get())[0]->name }}</div>
+                                    <div class="font-weight-bolder font-size-lg mb-0">{{ $item->community }}</div>
                                 </span>
                             </td>
                             <td data-field="ShipDate" style="width: 10%;" aria-label="10/15/2017" class="datatable-cell">
@@ -497,5 +469,10 @@
         </div>
     </div>
 </div>
-
+<form method="POST" action="/usermanage" class="dn">
+    @csrf
+    <input name="type" id="sortType1">
+    <input name="sortTypeagain" id="sortTypeagain" value="null">
+    <input type="submit" class="clickMeforReload" />
+</form>
 @endsection

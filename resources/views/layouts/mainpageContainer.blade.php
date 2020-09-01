@@ -12,10 +12,10 @@
 <script>
     var df =  "<?php echo $oneItem[0]->caption; ?>";
     var dt =  "<?php echo $oneItem[0]->caption; ?>";
-    if(localStorage.getItem('period_id_from') == "" || localStorage.getItem('period_id_from') == null ) {
+    if(localStorage.getItem('period_id_from') == "" || localStorage.getItem('period_id_from') == null || localStorage.getItem('period_id_from') == 'Select correct date' ) {
         localStorage.setItem('period_id_from', df);
     }
-    if(localStorage.getItem('period_id_to') == "" || localStorage.getItem('period_id_to') == null ) {
+    if(localStorage.getItem('period_id_to') == "" || localStorage.getItem('period_id_to') == null || localStorage.getItem('period_id_to') == 'Select correct date' ) {
         localStorage.setItem('period_id_to', dt);
     }
 </script>

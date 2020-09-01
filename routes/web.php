@@ -31,6 +31,7 @@ Route::post('/changeStatus' , 'authController@changeStatus')->middleware('CheckS
 // Main pages
 Route::get('/main' , 'HomeController@index')->name('index');
 Route::get('/usermanage', 'HomeController@usermanage')->middleware('CheckSession');
+Route::post('/usermanage', 'HomeController@usermanage')->middleware('CheckSession');
 Route::get('/reportmanage', 'HomeController@reportmanage')->middleware('CheckSession');
 Route::post('/reportmanage', 'HomeController@reportmanage')->middleware('CheckSession');
 
@@ -50,3 +51,10 @@ Route::post('/savedata', 'ViewReports@savedata')->middleware('CheckSession');
 Route::post('/removeinquries', 'ViewReports@removeinquries')->middleware('CheckSession');
 Route::post('/removemoveouts', 'ViewReports@removemoveouts')->middleware('CheckSession');
 Route::post('/removecc', 'ViewReports@removecc')->middleware('CheckSession');
+
+
+// Create file upload form
+Route::get('/upload-file', 'FileUpload@createForm');
+
+// Store file
+Route::post('/upload-file', 'FileUpload@fileUpload')->name('fileUpload');

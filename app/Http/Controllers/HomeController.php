@@ -5,10 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session;
 use DB;
+use App\model\logins;
+use App\model\users;
+use App\model\Communities;
+
 
 class HomeController extends Controller
 {
-
+    public static $Type = '0';
+    public static $againCheck = '0';
     /**
      * Show the application dashboard.
      *
@@ -24,11 +29,60 @@ class HomeController extends Controller
         }
     }
     public function usermanage(){
+
+        if(isset($_POST['type']) == true) {
+            if(isset($_POST['sortTypeagain'])) {
+                self::$Type = $_POST['type'];
+                self::$againCheck = $_POST['sortTypeagain'];
+            } else {
+                self::$Type = $_POST['type'];
+            }
+        }
+
+        $logins = new logins;
+        $users = new users;
+        $Communities = new Communities;
+        
+        $Sessionuserinfo = Session::get('session');
+
+        $infoarr = explode(",", $Sessionuserinfo);
+        $user_level = DB::table('logins')
+                ->leftjoin('users', 'logins.user_id','=','users.id')
+                ->where('logins.username','=',$infoarr[0])
+                ->where('logins.encrypted','=',$infoarr[1])
+                ->get(['leveluser', 'community_id'])->toArray();
+
+        if($user_level[0]->leveluser == 1) {
+            $result = json_decode(
+                $users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->where(['community_id' => $user_level[0]->community_id])->get([ 'users.*','logins.*'])
+            );
+        } else {
+            $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.*','logins.*']));
+        }
+
+        foreach ($result as $key => $value) {
+            $value->community = json_decode($Communities->where(['id'=>$value->community_id])->get())[0]->name;
+        }
+
+        $arr = ['success', 'danger', 'warning', 'primary'];
+        $iNum = 0;
+        
+        usort($result, array($this,'cmp1'));
+
+        // dd($result);
+
         if(Session::get('session') == null) {
             return view('auth/login');
         }
         else {
-            return view('main.usermanage');
+            return view('main.usermanage',compact(
+                'result',
+                'iNum',
+                'arr',
+                'Communities',
+                'users',
+                'logins'
+            ));
         }
     }
     public function reportmanage(){
@@ -69,7 +123,6 @@ class HomeController extends Controller
             return view('main.reportmanage', compact('data'));
         }
     }
-
     private static function cmp($a, $b)
     {
         if($GLOBALS['field'] != null) {
@@ -111,5 +164,55 @@ class HomeController extends Controller
             return strcmp($a->name, $b->name);
         }
     }
-
+    private static function cmp1($a, $b)
+    {
+        if(self::$againCheck != 'true') {
+            if(self::$Type == 'name') {
+                return strcmp($a->name, $b->name);
+            } else {
+                return strcmp($a->name, $b->name);
+            }
+        } else {
+            dd(self::$Type);
+            return strcmp($b->name, $a->name);
+        }
+        // if($GLOBALS['field'] != null) {
+        //     if($GLOBALS['field'] == 'locationReport1') {
+        //         if($GLOBALS['before'] == 'locationReport1') {
+        //             return strcmp($b->name, $a->name);
+        //         } else {
+        //             return strcmp($a->name, $b->name);
+        //         }
+        //     } else if($GLOBALS['field'] == 'dateofreport1') {
+        //         if($GLOBALS['before'] == 'dateofreport1') {
+        //             return strcmp($b->period_id, $a->period_id);
+        //         } else {
+        //             return strcmp($a->period_id, $b->period_id);
+        //         }
+        //     }
+        //     else if($GLOBALS['field'] == 'user1') {
+        //         if($GLOBALS['before'] == 'dateofreport1') {
+        //             return strcmp($b->period_id, $a->period_id);
+        //         } else {
+        //             return strcmp($a->period_id, $b->period_id);
+        //         }
+        //     }
+        //     else if($GLOBALS['field'] == 'timeoftheedit1') {
+        //         if($GLOBALS['before'] == 'dateofreport1') {
+        //             return strcmp($b->period_id, $a->period_id);
+        //         } else {
+        //             return strcmp($a->period_id, $b->period_id);
+        //         }
+        //     }
+        //     else if($GLOBALS['field'] == 'whatwasedit1') {
+        //         if($GLOBALS['before'] == 'dateofreport1') {
+        //             return strcmp($b->period_id, $a->period_id);
+        //         } else {
+        //             return strcmp($a->period_id, $b->period_id);
+        //         }
+        //     } 
+        // } else {
+        //     return strcmp($a->name, $b->name);
+        // }
+    }
 }

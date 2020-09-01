@@ -30,7 +30,6 @@ try {
     }
 } catch {}
 
-
 var mainVal = ["", "", "", "", "", "", "", "", "", ""];
 
 function getExactlyDate(val) {
@@ -93,17 +92,18 @@ async function setValFrom(val) {
         if (localStorage.getItem('period_id_to') != "") {
             $('.submitInput1').attr('type', 'button');
             $('.submitInput1').next().attr('style', 'background: #80808f !important;');
-        } else {
+        }
+        if(localStorage.getItem('period_id_to') == "" || localStorage.getItem('period_id_to') == "Select correct date")  {
             $('.submitInput').attr('type', 'button');
             $('.submitInput').next().attr('style', 'background: #80808f !important;');
             $('.submitInput1').attr('type', 'button');
             $('.submitInput1').next().attr('style', 'background: #80808f !important;');
         }
 
-        localStorage.setItem('period_id_from', '');
+        localStorage.setItem('period_id_from', 'Select correct date');
 
     } else {
-        if (localStorage.getItem('period_id_to') != "") {
+        if (localStorage.getItem('period_id_to') != "" && localStorage.getItem('period_id_to') != "Select correct date") {
             $('.submitInput1').attr('type', 'submit');
             $('.submitInput1').next().attr('style', 'background: var(--main-color-one) !important;');
 
@@ -129,17 +129,18 @@ async function setValTo(val) {
         if (localStorage.getItem('period_id_from') != "") {
             $('.submitInput1').attr('type', 'button');
             $('.submitInput1').next().attr('style', 'background: #80808f !important;');
-        } else {
+        }
+        if(localStorage.getItem('period_id_from') == "" && localStorage.getItem('period_id_from') == "Select correct date") {
             $('.submitInput').attr('type', 'button');
             $('.submitInput').next().attr('style', 'background: #80808f !important;');
             $('.submitInput1').attr('type', 'button');
             $('.submitInput1').next().attr('style', 'background: #80808f !important;');
         }
 
-        localStorage.setItem('period_id_to', '');
+        localStorage.setItem('period_id_to', 'Select correct date');
 
     } else {
-        if (localStorage.getItem('period_id_from') != "") {
+        if (localStorage.getItem('period_id_from') != "" || localStorage.getItem('period_id_from') != "Select correct date") {
             $('.submitInput1').attr('type', 'submit');
             $('.submitInput1').next().attr('style', 'background: var(--main-color-one) !important;');
 
@@ -199,15 +200,14 @@ function suhgreportAlert(data) {
 
     toastr.success(data);
 }
+
 $('body').on('click', '#login_signup_form [class="dropdown-item"]', function() {
     $(this).parent().prev().text($(this).text());
 })
 
-
 $('body').on('click', '.viewreportcommon .dropdown-menu ul li', function() {
     $('.viewreportcommon').prev().attr('value', communities.filter(item => item.name == $(this).text().trim())[0]['id']);
 })
-
 
 $('body').on('click', '.mainContainer ul li', function() {
     if ($(this).attr('cId')) {
@@ -225,41 +225,51 @@ $('body').on('click', '.mainContainer ul li', function() {
     }
     $(this).parent().parent().parent().prev().children().children().children().text($(this).text());
 })
+
 $('body').on('click', '#kt_login_signup', function() {
     $('.login-class').hide('slow');
     $('.login-signup').show('slow');
 })
+
 $('body').on('click', '#kt_login_forgot', function() {
     $('.login-class').hide('slow');
     $('.login-forgot').show('slow');
 })
+
 $('body').on('click', '#kt_login_forgot_cancel', function() {
     $('.login-class').show('slow');
     $('.login-forgot').hide('slow');
 })
+
 $('body').on('click', '#kt_login_signup_cancel', function() {
     $('.login-signup').hide('slow');
     $('.login-class').show('slow');
 })
+
 $('body').on('click', '.gotoPage', function() {
     $('#goTopageAction').parent().attr('action', $(this).attr('href'));
     $('#goTopageAction').click();
 })
+
 $('body').on('click', ".changePasswordModal", function() {
     $('#mainId').val($(this).parent().parent().parent().attr('id-value'));
     $('#modalName').text($(this).parent().parent().parent().attr('nameValue'));
     $('#changePasswordModal').click();
 })
+
 $('body').on('click', '.signupinfo .dropdown-menu .dropdown-item', function() {
     $(this).parent().prev().val($(this).attr('type'));
 })
+
 $('body').on('click', '#PasswordUpdate', function() {
     $('#sendUpdate').click();
 })
+
 $('body').on('click', '.newUser', function() {
     $('#mainIdAdd').attr('value', $(this).parent().attr('id-value'));
     $('body #AddUserModal').click();
 })
+
 $('body').on('click', '.OrderName', function() {
 
     var mainValue = $($(this).parent().children()[$(this).parent().children().length - 1]).children();
@@ -312,7 +322,6 @@ $('body').on('click', '.dropdown-menu .dropdown-item', function() {
 $('body').on('click', '.loginBtn', function() {
     $('#kt_login_signin_submit').click();
 })
-
 
 $('body').on('mouseenter', '.table-condensed td:nth-child(6)', function() {
     $(this).next().attr('style', 'background: #eee !important; color: black;');
@@ -423,6 +432,7 @@ $('body').on('click', '.addbtn_1', function() {
         $(this).parent().prev().children().append(AddStr);
     }
 })
+
 $('body').on('click', '.addbtn_2', function() {
     var num = $('#inquiries_num').val();
     $('#inquiries_num').attr('value', parseInt(num) + 1);
@@ -450,6 +460,7 @@ $('body').on('click', '.addbtn_2', function() {
         </tr>`
     $(this).parent().prev().children().append(str);
 })
+
 $('body').on('click', '.addbtn_3', function() {
     var num = $('#moveouts_num').val();
     $('#moveouts_num').attr('value', parseInt(num) + 1);
@@ -537,51 +548,114 @@ $('body').on('click', '.leveladdDropdown dropdown-item', function() {
     console.log($(this).attr('type'));
 })
 
+$('body').on('click', '.addBtn', function(){
+    $('body .uploadBtn').click();
+})
 
-let tid = "#kt_datatable2";
-let headers = document.querySelectorAll(tid + " th");
-
-// Sort the table element when clicking on the table headers
-headers.forEach(function(element, i) {
-    element.addEventListener("click", function() {
-        $(this).append('<i class="fa fa-spinner fa-spin qqq-spin" style="font-size: 1rem;"></i>');
-        setTimeout(function() {
-            $('.qqq-spin').remove();
-        }, 1000);
-        setTimeout(function() {
-            if (i == 0) {
-                w3.sortHTML(tid, "tbody .spanloadtr", "td:nth-child(" + (i + 1) + ") span span");
-            }
-            if (i == 1) {
-                w3.sortHTML(tid, "tbody .spanloadtr", "td:nth-child(" + (i + 1) + ") span div .ml-4 div");
-            }
-            if (i == 3) {
-                w3.sortHTML(tid, "tbody .spanloadtr", "td:nth-child(" + (i + 1) + ") span");
-            }
-            if (i == 4 || i == 6 || i == 7 || i == 8) {
-                w3.sortHTML(tid, "tbody .spanloadtr", "td:nth-child(" + (i + 1) + ") span div");
-            }
-        }, 100);
-    });
+$('body').on('click',".locationReport1", function() {
+    document.getElementById('sortType').value = 'locationReport1';
+    if(localStorage.getItem('sortType') == 'locationReport1') {
+        document.getElementById('sortTypeagain').value = 'locationReport1';
+        localStorage.clear();
+    } else {
+        localStorage.setItem('sortType','locationReport1');
+    }
+    $('body .clickMeforReload').click();
+});
+$('body').on('click',".dateofreport1", function() {
+    document.getElementById('sortType').value = 'dateofreport1';
+    if(localStorage.getItem('sortType') == 'dateofreport1') {
+        document.getElementById('sortTypeagain').value = 'dateofreport1';
+        localStorage.clear();
+    } else {
+        localStorage.setItem('sortType','dateofreport1');
+    }
+    $('body .clickMeforReload').click();
+});
+$('body').on('click',".user1", function() {
+    document.getElementById('sortType').value = 'user1';
+    if(localStorage.getItem('sortType') == 'user1') {
+        document.getElementById('sortTypeagain').value = 'user1';
+        localStorage.clear();
+    } else {
+        localStorage.setItem('sortType','user1');
+    }
+    $('body .clickMeforReload').click();
+});
+$('body').on('click',".status", function() {
+    document.getElementById('sortType').value = 'status';
+    if(localStorage.getItem('sortType') == 'status') {
+        document.getElementById('sortTypeagain').value = 'status';
+        localStorage.clear();
+    } else {
+        localStorage.setItem('sortType','status');
+    }
+    $('body .clickMeforReload').click();
+});
+$('body').on('click',".timeoftheedit1", function() {
+    document.getElementById('sortType').value = 'timeoftheedit1';
+    if(localStorage.getItem('sortType') == 'timeoftheedit1') {
+        document.getElementById('sortTypeagain').value = 'timeoftheedit1';
+        localStorage.clear();
+    } else {
+        localStorage.setItem('sortType','timeoftheedit1');
+    }
+    $('body .clickMeforReload').click();
+});
+$('body').on('click',".whatwasedit1", function() {
+    document.getElementById('sortType').value = 'timeoftheedit1';
+    if(localStorage.getItem('sortType') == 'timeoftheedit1') {
+        document.getElementById('sortTypeagain').value = 'timeoftheedit1';
+        localStorage.clear();
+    } else {
+        localStorage.setItem('sortType','whatwasedit1');
+    }
+    $('body .clickMeforReload').click();
 });
 
-// let tId = "#kt_datatable23";
-// let headerss = document.querySelectorAll(tId + " th");
+$('body').on('click', '.thforsort', function(){
+    var typeName = $(this).attr('type');
+    if(localStorage.getItem('sortType1') == typeName) {
+        $('#sortTypeagain').attr('value','true');
+    } else {
+        localStorage.setItem('sortType1',typeName);
+    }
+    console.log(typeName);
+    return;
+    $('sortType1').attr('value', typeName);
+    $('body .clickMeforReload').click();
+})
 
-// // Sort the table element when clicking on the table headers
-// headerss.forEach(function(element, i) {
-//     element.addEventListener("click", function() {
-//         $(this).append('<i class="fa fa-spinner fa-spin qqq-spin" style="font-size: 1rem;"></i>');
-//         setTimeout(function() {
-//             $('.qqq-spin').remove();
-//         }, 1000);
-//         setTimeout(function() {
-//             if (i == 0) {
-//                 w3.sortHTML(tId, "tbody .spanloadtrfir", "td:nth-child(" + (i + 1) + ") span span");
-//             }
-//             if (i == 1 || i == 2 || i == 3 || i == 5 || i == 6) {
-//                 w3.sortHTML(tId, "tbody .spanloadtrfir", "td:nth-child(" + (i + 1) + ") span div");
-//             }
-//         }, 100);
-//     });
-// });
+// $('body').on('click', '.name', function(){
+//     localStorage.setItem('sortType1','name');
+//     $('sortType1')
+//     $('body .clickMeforReload').click();
+// })
+// $('body').on('click', '.state', function(){
+//     localStorage.setItem('sortType1','state');
+//     $('body .clickMeforReload').click();
+// })
+// $('body').on('click', '.Community', function(){
+//     localStorage.setItem('sortType1','Community');
+//     $('body .clickMeforReload').click();
+// })
+// $('body').on('click', '.Position', function(){
+//     localStorage.setItem('sortType1','Position');
+//     $('body .clickMeforReload').click();
+// })
+// $('body').on('click', '.Password', function(){
+//     localStorage.setItem('sortType1','Password');
+//     $('body .clickMeforReload').click();
+// })
+// $('body').on('click', '.Status', function(){
+//     localStorage.setItem('sortType1','Status');
+//     $('body .clickMeforReload').click();
+// })
+// $('body').on('click', '.CreatedDate', function(){
+//     localStorage.setItem('sortType1','CreatedDate');
+//     $('body .clickMeforReload').click();
+// })
+// $('body').on('click', '.LastLogin', function(){
+//     localStorage.setItem('sortType1','LastLogin');
+//     $('body .clickMeforReload').click();
+// })
