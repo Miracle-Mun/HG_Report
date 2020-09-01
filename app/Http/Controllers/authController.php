@@ -30,6 +30,7 @@ class authController extends Controller
                     Session::flash('error', "You aren't allowed yet.");
                     return redirect()->back();
                 }
+                DB::table('logins')->where('username', $_POST['username'])->update(['last_login' => date('Y-m-d')]);
                 Session::put('session', $_POST['username']. ','. $password );
                 return redirect('/main');
             }

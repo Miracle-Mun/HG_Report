@@ -32,11 +32,9 @@ class HomeController extends Controller
 
         if(isset($_POST['type']) == true) {
             if(isset($_POST['sortTypeagain'])) {
-                self::$Type = $_POST['type'];
                 self::$againCheck = $_POST['sortTypeagain'];
-            } else {
-                self::$Type = $_POST['type'];
             }
+            self::$Type = $_POST['type'];
         }
 
         $logins = new logins;
@@ -68,8 +66,6 @@ class HomeController extends Controller
         $iNum = 0;
         
         usort($result, array($this,'cmp1'));
-
-        // dd($result);
 
         if(Session::get('session') == null) {
             return view('auth/login');
@@ -169,12 +165,35 @@ class HomeController extends Controller
         if(self::$againCheck != 'true') {
             if(self::$Type == 'name') {
                 return strcmp($a->name, $b->name);
+            } else if(self::$Type == 'Community') {
+                return strcmp($a->community, $b->community);
+            } else if(self::$Type == 'Position') {
+                return strcmp($a->position, $b->position);
+            } else if(self::$Type == 'Status') {
+                return strcmp($a->inactive, $b->inactive);
+            } else if(self::$Type == 'CreatedDate') {
+                return strcmp($a->created_date, $b->created_date);
+            } else if(self::$Type == 'LastLogin') {
+                return strcmp($a->last_login, $b->last_login);
             } else {
                 return strcmp($a->name, $b->name);
             }
         } else {
-            dd(self::$Type);
-            return strcmp($b->name, $a->name);
+            if(self::$Type == 'name') {
+                return strcmp($b->name, $a->name);
+            } else if(self::$Type == 'Community') {
+                return strcmp($b->community, $a->community);
+            } else if(self::$Type == 'Position') {
+                return strcmp($b->position, $a->position);
+            } else if(self::$Type == 'Status') {
+                return strcmp($b->inactive, $a->inactive);
+            } else if(self::$Type == 'CreatedDate') {
+                return strcmp($b->created_date, $a->created_date);
+            } else if(self::$Type == 'LastLogin') {
+                return strcmp($b->last_login, $a->last_login);
+            } else {
+                return strcmp($b->name, $a->name);
+            }
         }
         // if($GLOBALS['field'] != null) {
         //     if($GLOBALS['field'] == 'locationReport1') {

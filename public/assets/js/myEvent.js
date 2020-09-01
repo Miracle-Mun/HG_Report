@@ -615,14 +615,12 @@ $('body').on('click',".whatwasedit1", function() {
 
 $('body').on('click', '.thforsort', function(){
     var typeName = $(this).attr('type');
-    if(localStorage.getItem('sortType1') == typeName) {
+    $('#sortType').attr('value', typeName);
+    if(localStorage.getItem('sortType') == typeName) {
         $('#sortTypeagain').attr('value','true');
     } else {
-        localStorage.setItem('sortType1',typeName);
+        localStorage.setItem('sortType',typeName);
     }
-    console.log(typeName);
-    return;
-    $('sortType1').attr('value', typeName);
     $('body .clickMeforReload').click();
 })
 

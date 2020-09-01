@@ -471,7 +471,7 @@
 </div>
 <form method="POST" action="/usermanage" class="dn">
     @csrf
-    <input name="type" id="sortType1">
+    <input name="type" id="sortType">
     <input name="sortTypeagain" id="sortTypeagain" value="null">
     <input type="submit" class="clickMeforReload" />
 </form>
