@@ -58,7 +58,7 @@
                                     {{ $RealName }}
                                 </button>
                                 <div class="dropdown-menu" x-placement="bottom-start">
-                                    <a href="#" class="dropdown-item">
+                                    <a href="/profile" class="dropdown-item">
                                         <span class="menu-text boxed-btn btn-rounded">
                                             <span class="iconify" data-icon="icomoon-free:profile" data-inline="false"></span>
                                             Profile

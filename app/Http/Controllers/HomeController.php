@@ -28,6 +28,23 @@ class HomeController extends Controller
             return view('layouts.mainpageContainer');
         }
     }
+    public function profile()
+    {
+        $userinfo = Session::get('whole');
+        $result = DB::table('users')
+            ->rightjoin('reports', 'reports.report_user', '=', 'users.id')
+            ->leftjoin('communities', 'reports.community_id', '=', 'communities.id')
+            ->where('users.id', '=', $userinfo->user_id)
+            ->take('50')
+            ->get();
+        $userData = DB::table('users')
+            ->leftjoin('logins', 'logins.user_id', '=', 'users.id')
+            ->leftjoin('communities', 'users.community_id', '=', 'communities.id')
+            ->where('users.id', '=', $userinfo->user_id)
+            ->get();
+        $userData = json_decode($userData)[0];
+        return view('profile', compact('result', 'userData'));
+    }
     public function usermanage(){
 
         if(isset($_POST['type']) == true) {
@@ -195,43 +212,5 @@ class HomeController extends Controller
                 return strcmp($b->name, $a->name);
             }
         }
-        // if($GLOBALS['field'] != null) {
-        //     if($GLOBALS['field'] == 'locationReport1') {
-        //         if($GLOBALS['before'] == 'locationReport1') {
-        //             return strcmp($b->name, $a->name);
-        //         } else {
-        //             return strcmp($a->name, $b->name);
-        //         }
-        //     } else if($GLOBALS['field'] == 'dateofreport1') {
-        //         if($GLOBALS['before'] == 'dateofreport1') {
-        //             return strcmp($b->period_id, $a->period_id);
-        //         } else {
-        //             return strcmp($a->period_id, $b->period_id);
-        //         }
-        //     }
-        //     else if($GLOBALS['field'] == 'user1') {
-        //         if($GLOBALS['before'] == 'dateofreport1') {
-        //             return strcmp($b->period_id, $a->period_id);
-        //         } else {
-        //             return strcmp($a->period_id, $b->period_id);
-        //         }
-        //     }
-        //     else if($GLOBALS['field'] == 'timeoftheedit1') {
-        //         if($GLOBALS['before'] == 'dateofreport1') {
-        //             return strcmp($b->period_id, $a->period_id);
-        //         } else {
-        //             return strcmp($a->period_id, $b->period_id);
-        //         }
-        //     }
-        //     else if($GLOBALS['field'] == 'whatwasedit1') {
-        //         if($GLOBALS['before'] == 'dateofreport1') {
-        //             return strcmp($b->period_id, $a->period_id);
-        //         } else {
-        //             return strcmp($a->period_id, $b->period_id);
-        //         }
-        //     } 
-        // } else {
-        //     return strcmp($a->name, $b->name);
-        // }
     }
 }

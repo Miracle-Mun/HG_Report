@@ -31,7 +31,8 @@ class authController extends Controller
                     return redirect()->back();
                 }
                 DB::table('logins')->where('username', $_POST['username'])->update(['last_login' => date('Y-m-d')]);
-                Session::put('session', $_POST['username']. ','. $password );
+                Session::put('whole', $login[0]);
+                Session::put('session', $_POST['username']. ','. $password);
                 return redirect('/main');
             }
             else {

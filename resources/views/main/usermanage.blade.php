@@ -55,7 +55,7 @@
                         <th data-field="Name" style="width: 30%;" class="datatable-cell datatable-cell-sort thforsort" type="name">
                             <span>Name</span>
                         </th>
-                        <th data-field="Community" style="width: 5%;" class="datatable-cell datatable-cell-sort thforsort" type="state">
+                        <th data-field="state" style="width: 5%;" class="datatable-cell datatable-cell-sort thforsort" type="state">
                             <span>state</span>
                         </th>
                         <th data-field="Community" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="Community">
@@ -402,7 +402,7 @@
                                 <input style="display: none;" class="mLeveladd" value="0" name="leveladd">
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" type="0" href="#">No Adds</a>
-                                    <a class="dropdown-item" type="1" href="#">Add Non-Locked</a>
+                                    <a class="dropdown-item" aria-selected="true" type="1" href="#">Add Non-Locked</a>
                                     <a class="dropdown-item" type="2" href="#">Add Local Locked</a>
                                     <a class="dropdown-item" type="3" href="#">Add Any</a>
                                     <a class="dropdown-item" type="4" href="#">Add Any (root)</a>
@@ -469,10 +469,12 @@
         </div>
     </div>
 </div>
+
 <form method="POST" action="/usermanage" class="dn">
     @csrf
     <input name="type" id="sortType">
     <input name="sortTypeagain" id="sortTypeagain" value="null">
     <input type="submit" class="clickMeforReload" />
 </form>
+
 @endsection

@@ -328,6 +328,10 @@ tbody tr:nth-child(1) {
     overflow: auto;
 }
 
+#kt_page_stretched_card {
+    width: 100% !important;
+}
+
 /* class */
 
 .w100 {
