@@ -680,7 +680,17 @@ if (typeof module !=='undefined') {
 }
 
 $('body').on('click', '.changePass', function(){
-    $(this).hide();
+    $(this).attr('class', 'btn btn-primary okBtn');
+    $(this).text('Change');
     $(this).next().show('slow');
-    $(this).parent().next().children().show('slow');
+    $(this).parent().next().children().children().children().show('slow');
+})
+$('body').on('click', '.cancellBtn', function(){
+    $(this).prev().attr('class', 'btn btn-primary changePass');
+    $(this).prev().text('Change Password');
+    $(this).hide('slow');
+    $(this).parent().next().children().children().children().hide('slow');
+})
+$('body').on('click', '.okBtn', function(){
+    $('.changeConfirmBtn').click();
 })

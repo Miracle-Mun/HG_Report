@@ -107,6 +107,14 @@ class authController extends Controller
         DB::table('logins')->where('user_id', $_POST['mainId'])->update(['encrypted' => $password, 'salt' => $salt]);
         return redirect('/usermanage');
     }
+    public function changepass() {
+        $login = new logins;
+        $salt = $this->get_new_salt();
+        $password = $this->encryptPassword($_POST['changePass'], $salt);
+        Session::put('session', $_POST['username']. ','. $password);
+        DB::table('logins')->where('user_id', $_POST['mainId'])->update(['encrypted' => $password, 'salt' => $salt]);
+        return redirect('/profile');
+    }
 
     public function changeStatus() {
         $login = new logins;

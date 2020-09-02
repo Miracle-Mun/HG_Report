@@ -30,11 +30,20 @@
                     <input type="text" class="form-control" value="{{ $userData->email }}">
                 </div>
                 <div class="col-md-3">
-                    <button class="btn btn-primary changePass">Change Password</button>
-                    <input type="password" class="form-control" style="display: none;" value="" placeholder="new password">
+                    <button class="btn btn-primary changePass" type="button">Change Password</button>
+                    <button class="btn btn-primary cancellBtn" style="display: none;" type="button">Cancell</button>
                 </div>
                 <div class="col-md-3">
-                    <input type="password" class="form-control" style="display: none;" value="" placeholder="password confirm">
+                    <form action="/changepass" method="POST">
+                        @csrf
+                        <input type="submit" class="dn changeConfirmBtn">
+                        <input style="display: none;" id="mainId" name="mainId" value="{{ $userData->user_id }}" />
+                        <input style="display: none;" id="mainId" name="username" value="{{ $userData->username }}" />
+                        <div>
+                            <input class="form-control h-auto form-control-solid py-4 px-8" style="display: none;" type="password" id="changePass" placeholder="Password" name="changePass" required />
+                            <input class="form-control h-auto form-control-solid py-4 px-8" style="display: none;" type="password" id="ConfirmPass" placeholder="Confirm Password" name="cpassword" required />
+                        </div>
+                    </form>
                 </div>
             </div>
             <div>

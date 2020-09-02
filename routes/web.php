@@ -26,6 +26,7 @@ Route::post('/signup' , 'authController@signup')->middleware('CheckPassword');
 Route::post('/update' , 'authController@update');
 Route::get('/signout' , 'authController@signout');
 Route::post('/updatePassword' , 'authController@updatePass')->middleware('CheckSession');
+Route::post('/changepass' , 'authController@changepass')->middleware('CheckSession');
 Route::post('/changeStatus' , 'authController@changeStatus')->middleware('CheckSession');
 
 // Main pages
