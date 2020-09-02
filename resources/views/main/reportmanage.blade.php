@@ -137,6 +137,12 @@
                                 </span>
                             </td>
                             <td data-field="Actions" data-autohide-disabled="false" style="width: 5%;" aria-label="null" class="datatable-cell">
+                                <form action="editaction" method="POST" class="dn">
+                                    @csrf
+                                    <input type="text" name="community_id" value="{{ $item->community_id }}">
+                                    <input type="text" name="period_id" value="{{ $item->period_id }}">
+                                    <input type="submit" class="cpeBtn">
+                                </form>
                                 @if (date('w') == 4)
                                     <span style="overflow: visible; position: relative;display:inline-block;" class="addBtn" data-toggle="tooltip" data-theme="dark" title="Add">
                                         <a href="javascript:;" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2 changePasswordModal" title="Edit details">
@@ -153,7 +159,7 @@
                                     </span>
                                 @else
                                     <span style="overflow: visible; position: relative;display:inline-block;" data-toggle="tooltip" data-theme="dark" title="Edit">
-                                        <a href="javascript:;" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2 changePasswordModal" title="Edit details">
+                                        <a href="javascript:;" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2 changeReportBtn" title="Edit details">
                                             <span class="svg-icon svg-icon-md">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"

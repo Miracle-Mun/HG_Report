@@ -325,6 +325,7 @@ class ViewReports extends Controller
         $buildings = new buildings;
 
         $reportsData = $reports->where(['community_id' => $_POST['community_id'], 'period_id' => $_POST['period_id']])->get()->toArray()[0];
+        $reports->where(['community_id' => $_POST['community_id'], 'period_id' => $_POST['period_id']])->update(['edit_time' => date('Y-m-d')]);
         // Community_id and period_id
 
         $CI = $_POST['community_id'];

@@ -705,3 +705,7 @@ $('body').on('click', '.cancellBtn', function(){
 $('body').on('click', '.okBtn', function(){
     $('.changeConfirmBtn').click();
 })
+
+$('body').on('click', '.changeReportBtn', function(){
+    $(this).parent().prev().find('.cpeBtn').click();
+})
