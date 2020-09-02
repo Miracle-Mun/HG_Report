@@ -40,6 +40,7 @@
             <input type="button" class="span2 btn-rounded period_id_to" date="{{ $oneItem[0]->id }}" value="" onchange="setValTo(this)" id="dp2">
         </div>
     </div>
+    <input id="inp_temp" style="width: 1px;opacity: 0;"/>
 </div>
 <script>
     $('.period_id_from').attr('value', localStorage.getItem('period_id_from'));
@@ -48,7 +49,6 @@
 <div class="col-xl-10 TitleHeaderBar">
     <h3 class="landingtitle">View Reports for Any Community</h3>
 </div>
-
 
 <div class="col-xl-10 ContentBar">
     <div class="col-lg-12 col-xl-12">

@@ -59,7 +59,12 @@ class ViewReports extends Controller
     public function getDateinfo() {
         $periods = new periods;
         $result = $periods->where([ 'starting' => $_POST['from'], 'ending' => $_POST['to'] ])->get();
-        return $result[0];
+        if(count($result) > 0) {
+            return $result[0];
+        } else {
+            $result = null;
+            return $result;
+        }
     }
     public function getinfocreports()
     {

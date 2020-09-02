@@ -61,7 +61,7 @@
                 <div class="col-md-3">
                     <div class="card-label tac">
                         <span class="fwb">
-                            Email : 
+                            Position : 
                         </span>
                         <input type="text" class="form-control" disabled="disabled" value="{{ $userData->position }}">
                     </div>
@@ -83,8 +83,8 @@
             <div class="row w-100 tac" style="font-size: 30px; font-weight: bold; display: block;">
                 Your last reports
             </div>
-            <div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded" id="kt_datatable" style="height: 70% !important; overflow: auto;">
-                <table class="datatable-table  table-sm table-hover" id="kt_datatable23" style="display: block;">
+            <div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded" id="kt_datatable" style="height: 70% !important;">
+                <table class="datatable-table  table-sm table-hover" id="kt_datatable23" style="display: block; height: 100% ;">
                     <thead class="datatable-head">
                         <tr class="datatable-row spanloadtrfir" style="left: 0px;">
                             <th data-field="RecordID" style="width: 5%;" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
@@ -109,7 +109,7 @@
                             </th>
                         </tr>
                     </thead>
-                    <tbody class="datatable-body" style="height: 100% !important;">
+                    <tbody class="datatable-body" style="height: 100% !important;  overflow: auto;">
                         <tr></tr>
                         @foreach ($reportsData as $key => $item)
                             <tr data-row="0" class="datatable-row spanloadtrfir" style="left: 0px;">
@@ -166,14 +166,14 @@
                                 <td data-field="CompanyName" style="width: 15%;" aria-label="Casper-Kerluke" class="datatable-cell">
                                     <span>
                                         <div class="font-weight-bold ">
-                                            2020-01-01
+                                            {{ $item->edit_time }}
                                         </div>
                                     </span>
                                 </td>
                                 <td data-field="CompanyName" style="width: 15%;" aria-label="Casper-Kerluke" class="datatable-cell">
                                     <span>
                                         <div class="font-weight-bold ">
-                                            2020-01-01
+                                            Census and Capacity
                                         </div>
                                     </span>
                                 </td>

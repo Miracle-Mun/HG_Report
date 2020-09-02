@@ -172,14 +172,14 @@
                             <td data-field="CompanyName" style="width: 15%;" aria-label="Casper-Kerluke" class="datatable-cell">
                                 <span>
                                     <div class="font-weight-bold ">
-                                        {{ dd($item) }}
+                                        {{ $item->edit_time }}
                                     </div>
                                 </span>
                             </td>
                             <td data-field="CompanyName" style="width: 15%;" aria-label="Casper-Kerluke" class="datatable-cell">
                                 <span>
                                     <div class="font-weight-bold ">
-                                        2020-01-01
+                                        Census and Capacity
                                     </div>
                                 </span>
                             </td>

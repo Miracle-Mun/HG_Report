@@ -73,8 +73,9 @@ function getExactlyDate(val) {
         },
         async: false,
         success: function(data) {
-            eval = data;
-
+            if(data != null) {
+                eval = data;
+            }
         },
         error: function(xhr, ajaxOptions, error) {
             eval = null;
@@ -85,7 +86,7 @@ function getExactlyDate(val) {
 
 async function setValFrom(val) {
     var finalVal = await getExactlyDate(val);
-    if (finalVal == null) {
+    if (finalVal == null || finalVal == "") {
 
         hgreportAlert("First date is missing!");
 
@@ -117,12 +118,14 @@ async function setValFrom(val) {
         localStorage.setItem('period_id_from', finalVal['caption']);
         $(val).attr({ 'value': finalVal['caption'], 'date': finalVal['id'] });
     }
-    $('.datepicker').hide();
+    $('body').click();
+    $('.datepicker').remove();
+    $("#inp_temp").focus();
 }
 
 async function setValTo(val) {
     var finalVal = await getExactlyDate(val);
-    if (finalVal == null) {
+    if (finalVal == null || finalVal == "") {
 
         hgreportAlert("Second date is missing!");
 
@@ -130,7 +133,7 @@ async function setValTo(val) {
             $('.submitInput1').attr('type', 'button');
             $('.submitInput1').next().attr('style', 'background: #80808f !important;');
         }
-        if(localStorage.getItem('period_id_from') == "" && localStorage.getItem('period_id_from') == "Select correct date") {
+        if(localStorage.getItem('period_id_from') == "" || localStorage.getItem('period_id_from') == "Select correct date") {
             $('.submitInput').attr('type', 'button');
             $('.submitInput').next().attr('style', 'background: #80808f !important;');
             $('.submitInput1').attr('type', 'button');
@@ -140,7 +143,7 @@ async function setValTo(val) {
         localStorage.setItem('period_id_to', 'Select correct date');
 
     } else {
-        if (localStorage.getItem('period_id_from') != "" || localStorage.getItem('period_id_from') != "Select correct date") {
+        if (localStorage.getItem('period_id_from') != "" && localStorage.getItem('period_id_from') != "Select correct date") {
             $('.submitInput1').attr('type', 'submit');
             $('.submitInput1').next().attr('style', 'background: var(--main-color-one) !important;');
 
@@ -154,7 +157,9 @@ async function setValTo(val) {
         localStorage.setItem('period_id_to', finalVal['caption']);
         $(val).attr({ 'value': finalVal['caption'], 'date': finalVal['id'] });
     }
-    $('.datepicker').hide();
+    $('body').click();
+    $('.datepicker').remove();
+    $("#inp_temp").focus();
 }
 
 function hgreportAlert(data) {
@@ -207,6 +212,7 @@ $('body').on('click', '#login_signup_form [class="dropdown-item"]', function() {
 
 $('body').on('click', '.viewreportcommon .dropdown-menu ul li', function() {
     $('.viewreportcommon').prev().attr('value', communities.filter(item => item.name == $(this).text().trim())[0]['id']);
+    $('.viewreportcommon').next().next().click();
 })
 
 $('body').on('click', '.mainContainer ul li', function() {
@@ -538,10 +544,15 @@ $('body').on('click', '.EditactionCencaps a', function() {
 })
 
 async function refresh(parent) {
-    var finalVal = await getExactlyDate(parent);
-    $(parent).prev().prev().attr('value', finalVal['id']);
-    $(parent).prev().click();
     $('.datepicker').hide();
+    var finalVal = await getExactlyDate(parent);
+    if(finalVal == null) {
+        hgreportAlert("Date is missing!");
+    } else {
+        $(parent).prev().prev().attr('value', finalVal['id']);
+        $(parent).prev().click();
+        $('#randomBtn').click();
+    }
 }
 
 $('body').on('click', '.leveladdDropdown dropdown-item', function() {

@@ -19,6 +19,7 @@
         $Communities = new Communities;
         $pId = Session::get('period');
         $reportsData = json_decode($reports->where(['period_id' => $pId])->orderBy('community_id')->get());
+        
     @endphp
 
     <div class="row summarycontainer">
