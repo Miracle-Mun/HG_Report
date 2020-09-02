@@ -678,3 +678,9 @@ var KTLayoutStretchedCard=function() {
 if (typeof module !=='undefined') {
 	module.exports=KTLayoutStretchedCard;
 }
+
+$('body').on('click', '.changePass', function(){
+    $(this).hide();
+    $(this).next().show('slow');
+    $(this).parent().next().children().show('slow');
+})

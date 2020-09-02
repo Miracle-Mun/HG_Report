@@ -364,6 +364,7 @@
                     <form class="form" action="{{ URL::to('update') }}" method="POST">
                         @csrf
                         <input style="display: none;" id="mainIdUpdate" name="mainId" value="" />
+                        
                         <div class="form-group mb-5 communities">
                             <div class="btn-group">
                                 {{-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</button> --}}
@@ -387,15 +388,19 @@
                                 {{-- </div> --}}
                             </div>
                         </div>
+
                         <div class="form-group mb-5">
                             <input class="form-control h-auto form-control-solid py-4 px-8 mName" type="text" placeholder="Name" name="name" required />
                         </div>
+
                         <div class="form-group mb-5">
                             <input class="form-control h-auto form-control-solid py-4 px-8 mEmail" type="text" placeholder="Email" name="email" required />
                         </div>
+
                         <div class="form-group mb-5">
                             <input class="form-control h-auto form-control-solid py-4 px-8 mPosition" type="text" placeholder="Position" name="position" required />
                         </div>
+                        
                         <div class="form-group mb-5 adds">
                             <div class="btn-group mLeveladd_value">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Adds</button>
@@ -436,6 +441,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group mb-5 companyReports mLevelcompany_value">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Company Reports</button>
@@ -448,6 +454,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group mb-5 role">
                             <div class="btn-group mLeveluser_value">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No User Administration</button>
@@ -460,9 +467,11 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-group d-flex flex-wrap flex-center mt-10">
                             <button id="kt_login_signup_submit" type="submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2">Update User</button>
                         </div>
+
                     </form>
                 </div>
             </div>

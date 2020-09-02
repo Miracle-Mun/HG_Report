@@ -30,7 +30,8 @@ class authController extends Controller
                     Session::flash('error', "You aren't allowed yet.");
                     return redirect()->back();
                 }
-                DB::table('logins')->where('username', $_POST['username'])->update(['last_login' => date('Y-m-d')]);
+                $num = json_decode(DB::table('logins')->where(['username' => $_POST['username'], 'encrypted' => $password])->get('login_num'));
+                DB::table('logins')->where(['username' => $_POST['username'], 'encrypted' => $password])->update(['last_login' => date('Y-m-d'), 'login_num' => ((int)$num[0]->login_num + 1)]);
                 Session::put('whole', $login[0]);
                 Session::put('session', $_POST['username']. ','. $password);
                 return redirect('/main');

@@ -7,6 +7,7 @@ use Session;
 use DB;
 use App\model\logins;
 use App\model\users;
+use App\model\reports;
 use App\model\Communities;
 
 
@@ -43,7 +44,16 @@ class HomeController extends Controller
             ->where('users.id', '=', $userinfo->user_id)
             ->get();
         $userData = json_decode($userData)[0];
-        return view('profile', compact('result', 'userData'));
+        $reports = new reports;
+        $reportsData = DB::table('reports')->leftjoin('periods', 'reports.period_id', 'periods.id')
+            ->leftjoin('communities', 'reports.community_id', 'communities.id')
+            ->where('report_user', $userData->user_id)->take('30')
+            ->get();
+        return view('profile', compact(
+            'result',
+            'userData',
+            'reportsData'
+        ));
     }
     public function usermanage(){
 
