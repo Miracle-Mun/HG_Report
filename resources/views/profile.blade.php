@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-md-3">
                     <button class="btn btn-primary changePass" type="button">Change Password</button>
-                    <button class="btn btn-primary cancellBtn" style="display: none;" type="button">Cancell</button>
+                    <button class="btn btn-primary cancellBtn" style="display: none;" type="button">Cancel</button>
                 </div>
                 <div class="col-md-3">
                     <form action="/changepass" method="POST">

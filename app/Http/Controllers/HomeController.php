@@ -44,7 +44,6 @@ class HomeController extends Controller
             ->where('users.id', '=', $userinfo->user_id)
             ->get();
         $userData = json_decode($userData)[0];
-        $reports = new reports;
         $reportsData = DB::table('reports')->leftjoin('periods', 'reports.period_id', 'periods.id')
             ->leftjoin('communities', 'reports.community_id', 'communities.id')
             ->where('report_user', $userData->user_id)->take('30')
@@ -113,9 +112,18 @@ class HomeController extends Controller
         $data = DB::table('reports')
                 ->leftjoin('communities', 'reports.community_id', '=', 'communities.id')
                 ->leftjoin('periods', 'reports.period_id', '=', 'periods.id')
+                ->leftjoin('users', 'reports.report_user', '=', 'users.id')
                 ->orderBy('periods.id', 'DESC')
                 ->take(20)
-                ->get()->toArray();
+                ->get(
+                    array(
+                        'users.name as username',
+                        'users.whatedit as whatedit',
+                        'reports.*',
+                        'periods.*',
+                        'communities.*'
+                    )
+                )->toArray();
         if(isset($_POST['sortTypeagain'])) {
             if($_POST['sortTypeagain'] != 'null') {
                 $GLOBALS['before'] = $_POST['sortTypeagain'];
@@ -163,24 +171,24 @@ class HomeController extends Controller
                 }
             }
             else if($GLOBALS['field'] == 'user1') {
-                if($GLOBALS['before'] == 'dateofreport1') {
-                    return strcmp($b->period_id, $a->period_id);
+                if($GLOBALS['before'] == 'user1') {
+                    return strcmp($b->username, $a->username);
                 } else {
-                    return strcmp($a->period_id, $b->period_id);
+                    return strcmp($a->username, $b->username);
                 }
             }
             else if($GLOBALS['field'] == 'timeoftheedit1') {
-                if($GLOBALS['before'] == 'dateofreport1') {
-                    return strcmp($b->period_id, $a->period_id);
+                if($GLOBALS['before'] == 'timeoftheedit1') {
+                    return strcmp($b->edit_time, $a->edit_time);
                 } else {
-                    return strcmp($a->period_id, $b->period_id);
+                    return strcmp($a->edit_time, $b->edit_time);
                 }
             }
             else if($GLOBALS['field'] == 'whatwasedit1') {
-                if($GLOBALS['before'] == 'dateofreport1') {
-                    return strcmp($b->period_id, $a->period_id);
+                if($GLOBALS['before'] == 'whatwasedit1') {
+                    return strcmp($b->whatedit, $a->whatedit);
                 } else {
-                    return strcmp($a->period_id, $b->period_id);
+                    return strcmp($a->whatedit, $b->whatedit);
                 }
             } 
         } else {
