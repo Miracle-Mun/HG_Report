@@ -48,9 +48,7 @@
                 <thead class="datatable-head">
                     <tr class="datatable-row spanloadtr" style="left: 0px;">
                         <th data-field="RecordID" style="width: 5%;" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
-                            <span>#
-                                <i class="flaticon2-arrow-up"></i>
-                            </span>
+                            <span>#</span>
                         </th>
                         <th data-field="Name" style="width: 30%;" class="datatable-cell datatable-cell-sort thforsort" type="name">
                             <span>Name</span>

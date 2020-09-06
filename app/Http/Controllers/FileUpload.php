@@ -16,20 +16,16 @@ class FileUpload extends Controller
       if($fileinfo[count($fileinfo) - 1] != 'csv') {
         return back()->with('error','File is not csv file.');
       }
-        // $fileModel = new File;
+      $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyz';
+      // Output: 54esmdr0qf
+      substr(str_shuffle($permitted_chars), 0, 10);
+      
+      $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      $realFilename = 'csvfile-'.substr(str_shuffle($permitted_chars), 0, 16).'.csv';
 
-        // if($req->file()) {
-        //     $fileName = time().'_'.$req->file->getClientOriginalName();
-        //     $filePath = $req->file('file')->storeAs('uploads', $fileName, 'public');
+      move_uploaded_file($_FILES['file']['tmp_name'], $realFilename);
 
-        //     $fileModel->name = time().'_'.$req->file->getClientOriginalName();
-        //     $fileModel->file_path = '/storage/' . $filePath;
-        //     $fileModel->save();
-
-        //   }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-        //   return back()
-        //   ->with('success','File has been uploaded.')
-        //   ->with('file', $fileName);
+      return redirect()->back();
    }
 
 }

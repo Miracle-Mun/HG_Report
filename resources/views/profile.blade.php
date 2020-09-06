@@ -122,9 +122,9 @@
                 <div class="col-md-3">
                     <div class="card-label tac">
                         <span class="fwb">
-                            Last_login : 
+                            Last login : 
                         </span>
-                        <input type="text" class="form-control" disabled="disabled" value="{{ $userData->login_num }}">
+                        <input type="text" class="form-control" disabled="disabled" value="last {{ $userData->login_num }}">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -141,9 +141,7 @@
                     <thead class="datatable-head">
                         <tr class="datatable-row spanloadtrfir" style="left: 0px;">
                             <th data-field="RecordID" style="width: 5%;" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
-                                <span>#
-                                    <i class="flaticon2-arrow-up"></i>
-                                </span>
+                                <span>#</span>
                             </th>
                             <th data-field="Name" style="width: 25%;" class="datatable-cell datatable-cell-sort locationReport1">
                                 <span>Location of the report</span>
@@ -188,7 +186,7 @@
                                         <input type="text" name="period_id" value="{{ $item->period_id }}">
                                         <input type="submit" class="cpeBtn">
                                     </form>
-                                    @if (date('w') == 4)
+                                    @if (date('w') != 4)
                                         <span style="overflow: visible; position: relative;display:inline-block;" class="addBtn" data-toggle="tooltip" data-theme="dark" title="Add">
                                             <a href="javascript:;" class="btn btn-sm btn-default btn-text-primary btn-hover-primary btn-icon mr-2 changePasswordModal" title="Edit details">
                                                 <span class="svg-icon svg-icon-md">

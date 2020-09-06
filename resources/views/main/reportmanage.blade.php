@@ -86,9 +86,7 @@
                 <thead class="datatable-head">
                     <tr class="datatable-row spanloadtrfir" style="left: 0px;">
                         <th data-field="RecordID" style="width: 5%;" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
-                            <span>#
-                                <i class="flaticon2-arrow-up"></i>
-                            </span>
+                            <span>#</span>
                         </th>
                         <th data-field="Name" style="width: 25%;" class="datatable-cell datatable-cell-sort locationReport1">
                             <span>Location of the report</span>
