@@ -73,7 +73,7 @@
                     <th>{{ $sumas }}</th>
                 </tr>
             </tbody>
-            <tbody>
+            <tbody style="border-top: 2px solid;">
                 @php $wholeSum1 = []; $inum = 0; @endphp
                 @foreach ($buildingsData as $item)
                     <tr>
@@ -117,7 +117,7 @@
                     <th>{{ $sumas }}</th>
                 </tr>
             </tbody>
-            <tbody>
+            <tbody style="border-top: 2px solid;">
                 @php $inum = 0; @endphp
                 @foreach ($buildingsData as $item)
                     <tr>
@@ -155,7 +155,7 @@
             </tbody>
         </table>
         
-        <table class="table table-borderless viewtable mycontroltable table-sm table-hover">
+        <table class="table table-borderless viewtable mycontroltable table-sm table-hover" style="border-top: 2px solid;">
             <tbody>
                 <tr>
                     <th style="font-size: 15px !important; font-weight:bold !important;" rowspan="{{ count($reportsData) + 3 }}" class="MainTitletwo">Move-Out<br>Reasons</th>
@@ -219,7 +219,7 @@
             </tbody>
         </table>
 
-        <table class="table table-borderless viewtable mycontroltable table-sm table-hover">
+        <table class="table table-borderless viewtable mycontroltable table-sm table-hover" style="border-top: 2px solid;">
             <tbody>
                 <tr>
                     <th style="font-size: 15px !important; font-weight:bold !important;" rowspan="{{ count($reportsData) + 3 }}" class="MainTitletwo">Statistics</th>
@@ -294,7 +294,7 @@
             </tbody>
         </table>
 
-        <table class="table table-borderless viewtable table-sm table-hover">
+        <table class="table table-borderless viewtable table-sm table-hover" style="border-top: 2px solid;">
             <tbody>
                 <tr class="titledate">
                     <th class="MainTitletwo" rowspan="{{ count($reportsData) + 10 }}">Move In/Out</th>

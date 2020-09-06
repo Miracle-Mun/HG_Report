@@ -2,6 +2,59 @@
 
 @section('contents')
 
+<!-- Button trigger modal-->
+<button type="button" class="btn btn-primary dn uploadBtn" data-toggle="modal" data-target="#exampleModalCustomScrollable">
+    Launch demo modal
+</button>
+
+<!-- Modal-->
+<div class="modal fade" id="exampleModalCustomScrollable" tabindex="-1" role="dialog" aria-labelledby="staticBackdrop" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">File Upload</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i aria-hidden="true" class="ki ki-close"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div data-scroll="true" data-height="300">
+                    <div class="container mt-5">
+                        <form action="{{route('fileUpload')}}" method="post" enctype="multipart/form-data">
+                            <h3 class="text-center mb-5">Please upload only "csv" file</h3>
+                                @csrf
+                                @if ($message = Session::get('success'))
+                                <div class="alert alert-success">
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                            @endif
+                        
+                            @if (count($errors) > 0)
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
+                    
+                            <div class="custom-file">
+                                <input type="file" name="file" class="custom-file-input" id="chooseFile">
+                                <label class="custom-file-label" for="chooseFile">Select file</label>
+                            </div>
+                    
+                            <button type="submit" name="submit" class="btn btn-primary btn-block mt-4">
+                                Upload File
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="card card-custom card-stretch" id="kt_page_stretched_card">
     <div class="card-header">
         <div class="card-title">
@@ -37,8 +90,8 @@
                     <form action="/changepass" method="POST">
                         @csrf
                         <input type="submit" class="dn changeConfirmBtn">
-                        <input style="display: none;" id="mainId" name="mainId" value="{{ $userData->user_id }}" />
-                        <input style="display: none;" id="mainId" name="username" value="{{ $userData->username }}" />
+                        <input style="display: none;" name="mainId" value="{{ $userData->user_id }}" />
+                        <input style="display: none;" name="username" value="{{ $userData->username }}" />
                         <div>
                             <input class="form-control h-auto form-control-solid py-4 px-8" style="display: none;" type="password" id="changePass" placeholder="Password" name="changePass" required />
                             <input class="form-control h-auto form-control-solid py-4 px-8" style="display: none;" type="password" id="ConfirmPass" placeholder="Confirm Password" name="cpassword" required />
@@ -179,7 +232,7 @@
                                 <td data-field="CompanyName" style="width: 15%;" aria-label="Casper-Kerluke" class="datatable-cell">
                                     <span>
                                         <div class="font-weight-bold ">
-                                            Census and Capacity
+                                            {{ $EditedData[(int)$item->whatedit] }}
                                         </div>
                                     </span>
                                 </td>
@@ -194,5 +247,12 @@
         </div>
     </div>
 </div>
+
+<form method="POST" action="/profile" class="dn">
+    @csrf
+    <input name="type1" id="sortType">
+    <input name="sortTypeagain1" id="sortTypeagain" value="null">
+    <input type="submit" class="clickMeforReload" />
+</form>
 
 @endsection

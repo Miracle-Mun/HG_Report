@@ -33,7 +33,7 @@
         var communities = <?php echo $viewitems; ?>;
     </script>
 
-    <div class="row summarycontainer">
+    <div class="row summarycontainer me">
         <table class="table table-borderless viewtable table-hover">
             <thead>
                 <tr>
@@ -158,7 +158,7 @@
             </table>
         @endif
         @if(count($reportsData))
-            <table class="table table-borderless viewtable table-hover">
+            <table class="table table-borderless viewtable table-hover" style="border: none !important;">
                 <tbody>
                     <tr>
                         <th rowspan="6" class="MainTitle">Statistics</th>
@@ -191,7 +191,7 @@
                     </tr>
                 </tbody>
             </table>
-            <table class="table table-borderless viewtable table-hover">
+            <table class="table table-borderless viewtable table-hover" style="border-top: 2px solid;">
                 <tbody>
                     <tr>
                         <th rowspan="6" class="MainTitle">Move In/Out</th>

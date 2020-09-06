@@ -76,7 +76,7 @@
 
     <div class="row summarycontainer">
         <table class="table table-borderless viewtable mycontroltable  table-sm table-hover">
-            <tbody>
+            <tbody style="border-bottom: 2px solid;">
                 <tr class="headbang">
                     <th style="font-size: 15px !important; font-weight:bold !important;" rowspan="{{ count($reportsData) + 3 }}" class="MainTitletwo">Current<br>Census</th>
                     <th></th>
@@ -114,7 +114,7 @@
                     @endif
                 @endforeach
             </tbody>
-            <tbody>
+            <tbody style="border-bottom: 2px solid;">
                 <?php $AllArr = []; $mainSum2 = 0; $i_num2 = 0;?>
                 @foreach ($oneArr as $key => $item)
                     <tr>
@@ -177,7 +177,7 @@
             </tbody>
         </table>
         @if (count($inquiriesData2) > 0)
-            <table class="table table-borderless viewtable mycontroltable  table-sm table-hover">
+            <table class="table table-borderless viewtable mycontroltable  table-sm table-hover" style="border-top: 2px solid;">
                 <tbody>
                     <tr class="titledate">
                         <th class="MainTitletwo" rowspan="{{ count($inquiriesData2) + 10 }}">Type <br> of <br> Inquiries</th>
@@ -222,7 +222,7 @@
             </table>
         @endif
         @if(count($moveoutDescriptions) > 0)
-            <table class="table table-borderless viewtable mycontroltable  table-sm table-hover">
+            <table class="table table-borderless viewtable mycontroltable  table-sm table-hover" style="border-top: 2px solid;">
                 <tbody>
                     <tr class="titledate">
                         <th class="MainTitletwo" rowspan="{{ count($moveoutDescriptions) + 3 }}">Move-Out <br> Reasons</th>
@@ -251,7 +251,7 @@
                 </tbody>
             </table>
         @endif
-        <table class="table table-borderless viewtable mycontroltable  table-sm table-hover">
+        <table class="table table-borderless viewtable mycontroltable  table-sm table-hover" style="border-top: 2px solid;">
             <tbody>
                 <tr class="titledate">
                     <th class="MainTitletwo" rowspan="{{ count($moveoutDescriptions) + 10 }}">Statistics</th>
@@ -331,7 +331,7 @@
             </tbody>
         </table>
 
-        <table class="table table-borderless viewtable  table-sm table-hover">
+        <table class="table table-borderless viewtable  table-sm table-hover" style="border-top: 2px solid;">
             <tbody>
                 <tr class="titledate">
                     <th class="MainTitletwo" rowspan="{{ count($moveoutDescriptions) + 10 }}">Move In/Out</th>

@@ -47,11 +47,36 @@ class HomeController extends Controller
         $reportsData = DB::table('reports')->leftjoin('periods', 'reports.period_id', 'periods.id')
             ->leftjoin('communities', 'reports.community_id', 'communities.id')
             ->where('report_user', $userData->user_id)->take('30')
-            ->get();
+            ->get()->toArray();
+
+        if(isset($_POST['sortTypeagain1'])) {
+            if($_POST['sortTypeagain1'] != 'null') {
+                $GLOBALS['before1'] = $_POST['sortTypeagain1'];
+            } else {
+                $GLOBALS['before1'] = "null";
+            }
+        }
+        $GLOBALS['field1'] = null;
+        if(count($_POST) > 0) {
+            if($_POST['type1'] == 'locationReport1') {
+                $GLOBALS['field1'] = 'locationReport1';
+            } else if($_POST['type1'] == 'dateofreport1') {
+                $GLOBALS['field1'] = 'dateofreport1';
+            } else if($_POST['type1'] == 'user1') {
+                $GLOBALS['field1'] = 'user1';
+            } else if($_POST['type1'] == 'timeoftheedit1') {
+                $GLOBALS['field1'] = 'timeoftheedit1';
+            } else if($_POST['type1'] == 'whatwasedit1') {
+                $GLOBALS['field1'] = 'whatwasedit1';
+            }
+            usort($reportsData, array($this,'cmp2'));
+        }
+        $EditedData = ['Census and Capacity', 'moveouts', 'statics', 'Move ins'];
         return view('profile', compact(
             'result',
             'userData',
-            'reportsData'
+            'reportsData',
+            'EditedData'
         ));
     }
     public function usermanage(){
@@ -147,11 +172,13 @@ class HomeController extends Controller
             usort($data, array($this,'cmp'));
         }
 
+        $EditedData = ['Census and Capacity', 'moveouts', 'statics', 'Move ins'];
+
         if(Session::get('session') == null) {
             return view('auth/login');
         }
         else {
-            return view('main.reportmanage', compact('data'));
+            return view('main.reportmanage', compact('data', 'EditedData'));
         }
     }
     private static function cmp($a, $b)
@@ -229,6 +256,40 @@ class HomeController extends Controller
             } else {
                 return strcmp($b->name, $a->name);
             }
+        }
+    }
+    private static function cmp2($a, $b)
+    {
+        if($GLOBALS['field1'] != null) {
+            if($GLOBALS['field1'] == 'locationReport1') {
+                if($GLOBALS['before1'] == 'locationReport1') {
+                    return strcmp($b->name, $a->name);
+                } else {
+                    return strcmp($a->name, $b->name);
+                }
+            } else if($GLOBALS['field1'] == 'dateofreport1') {
+                if($GLOBALS['before1'] == 'dateofreport1') {
+                    return strcmp($b->period_id, $a->period_id);
+                } else {
+                    return strcmp($a->period_id, $b->period_id);
+                }
+            }
+            else if($GLOBALS['field1'] == 'timeoftheedit1') {
+                if($GLOBALS['before1'] == 'timeoftheedit1') {
+                    return strcmp($b->edit_time, $a->edit_time);
+                } else {
+                    return strcmp($a->edit_time, $b->edit_time);
+                }
+            }
+            else if($GLOBALS['field1'] == 'whatwasedit1') {
+                if($GLOBALS['before1'] == 'whatwasedit1') {
+                    return strcmp($b->whatedit, $a->whatedit);
+                } else {
+                    return strcmp($a->whatedit, $b->whatedit);
+                }
+            } 
+        } else {
+            return strcmp($a->name, $b->name);
         }
     }
 }

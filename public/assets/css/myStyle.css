@@ -336,6 +336,10 @@ tbody tr:nth-child(1) {
     width: 100% !important;
 }
 
+.me table {
+    border-bottom: 2px solid !important;
+}
+
 /* class */
 
 .w100 {

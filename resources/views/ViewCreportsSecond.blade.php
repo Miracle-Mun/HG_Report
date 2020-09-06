@@ -47,7 +47,7 @@
                 </tr>
             </tbody>
             
-            <tbody>
+            <tbody style="border-top: 2px solid;">
                 @foreach ($wholeData1 as $key1 => $items)
                     <tr>
                         @if ($key1 == 0)
@@ -85,7 +85,7 @@
                 </tr>
             </tbody>
 
-            <tbody>
+            <tbody style="border-top: 2px solid;">
                 @foreach ($wholeData2 as $key1 => $items)
                     <tr>
                         @if ($key1 == 0)
@@ -124,7 +124,7 @@
             </tbody>
 
         </table>
-        <table class="table table-borderless viewtable mycontroltable table-sm table-hover">
+        <table class="table table-borderless viewtable mycontroltable table-sm table-hover" style="border-top: 2px solid;">
             <tbody>
                 <tr>
                     <th rowspan="{{ count($MoveoutData) + 3 }}"  class="MainTitletwo">
@@ -176,7 +176,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="table table-borderless viewtable mycontroltable table-sm table-hover">
+        <table class="table table-borderless viewtable mycontroltable table-sm table-hover" style="border-top: 2px solid;">
             <tbody>
                 <tr>
                     <th rowspan="{{ count($MoveoutData) + 3 }}"  class="MainTitletwo">
@@ -255,7 +255,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="table table-borderless viewtable mycontroltable table-sm table-hover">
+        <table class="table table-borderless viewtable mycontroltable table-sm table-hover" style="border-top: 2px solid;">
             <tbody>
                 <tr>
                     <th rowspan="{{ count($MoveoutData) + 3 }}"  class="MainTitletwo">
