@@ -365,7 +365,7 @@ class ViewReports extends Controller
             'ytd_movein' => $_POST['ytd_movein'],
             'ytd_moveout' => $_POST['ytd_moveout']
         );
-        $reports->where(['report_id' => $_POST['report_id']])->update(array('whatedit' => '2'));
+        $reports->where(['id' => $_POST['report_id']])->update(array('whatedit' => '2'));
         $reports->where(['id' => $_POST['report_id']])->update($reportsData);
 
         foreach ($_POST as $key => $value) {
@@ -378,7 +378,7 @@ class ViewReports extends Controller
                                 'description' => $value,
                                 'number' => $val
                             );
-                            $reports->where(['report_id' => $_POST['report_id']])->update(array('whatedit' => '3'));
+                            $reports->where(['id' => $_POST['report_id']])->update(array('whatedit' => '3'));
                             $inquiries->where(['id' => $getinfo[2]])->update($rowData);
                         } 
                     }
@@ -391,7 +391,7 @@ class ViewReports extends Controller
                                 'description' => $value,
                                 'number' => $val
                             );
-                            $reports->where(['report_id' => $_POST['report_id']])->update(array('whatedit' => '0'));
+                            $reports->where(['id' => $_POST['report_id']])->update(array('whatedit' => '0'));
                             $inquiries->insert($rowData);
                         } 
                     }
@@ -405,7 +405,7 @@ class ViewReports extends Controller
                                 'description' => $value,
                                 'number' => $val
                             );
-                            $reports->where(['report_id' => $_POST['report_id']])->update(array('whatedit' => '1'));
+                            $reports->where(['id' => $_POST['report_id']])->update(array('whatedit' => '1'));
                             $moveouts->where(['description' => $getinfo[2]])->update($rowData);
                         } 
                     }
@@ -418,7 +418,7 @@ class ViewReports extends Controller
                                 'description' => $value,
                                 'number' => $val
                             );
-                            $reports->where(['report_id' => $_POST['report_id']])->update(array('whatedit' => '1'));
+                            $reports->where(['id' => $_POST['report_id']])->update(array('whatedit' => '1'));
                             $moveouts->insert($rowData);
                         } 
                     }
@@ -430,7 +430,7 @@ class ViewReports extends Controller
                         'census' => $_POST[$key],
                         'capacity' => $_POST['_capacity,'.$getinfo[1].',old']
                     );
-                    $reports->where(['report_id' => $_POST['report_id']])->update(array('whatedit' => '0'));
+                    $reports->where(['id' => $_POST['report_id']])->update(array('whatedit' => '0'));
                     $result = $cencaps->where(['report_id' => $_POST['report_id'], 'building_id' => $_POST['_buildingid,'.$getinfo[1].',old']])->update($rowData);
                 } else {
                     $getinfo = explode(',',$key);
@@ -440,7 +440,7 @@ class ViewReports extends Controller
                         'census' => $_POST[$key],
                         'capacity' => $_POST['_capacity,'.$getinfo[1]]
                     );
-                    $reports->where(['report_id' => $_POST['report_id']])->update(array('whatedit' => '0'));
+                    $reports->where(['id' => $_POST['report_id']])->update(array('whatedit' => '0'));
                     $result = $cencaps->insert($rowData);
                 }
             }
