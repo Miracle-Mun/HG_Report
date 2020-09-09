@@ -346,8 +346,17 @@ class ViewReports extends Controller
 
         // Buildings
         $BD = $buildings->get();
-        
-        return view('EditAction', compact('reportsData', 'CCD', 'ID', 'MD', 'BD', 'CI', 'PI'));
+
+        // viewitems
+        $viewitems = ( new Communities )->get();
+
+        // info
+        $info = [$CI, $PI];
+
+        // periods
+        $periods = new periods;
+
+        return view('EditAction', compact('reportsData', 'CCD', 'ID', 'MD', 'BD', 'CI', 'PI', 'viewitems', 'info', 'periods'));
     }
 
     public function savedata() {

@@ -19,25 +19,27 @@
                 </h3>
             </div>
         </div>
-        <div class="card-toolbar">
-            <!--begin::Button-->
-            <a href="#" class="btn-rounded font-weight-bolder newUser">
-                <span class="svg-icon svg-icon-md">
-                    <!--begin::Svg Icon | path:/metronic/themes/metronic/theme/html/demo2/distassets/media/svg/icons/Design/Flatten.svg-->
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-                        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                            <rect x="0" y="0" width="24" height="24"></rect>
-                            <circle fill="#000000" cx="9" cy="15" r="6"></circle>
-                            <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3"></path>
-                        </g>
-                    </svg>
-                    <!--end::Svg Icon-->
-                </span>	New User
-            </a>
-            <!--end::Button-->
-        </div>
+        @if ($userData[0]->leveladd != 0)
+            <div class="card-toolbar">
+                <!--begin::Button-->
+                <a href="#" class="btn-rounded font-weight-bolder newUser">
+                    <span class="svg-icon svg-icon-md">
+                        <!--begin::Svg Icon | path:/metronic/themes/metronic/theme/html/demo2/distassets/media/svg/icons/Design/Flatten.svg-->
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <rect x="0" y="0" width="24" height="24"></rect>
+                                <circle fill="#000000" cx="9" cy="15" r="6"></circle>
+                                <path d="M8.8012943,7.00241953 C9.83837775,5.20768121 11.7781543,4 14,4 C17.3137085,4 20,6.6862915 20,10 C20,12.2218457 18.7923188,14.1616223 16.9975805,15.1987057 C16.9991904,15.1326658 17,15.0664274 17,15 C17,10.581722 13.418278,7 9,7 C8.93357256,7 8.86733422,7.00080962 8.8012943,7.00241953 Z" fill="#000000" opacity="0.3"></path>
+                            </g>
+                        </svg>
+                        <!--end::Svg Icon-->
+                    </span>	New User
+                </a>
+                <!--end::Button-->
+            </div>
+        @endif
     </div>
     <!--end::Header-->
     <!--begin::Body-->
@@ -242,7 +244,7 @@
                                 {{-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</button> --}}
                                 <input style="display: none;" value="1" name="community_id">
                                 <?php $options = DB::table('communities')->get(['name', 'id']); ?>
-                                {{-- <div class="col-md-12 col-lg-4 col-sm-12"> --}}
+                                @if ($userData[0]->leveluser == 3)
                                     <div class="dropdown bootstrap-select form-control">
                                         @foreach ($options as $key => $item)
                                             @if ($key == 0)
@@ -257,7 +259,15 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                {{-- </div> --}}
+                                @else
+                                    <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="true" title="Bellingham">
+                                        <div class="filter-option">
+                                            <div class="filter-option-inner">
+                                                <div class="filter-option-inner-inner">Bellingham</div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                @endif
                             </div>
                         </div>
                         <div class="form-group mb-5">
@@ -274,11 +284,29 @@
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Adds</button>
                                 <input style="display: none;" value="0" name="leveladd">
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" type="0" href="#">No Adds</a>
-                                    <a class="dropdown-item" type="1" href="#">Add Non-Locked</a>
-                                    <a class="dropdown-item" type="2" href="#">Add Local Locked</a>
-                                    <a class="dropdown-item" type="3" href="#">Add Any</a>
-                                    <a class="dropdown-item" type="4" href="#">Add Any (root)</a>
+                                    @if ($userData[0]->leveluser == 3)
+                                        <a class="dropdown-item" type="0" href="#">No Adds</a>
+                                        <a class="dropdown-item" type="1" href="#">Add Non-Locked</a>
+                                        <a class="dropdown-item" type="2" href="#">Add Local Locked</a>
+                                        <a class="dropdown-item" type="3" href="#">Add Any</a>
+                                        <a class="dropdown-item" type="4" href="#">Add Any (root)</a>
+                                    @else
+                                        @if ($userData[0]->leveladd >= 0)
+                                            <a class="dropdown-item" type="0" href="#">No Adds</a>
+                                        @endif
+                                        @if ($userData[0]->leveladd >= 1)
+                                            <a class="dropdown-item" type="1" href="#">Add Non-Locked</a>
+                                        @endif
+                                        @if ($userData[0]->leveladd >= 2)
+                                            <a class="dropdown-item" type="2" href="#">Add Local Locked</a>
+                                        @endif
+                                        @if ($userData[0]->leveladd >= 3)
+                                            <a class="dropdown-item" type="3" href="#">Add Any</a>
+                                        @endif
+                                        @if ($userData[0]->leveladd >= 4)
+                                            <a class="dropdown-item" type="4" href="#">Add Any (root)</a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -287,11 +315,29 @@
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Edits</button>
                                 <input style="display: none;" value="0" name="leveledit">
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" type="0" href="#">No Edits</a>
-                                    <a class="dropdown-item" type="1" href="#">Edit Non-Locked</a>
-                                    <a class="dropdown-item" type="2" href="#">Edit Local Locked</a>
-                                    <a class="dropdown-item" type="3" href="#">Edit Any</a>
-                                    <a class="dropdown-item" type="4" href="#">Edit Any (root)</a>
+                                    @if ($userData[0]->leveluser == 3)
+                                        <a class="dropdown-item" type="0" href="#">No Edits</a>
+                                        <a class="dropdown-item" type="1" href="#">Edit Non-Locked</a>
+                                        <a class="dropdown-item" type="2" href="#">Edit Local Locked</a>
+                                        <a class="dropdown-item" type="3" href="#">Edit Any</a>
+                                        <a class="dropdown-item" type="4" href="#">Edit Any (root)</a>
+                                    @else
+                                        @if ($userData[0]->leveledit >= 0)
+                                            <a class="dropdown-item" type="0" href="#">No Edits</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 1)
+                                            <a class="dropdown-item" type="1" href="#">Edit Non-Locked</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 2)
+                                            <a class="dropdown-item" type="2" href="#">Edit Local Locked</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 3)
+                                            <a class="dropdown-item" type="3" href="#">Edit Any</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 4)
+                                            <a class="dropdown-item" type="4" href="#">Edit Any (root)</a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -300,10 +346,25 @@
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Reports</button>
                                 <input style="display: none;" value="0" name="levelreport">
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" type="0" href="#">No Reports</a>
-                                    <a class="dropdown-item" type="1" href="#">Local Reports</a>
-                                    <a class="dropdown-item" type="2" href="#">Any Location</a>
-                                    <a class="dropdown-item" type="3" href="#">Any Location (root)</a>
+                                    @if ($userData[0]->leveluser == 3)
+                                        <a class="dropdown-item" type="0" href="#">No Reports</a>
+                                        <a class="dropdown-item" type="1" href="#">Local Report</a>
+                                        <a class="dropdown-item" type="2" href="#">Any Location</a>
+                                        <a class="dropdown-item" type="3" href="#">Any Location (root)</a>
+                                    @else
+                                        @if ($userData[0]->leveledit >= 0)
+                                            <a class="dropdown-item" type="0" href="#">No Reports</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 1)
+                                            <a class="dropdown-item" type="1" href="#">Local Report</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 2)
+                                            <a class="dropdown-item" type="2" href="#">Any Location</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 3)
+                                            <a class="dropdown-item" type="3" href="#">Any Location (root)</a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -312,10 +373,25 @@
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Company Reports</button>
                                 <input style="display: none;" value="0" name="levelcompany">
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" type="0" href="#">No Company Reports</a>
-                                    <a class="dropdown-item" type="1" href="#">Local Reports Only</a>
-                                    <a class="dropdown-item" type="2" href="#">Company Wide</a>
-                                    <a class="dropdown-item" type="3" href="#">All Reports (root)</a>
+                                    @if ($userData[0]->leveluser == 3)
+                                        <a class="dropdown-item" type="0" href="#">No Company Reports</a>
+                                        <a class="dropdown-item" type="1" href="#">Local Reports Only</a>
+                                        <a class="dropdown-item" type="2" href="#">Company Wide</a>
+                                        <a class="dropdown-item" type="3" href="#">All Reports (root)</a>
+                                    @else
+                                        @if ($userData[0]->levelcompany >= 0)
+                                            <a class="dropdown-item" type="0" href="#">No Company Reports</a>
+                                        @endif
+                                        @if ($userData[0]->levelcompany >= 1)
+                                            <a class="dropdown-item" type="1" href="#">Local Report</a>
+                                        @endif
+                                        @if ($userData[0]->levelcompany >= 2)
+                                            <a class="dropdown-item" type="2" href="#">Company Wide</a>
+                                        @endif
+                                        @if ($userData[0]->levelcompany >= 3)
+                                            <a class="dropdown-item" type="3" href="#">All Reports (root)</a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -324,10 +400,25 @@
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No User Administration</button>
                                 <input style="display: none;" value="0" name="leveluser">
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" type="0" href="#">No User Administration</a>
-                                    <a class="dropdown-item" type="1" href="#">Local User Only</a>
-                                    <a class="dropdown-item" type="2" href="#">All Locations</a>
-                                    <a class="dropdown-item" type="3" href="#">All Locations (root)</a>
+                                    @if ($userData[0]->leveluser == 3)
+                                        <a class="dropdown-item" type="0" href="#">No User Administration</a>
+                                        <a class="dropdown-item" type="1" href="#">Local User Only</a>
+                                        <a class="dropdown-item" type="2" href="#">All Locations</a>
+                                        <a class="dropdown-item" type="3" href="#">All Locations (root)</a>
+                                    @else
+                                        @if ($userData[0]->leveluser >= 0)
+                                            <a class="dropdown-item" type="0" href="#">No User Administration</a>
+                                        @endif
+                                        @if ($userData[0]->leveluser >= 1)
+                                            <a class="dropdown-item" type="1" href="#">Local User Only</a>
+                                        @endif
+                                        @if ($userData[0]->leveluser >= 2)
+                                            <a class="dropdown-item" type="2" href="#">All Locations</a>
+                                        @endif
+                                        @if ($userData[0]->leveluser >= 3)
+                                            <a class="dropdown-item" type="3" href="#">All Locations (root)</a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -363,12 +454,13 @@
                         @csrf
                         <input style="display: none;" id="mainIdUpdate" name="mainId" value="" />
                         
-                        <div class="form-group mb-5 communities">
+                        <div class="form-group mb-5 communities mCommunity_id_value">
                             <div class="btn-group">
                                 {{-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</button> --}}
-                                <input style="display: none;" value="1" name="community_id">
+                                <input style="display: none;" value="1" name="community_id" class="mLeveledit">
                                 <?php $options = DB::table('communities')->get(['name', 'id']); ?>
-                                {{-- <div class="col-md-12 col-lg-4 col-sm-12"> --}}
+                                <script>communitiess = '<?php echo $options; ?>';</script>
+                                @if ($userData[0]->leveluser == 3)
                                     <div class="dropdown bootstrap-select form-control">
                                         @foreach ($options as $key => $item)
                                             @if ($key == 0)
@@ -383,7 +475,15 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                {{-- </div> --}}
+                                @else
+                                    <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="true" title="Bellingham">
+                                        <div class="filter-option">
+                                            <div class="filter-option-inner">
+                                                <div class="filter-option-inner-inner">Bellingham</div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                @endif
                             </div>
                         </div>
 
@@ -404,11 +504,29 @@
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Adds</button>
                                 <input style="display: none;" class="mLeveladd" value="0" name="leveladd">
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" type="0" href="#">No Adds</a>
-                                    <a class="dropdown-item" aria-selected="true" type="1" href="#">Add Non-Locked</a>
-                                    <a class="dropdown-item" type="2" href="#">Add Local Locked</a>
-                                    <a class="dropdown-item" type="3" href="#">Add Any</a>
-                                    <a class="dropdown-item" type="4" href="#">Add Any (root)</a>
+                                    @if ($userData[0]->leveluser == 3)
+                                        <a class="dropdown-item" type="0" href="#">No Adds</a>
+                                        <a class="dropdown-item" type="1" href="#">Add Non-Locked</a>
+                                        <a class="dropdown-item" type="2" href="#">Add Local Locked</a>
+                                        <a class="dropdown-item" type="3" href="#">Add Any</a>
+                                        <a class="dropdown-item" type="4" href="#">Add Any (root)</a>
+                                    @else
+                                        @if ($userData[0]->leveladd >= 0)
+                                            <a class="dropdown-item" type="0" href="#">No Adds</a>
+                                        @endif
+                                        @if ($userData[0]->leveladd >= 1)
+                                            <a class="dropdown-item" type="1" href="#">Add Non-Locked</a>
+                                        @endif
+                                        @if ($userData[0]->leveladd >= 2)
+                                            <a class="dropdown-item" type="2" href="#">Add Local Locked</a>
+                                        @endif
+                                        @if ($userData[0]->leveladd >= 3)
+                                            <a class="dropdown-item" type="3" href="#">Add Any</a>
+                                        @endif
+                                        @if ($userData[0]->leveladd >= 4)
+                                            <a class="dropdown-item" type="4" href="#">Add Any (root)</a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -418,11 +536,29 @@
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Edits</button>
                                 <input style="display: none;" class="mLeveledit" value="0" name="leveledit">
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" type="0" href="#">No Edits</a>
-                                    <a class="dropdown-item" type="1" href="#">Edit Non-Locked</a>
-                                    <a class="dropdown-item" type="2" href="#">Edit Local Locked</a>
-                                    <a class="dropdown-item" type="3" href="#">Edit Any</a>
-                                    <a class="dropdown-item" type="4" href="#">Edit Any (root)</a>
+                                    @if ($userData[0]->leveluser == 3)
+                                        <a class="dropdown-item" type="0" href="#">No Edits</a>
+                                        <a class="dropdown-item" type="1" href="#">Edit Non-Locked</a>
+                                        <a class="dropdown-item" type="2" href="#">Edit Local Locked</a>
+                                        <a class="dropdown-item" type="3" href="#">Edit Any</a>
+                                        <a class="dropdown-item" type="4" href="#">Edit Any (root)</a>
+                                    @else
+                                        @if ($userData[0]->leveledit >= 0)
+                                            <a class="dropdown-item" type="0" href="#">No Edits</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 1)
+                                            <a class="dropdown-item" type="1" href="#">Edit Non-Locked</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 2)
+                                            <a class="dropdown-item" type="2" href="#">Edit Local Locked</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 3)
+                                            <a class="dropdown-item" type="3" href="#">Edit Any</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 4)
+                                            <a class="dropdown-item" type="4" href="#">Edit Any (root)</a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -432,10 +568,25 @@
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Reports</button>
                                 <input style="display: none;" value="0" class="mLevelreport" name="levelreport">
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" type="0" href="#">No Reports</a>
-                                    <a class="dropdown-item" type="1" href="#">Local Reports</a>
-                                    <a class="dropdown-item" type="2" href="#">Any Location</a>
-                                    <a class="dropdown-item" type="3" href="#">Any Location (root)</a>
+                                    @if ($userData[0]->leveluser == 3)
+                                        <a class="dropdown-item" type="0" href="#">No Reports</a>
+                                        <a class="dropdown-item" type="1" href="#">Local Report</a>
+                                        <a class="dropdown-item" type="2" href="#">Any Location</a>
+                                        <a class="dropdown-item" type="3" href="#">Any Location (root)</a>
+                                    @else
+                                        @if ($userData[0]->leveledit >= 0)
+                                            <a class="dropdown-item" type="0" href="#">No Reports</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 1)
+                                            <a class="dropdown-item" type="1" href="#">Local Report</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 2)
+                                            <a class="dropdown-item" type="2" href="#">Any Location</a>
+                                        @endif
+                                        @if ($userData[0]->leveledit >= 3)
+                                            <a class="dropdown-item" type="3" href="#">Any Location (root)</a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -445,10 +596,25 @@
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Company Reports</button>
                                 <input style="display: none;" value="0" class="mLevelcompany" name="levelcompany">
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" type="0" href="#">No Company Reports</a>
-                                    <a class="dropdown-item" type="1" href="#">Local Reports Only</a>
-                                    <a class="dropdown-item" type="2" href="#">Company Wide</a>
-                                    <a class="dropdown-item" type="3" href="#">All Reports (root)</a>
+                                    @if ($userData[0]->leveluser == 3)
+                                        <a class="dropdown-item" type="0" href="#">No Company Reports</a>
+                                        <a class="dropdown-item" type="1" href="#">Local Reports Only</a>
+                                        <a class="dropdown-item" type="2" href="#">Company Wide</a>
+                                        <a class="dropdown-item" type="3" href="#">All Reports (root)</a>
+                                    @else
+                                        @if ($userData[0]->levelcompany >= 0)
+                                            <a class="dropdown-item" type="0" href="#">No Company Reports</a>
+                                        @endif
+                                        @if ($userData[0]->levelcompany >= 1)
+                                            <a class="dropdown-item" type="1" href="#">Local Report</a>
+                                        @endif
+                                        @if ($userData[0]->levelcompany >= 2)
+                                            <a class="dropdown-item" type="2" href="#">Company Wide</a>
+                                        @endif
+                                        @if ($userData[0]->levelcompany >= 3)
+                                            <a class="dropdown-item" type="3" href="#">All Reports (root)</a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -458,10 +624,25 @@
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No User Administration</button>
                                 <input style="display: none;" value="0" class="mLeveluser" name="leveluser">
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" type="0" href="#">No User Administration</a>
-                                    <a class="dropdown-item" type="1" href="#">Local User Only</a>
-                                    <a class="dropdown-item" type="2" href="#">All Locations</a>
-                                    <a class="dropdown-item" type="3" href="#">All Locations (root)</a>
+                                    @if ($userData[0]->leveluser == 3)
+                                        <a class="dropdown-item" type="0" href="#">No User Administration</a>
+                                        <a class="dropdown-item" type="1" href="#">Local User Only</a>
+                                        <a class="dropdown-item" type="2" href="#">All Locations</a>
+                                        <a class="dropdown-item" type="3" href="#">All Locations (root)</a>
+                                    @else
+                                        @if ($userData[0]->leveluser >= 0)
+                                            <a class="dropdown-item" type="0" href="#">No User Administration</a>
+                                        @endif
+                                        @if ($userData[0]->leveluser >= 1)
+                                            <a class="dropdown-item" type="1" href="#">Local User Only</a>
+                                        @endif
+                                        @if ($userData[0]->leveluser >= 2)
+                                            <a class="dropdown-item" type="2" href="#">All Locations</a>
+                                        @endif
+                                        @if ($userData[0]->leveluser >= 3)
+                                            <a class="dropdown-item" type="3" href="#">All Locations (root)</a>
+                                        @endif
+                                    @endif
                                 </div>
                             </div>
                         </div>

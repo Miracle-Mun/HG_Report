@@ -210,10 +210,16 @@ $('body').on('click', '#login_signup_form [class="dropdown-item"]', function() {
     $(this).parent().prev().text($(this).text());
 })
 
+$('body').on('click', '.editActionq .viewreportcommon1 .dropdown-menu ul li', function(){
+    $('.viewreportcommon1').prev().attr('value', communities.filter(item => item.name == $(this).text().trim())[0]['id']);
+    $('.viewreportcommon1').next().next().click();
+})
+
 $('body').on('click', '.viewreportcommon .dropdown-menu ul li', function() {
     $('.viewreportcommon').prev().attr('value', communities.filter(item => item.name == $(this).text().trim())[0]['id']);
     $('.viewreportcommon').next().next().click();
 })
+
 
 $('body').on('click', '.mainContainer ul li', function() {
     if ($(this).attr('cId')) {
@@ -229,7 +235,6 @@ $('body').on('click', '.mainContainer ul li', function() {
         $(this).parent().parent().parent().prev().children().children().children().attr('value', $(this).attr('pId'));
         $(this).parent().parent().parent().prev().children().children().children().val($(this).attr('pId'));
     }
-    $(this).parent().parent().parent().prev().children().children().children().text($(this).text());
 })
 
 $('body').on('click', '#kt_login_signup', function() {
@@ -284,7 +289,12 @@ $('body').on('click', '.OrderName', function() {
     $('.mUsername').val(mainValue.attr('type0'));
 
     $('.mCommunity_id').attr('value', mainValue.attr('type1'));
-    $('.mCommunity_id_value button').text($(".mCommunity_id_value [type='" + mainValue.attr('type1') + "']").text());
+    var ddd = JSON.parse(communitiess);
+    for(var i = 0 ; i < ddd.length ; i++) {
+        if(ddd[i]['id'] == mainValue.attr('type1')) {
+            $('.mCommunity_id_value button').children().children().children().text(ddd[i]['name']);
+        }
+    }
 
     $('.mName').val(mainValue.attr('type2'));
     $('.mEmail').val(mainValue.attr('type3'));

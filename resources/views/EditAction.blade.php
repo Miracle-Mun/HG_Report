@@ -1,7 +1,35 @@
 @extends('layouts.container')
 
 @section('contents')
-<script> var buildingsData = <?php echo $BD; ?></script>
+<script> var buildingsData = <?php echo $BD; ?>; var communities = JSON.parse('<?php echo $viewitems; ?>');</script>
+<form method="POST" action="editaction" class="w-100 editActionq">
+	@csrf
+	<h3 class="px-2 w-100">
+		Report Summary for
+		@foreach ($viewitems as $key => $item)
+			@if ($key == 0)
+				<input name="community_id" value={{ $item->id }} class="dn com">
+			@endif
+		@endforeach
+		<select class="form-control selectpicker w-20 viewreportcommon1" data-live-search="true" tabindex="null">
+			@foreach ($viewitems as $item)
+				@if($info[0] == $item->id)
+					<option data-tokens="mustard" selected="selected">
+						{{ $item->name }}
+					</option>
+				@else
+					<option data-tokens="mustard">
+						{{ $item->name }}
+					</option>
+				@endif
+			@endforeach
+		</select>
+		from
+		<input class="dn" name="period_id" value="{{ json_decode($periods->where(['id' => $info[1]])->get())[0]->id }}">
+		<input class="dn" type="submit">
+		<input type="button" class="span2 btn-rounded period_id" date="{{ json_decode($periods->where(['id' => $info[1]])->get())[0]->id }}" value="{{ json_decode($periods->where(['id' => $info[1]])->get())[0]->caption }}" onchange="refresh(this)" id="dp1">
+	</h3>
+</form>
 <form method="POST" action="savedata" style="width: 100%;">
 	@csrf
 	@if (count($CCD) > 0)

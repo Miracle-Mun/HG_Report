@@ -46,6 +46,7 @@
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'UA-37564768-1');
+            var communitiess;
         </script>
     </head>
     <body  id="kt_body"  class="quick-panel-right demo-panel-right offcanvas-right header-fixed subheader-enabled page-loading"  >

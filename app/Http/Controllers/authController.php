@@ -132,6 +132,7 @@ class authController extends Controller
             'leveledit' => $_POST['leveledit'],
             'levelreport' => $_POST['levelreport'],
             'levelcompany' => $_POST['levelcompany'],
+            'leveladd' => $_POST['leveladd'],
             'leveluser' => $_POST['leveluser']
         );
         

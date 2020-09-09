@@ -95,15 +95,26 @@ class HomeController extends Controller
         $Sessionuserinfo = Session::get('session');
 
         $infoarr = explode(",", $Sessionuserinfo);
-        $user_level = DB::table('logins')
+        $userData = DB::table('logins')
                 ->leftjoin('users', 'logins.user_id','=','users.id')
                 ->where('logins.username','=',$infoarr[0])
                 ->where('logins.encrypted','=',$infoarr[1])
-                ->get(['leveluser', 'community_id'])->toArray();
-
-        if($user_level[0]->leveluser == 1) {
+                ->get(
+                    'users.*'
+                )->toArray();
+        if($userData[0]->leveluser != 3) {
             $result = json_decode(
-                $users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->where(['community_id' => $user_level[0]->community_id])->get([ 'users.*','logins.*'])
+                $users->leftJoin('logins', 'users.id', '=', 'logins.user_id')
+                ->where(
+                    [
+                        'community_id' => $userData[0]->community_id,
+                        'leveledit' => $userData[0]->leveledit,
+                        'levelreport' => $userData[0]->levelreport,
+                        'levelcompany' => $userData[0]->levelcompany,
+                        'leveladd' => $userData[0]->leveladd
+                    ]
+                )
+                ->get([ 'users.*','logins.*'])
             );
         } else {
             $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.*','logins.*']));
@@ -115,7 +126,7 @@ class HomeController extends Controller
 
         $arr = ['success', 'danger', 'warning', 'primary'];
         $iNum = 0;
-        
+
         usort($result, array($this,'cmp1'));
 
         if(Session::get('session') == null) {
@@ -128,7 +139,8 @@ class HomeController extends Controller
                 'arr',
                 'Communities',
                 'users',
-                'logins'
+                'logins',
+                'userData'
             ));
         }
     }
