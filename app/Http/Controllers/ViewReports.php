@@ -326,7 +326,12 @@ class ViewReports extends Controller
         $moveouts = new moveouts;
         $buildings = new buildings;
 
-        $reportsData = $reports->where(['community_id' => $_POST['community_id'], 'period_id' => $_POST['period_id']])->get()->toArray()[0];
+        $reportsData = $reports->where(['community_id' => $_POST['community_id'], 'period_id' => $_POST['period_id']])->get()->toArray();
+        if(count($reportsData) > 0) {
+            $reportsData = $reportsData[0];
+        } else {
+            return redirect()->back(); 
+        }
         $reports->where(['community_id' => $_POST['community_id'], 'period_id' => $_POST['period_id']])->update(['edit_time' => date('Y-m-d')]);
         // Community_id and period_id
 
@@ -355,8 +360,18 @@ class ViewReports extends Controller
 
         // periods
         $periods = new periods;
+        $sessioninfo = Session::get('session');
+        $infos = explode(',', $sessioninfo);
+        $userData = DB::table('users')->leftjoin('logins', 'users.id', '=', 'logins.user_id')
+        ->where('logins.username', '=', $infos[0])
+        ->where('logins.encrypted', '=', $infos[1])
+        ->get(
+            array(
+                'users.*'
+            )
+        )->toArray();
 
-        return view('EditAction', compact('reportsData', 'CCD', 'ID', 'MD', 'BD', 'CI', 'PI', 'viewitems', 'info', 'periods'));
+        return view('EditAction', compact('reportsData', 'CCD', 'ID', 'MD', 'BD', 'CI', 'PI', 'viewitems', 'info', 'periods', 'userData'));
     }
 
     public function savedata() {

@@ -48,57 +48,90 @@
 						@foreach ($CCD as $key => $item)
 							<tr>
 								<td class="w-30">
-									<div class="dropdown bootstrap-select form-control EditactionCencaps">
-										<select class="form-control selectpicker" data-live-search="true" tabindex="null">
+									@if($userData[0]->leveledit > 2 || $userData[0]->leveluser == 3)
+										<div class="dropdown bootstrap-select form-control EditactionCencaps">
+											<select class="form-control selectpicker" data-live-search="true" tabindex="null">
+												@foreach ($BD as $bitem)
+													@if($item->building_id == $bitem->id)
+														<option data-tokens="mustard" selected="selected" cId="{{ $bitem->id }}">
+															{{ $bitem->name }}
+														</option>
+													@else
+														<option data-tokens="mustard" cId="{{ $bitem->id }}">
+															{{ $bitem->name }}
+														</option>
+													@endif
+												@endforeach
+											</select>
+										</div>
+									@else
+										<div class="dropdown bootstrap-select form-control EditactionCencaps">
 											@foreach ($BD as $bitem)
 												@if($item->building_id == $bitem->id)
-													<option data-tokens="mustard" selected="selected" cId="{{ $bitem->id }}">
-														{{ $bitem->name }}
-													</option>
-												@else
-													<option data-tokens="mustard" cId="{{ $bitem->id }}">
-														{{ $bitem->name }}
-													</option>
+													<button type="button" tabindex="-1" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="true" title="Cottage">
+														<div class="filter-option">
+															<div class="filter-option-inner">
+																<div class="filter-option-inner-inner">{{ $bitem->name }}</div>
+															</div>
+														</div>
+													</button>
 												@endif
 											@endforeach
-										</select>
-									</div>
-									<input value="{{ $item->building_id }}" name="_buildingid,{{ $key }},old" class="dn bId">
+										</div>
+									@endif
+									
+									@if($userData[0]->leveledit > 2 || $userData[0]->leveluser == 3)
+										<input value="{{ $item->building_id }}" name="_buildingid,{{ $key }},old" class="dn bId">
+									@else
+										<input value="{{ $item->building_id }}" readonly="true" name="_buildingid,{{ $key }},old" class="dn bId">
+									@endif
 								</td>
 								<td class="w-30">
-									<input value="{{ $item->census }}" name="_census,{{ $key }},old" class="form-control form-control-solid">
+									@if($userData[0]->leveledit > 2 || $userData[0]->leveluser == 3) 
+										<input value="{{ $item->census }}" name="_census,{{ $key }},old" class="form-control form-control-solid">
+									@else
+										<input value="{{ $item->census }}" name="_census,{{ $key }},old" readonly="true" class="form-control form-control-solid">
+									@endif
 								</td>
 								<td class="w-30">
-									<input value="{{ $item->capacity }}" name="_capacity,{{ $key }},old" class="form-control form-control-solid">
+									@if($userData[0]->leveledit > 2 || $userData[0]->leveluser == 3) 
+										<input value="{{ $item->capacity }}" name="_capacity,{{ $key }},old" class="form-control form-control-solid">
+									@else
+										<input value="{{ $item->capacity }}" name="_capacity,{{ $key }},old" readonly="true" class="form-control form-control-solid">
+									@endif
 								</td>
-								<td class="w-10">
-									<a class="btn btn-sm btn-clean btn-icon debtn_1" href="javascript:;" title="Delete">
-										<span class="svg-icon svg-icon-md">
-											<svg height="24px" version="1.1" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
-												<g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">
-													<rect height="24" width="24" x="0" y="0"></rect>
-													<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#000000" fill-rule="nonzero"></path>
-													<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"></path>
-												</g>
-											</svg>
-										</span>
-									</a>
-								</td>
+								@if($userData[0]->leveledit > 2 || $userData[0]->leveluser == 3)
+									<td class="w-10">
+										<a class="btn btn-sm btn-clean btn-icon debtn_1" href="javascript:;" title="Delete">
+											<span class="svg-icon svg-icon-md">
+												<svg height="24px" version="1.1" viewbox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg">
+													<g fill="none" fill-rule="evenodd" stroke="none" stroke-width="1">
+														<rect height="24" width="24" x="0" y="0"></rect>
+														<path d="M6,8 L6,20.5 C6,21.3284271 6.67157288,22 7.5,22 L16.5,22 C17.3284271,22 18,21.3284271 18,20.5 L18,8 L6,8 Z" fill="#000000" fill-rule="nonzero"></path>
+														<path d="M14,4.5 L14,4 C14,3.44771525 13.5522847,3 13,3 L11,3 C10.4477153,3 10,3.44771525 10,4 L10,4.5 L5.5,4.5 C5.22385763,4.5 5,4.72385763 5,5 L5,5.5 C5,5.77614237 5.22385763,6 5.5,6 L18.5,6 C18.7761424,6 19,5.77614237 19,5.5 L19,5 C19,4.72385763 18.7761424,4.5 18.5,4.5 L14,4.5 Z" fill="#000000" opacity="0.3"></path>
+													</g>
+												</svg>
+											</span>
+										</a>
+									</td>
+								@endif
 							</tr>
 						@endforeach
 					</tbody>
 				</table>
-				<div class="row jcc hs">
-					<span class="svg-icon svg-icon-primary svg-icon-2x addbtn_1">
-						<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
-							<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-								<rect x="0" y="0" width="24" height="24"/>
-								<path d="M3.5,21 L20.5,21 C21.3284271,21 22,20.3284271 22,19.5 L22,8.5 C22,7.67157288 21.3284271,7 20.5,7 L10,7 L7.43933983,4.43933983 C7.15803526,4.15803526 6.77650439,4 6.37867966,4 L3.5,4 C2.67157288,4 2,4.67157288 2,5.5 L2,19.5 C2,20.3284271 2.67157288,21 3.5,21 Z" fill="#000000" opacity="0.3"/>
-								<path d="M11,13 L11,11 C11,10.4477153 11.4477153,10 12,10 C12.5522847,10 13,10.4477153 13,11 L13,13 L15,13 C15.5522847,13 16,13.4477153 16,14 C16,14.5522847 15.5522847,15 15,15 L13,15 L13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 L11,15 L9,15 C8.44771525,15 8,14.5522847 8,14 C8,13.4477153 8.44771525,13 9,13 L11,13 Z" fill="#000000"/>
-							</g>
-						</svg>
-					</span>
-				</div>
+				@if($userData[0]->leveledit > 2 || $userData[0]->leveluser == 3)
+					<div class="row jcc hs">
+						<span class="svg-icon svg-icon-primary svg-icon-2x addbtn_1">
+							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
+								<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+									<rect x="0" y="0" width="24" height="24"/>
+									<path d="M3.5,21 L20.5,21 C21.3284271,21 22,20.3284271 22,19.5 L22,8.5 C22,7.67157288 21.3284271,7 20.5,7 L10,7 L7.43933983,4.43933983 C7.15803526,4.15803526 6.77650439,4 6.37867966,4 L3.5,4 C2.67157288,4 2,4.67157288 2,5.5 L2,19.5 C2,20.3284271 2.67157288,21 3.5,21 Z" fill="#000000" opacity="0.3"/>
+									<path d="M11,13 L11,11 C11,10.4477153 11.4477153,10 12,10 C12.5522847,10 13,10.4477153 13,11 L13,13 L15,13 C15.5522847,13 16,13.4477153 16,14 C16,14.5522847 15.5522847,15 15,15 L13,15 L13,17 C13,17.5522847 12.5522847,18 12,18 C11.4477153,18 11,17.5522847 11,17 L11,15 L9,15 C8.44771525,15 8,14.5522847 8,14 C8,13.4477153 8.44771525,13 9,13 L11,13 Z" fill="#000000"/>
+								</g>
+							</svg>
+						</span>
+					</div>
+				@endif
 			</div>
 		</div>
 	@endif

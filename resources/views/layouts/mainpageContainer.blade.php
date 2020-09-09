@@ -7,6 +7,16 @@
     $viewitems = ( new Communities )->get();
     $perioditems = ( new periods )->orderBy('id','desc')->limit(48)->get();
     $oneItem = json_decode($perioditems);
+    $sessioninfo = Session::get('session');
+    $infos = explode(',', $sessioninfo);
+    $userData = DB::table('users')->leftjoin('logins', 'users.id', '=', 'logins.user_id')
+        ->where('logins.username', '=', $infos[0])
+        ->where('logins.encrypted', '=', $infos[1])
+        ->get(
+            array(
+                'users.*'
+            )
+        )->toArray();
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -82,75 +92,82 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 my-2 my-md-0">
-                    <div class="input-icon">
-                        <input name="period_id" class="dn period_id">
-                        <input class="dn submitInput" type="submit">
-                        <button class="ViewReportsOne goBtn btn-rounded" option1="community_id" type="button">
-                            <span class="iconify" data-icon="logos:go" data-inline="false"></span>
-                        </button>
+                @if($userData[0]->levelreport >= 1 || $userData[0]->leveluser == 3)
+                    <div class="col-md-3 my-2 my-md-0">
+                        <div class="input-icon">
+                            <input name="period_id" class="dn period_id">
+                            <input class="dn submitInput" type="submit">
+                            <button class="ViewReportsOne goBtn btn-rounded" option1="community_id" type="button">
+                                <span class="iconify" data-icon="logos:go" data-inline="false"></span>
+                            </button>
+                        </div>
                     </div>
-                </div>
-                <div class="col-md-3 my-2 my-md-0">
-                    <div class="input-icon">
-                        <input class="dn submitInput" type="submit">
-                        <button class="ViewReportsOne goBtn btn-rounded" type="button" option="edit" option1="community_id" style="color: #00acd7 !important;">
-                            Edit
-                        </button>
+                @else
+                    <div><div><input name="period_id" class="dn period_id"></div></div>
+                @endif
+                @if($userData[0]->leveledit >= 2 || $userData[0]->leveluser == 3)
+                    <div class="col-md-3 my-2 my-md-0">
+                        <div class="input-icon">
+                            <input class="dn submitInput" type="submit">
+                            <button class="ViewReportsOne goBtn btn-rounded" type="button" option="edit" option1="community_id" style="color: #00acd7 !important;">
+                                Edit
+                            </button>
+                        </div>
                     </div>
-                </div>
+                @endif
             </div>
         </form>
     </div>
 </div>
-
-<div class="col-xl-10 ContentBar">
-    <div class="col-lg-12 col-xl-12">
-        <form action="/reportSummarySecond" method="post">
-            @csrf
-            <div class="row align-items-center">
-                
-                <div class="col-md-6 my-2 my-md-0">
-                    <div class="d-flex align-items-center">
-                        <label class="mr-3 mb-0 d-none d-md-block">View</label>
-                        <div class="dropdown bootstrap-select form-control">
+@if($userData[0]->levelreport >= 1 || $userData[0]->leveluser == 3)
+    <div class="col-xl-10 ContentBar">
+        <div class="col-lg-12 col-xl-12">
+            <form action="/reportSummarySecond" method="post">
+                @csrf
+                <div class="row align-items-center">
+                    
+                    <div class="col-md-6 my-2 my-md-0">
+                        <div class="d-flex align-items-center">
+                            <label class="mr-3 mb-0 d-none d-md-block">View</label>
                             <div class="dropdown bootstrap-select form-control">
-                                <div class="row">
-                                    <div class="col-lg-4 col-md-9 col-sm-12">
-                                        <div class="dropdown bootstrap-select form-control dropdownC">
-                                            @foreach ($viewitems as $key => $item)
-                                                @if ($key == 0)
-                                                    <input name="community_id" value={{ $item->id }} class="dn com">
-                                                @endif
-                                            @endforeach
-                                            <select class="form-control selectpicker" data-live-search="true" tabindex="null">
-                                                @foreach ($viewitems as $item)
-                                                    <option data-tokens="mustard">
-                                                        {{ $item->name }}
-                                                    </option>
+                                <div class="dropdown bootstrap-select form-control">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-md-9 col-sm-12">
+                                            <div class="dropdown bootstrap-select form-control dropdownC">
+                                                @foreach ($viewitems as $key => $item)
+                                                    @if ($key == 0)
+                                                        <input name="community_id" value={{ $item->id }} class="dn com">
+                                                    @endif
                                                 @endforeach
-                                            </select>
+                                                <select class="form-control selectpicker" data-live-search="true" tabindex="null">
+                                                    @foreach ($viewitems as $item)
+                                                        <option data-tokens="mustard">
+                                                            {{ $item->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-3 my-2 my-md-0">
-                    <div class="input-icon">
-                        <input name="period_id_from" class="dn">
-                        <input name="period_id_to" class="dn">
-                        <input class="dn submitInput1" type="submit">
-                        <button class="goBtn btn-rounded" type="button" option1="community_id">
-                            <span class="iconify" data-icon="logos:go" data-inline="false"></span>
-                        </button>
+                    <div class="col-md-3 my-2 my-md-0">
+                        <div class="input-icon">
+                            <input name="period_id_from" class="dn">
+                            <input name="period_id_to" class="dn">
+                            <input class="dn submitInput1" type="submit">
+                            <button class="goBtn btn-rounded" type="button" option1="community_id">
+                                <span class="iconify" data-icon="logos:go" data-inline="false"></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
+@endif
 <div class="col-xl-10 TitleHeaderBar">
     <h3 class="landingtitle">Company Reports</h3>
 </div>
@@ -203,5 +220,4 @@
         </form>
     </div>
 </div>
-
 @endsection
