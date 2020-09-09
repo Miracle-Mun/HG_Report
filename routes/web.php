@@ -54,6 +54,7 @@ Route::post('/savedata', 'ViewReports@savedata')->middleware('CheckSession');
 Route::post('/removeinquries', 'ViewReports@removeinquries')->middleware('CheckSession');
 Route::post('/removemoveouts', 'ViewReports@removemoveouts')->middleware('CheckSession');
 Route::post('/removecc', 'ViewReports@removecc')->middleware('CheckSession');
+Route::post('/editprofile', 'ViewReports@editprofile')->middleware('CheckSession');
 
 
 // Create file upload form

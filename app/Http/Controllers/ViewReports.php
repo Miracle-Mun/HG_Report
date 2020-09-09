@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Session;
+use App\model\users;
+use App\model\logins;
 use App\model\reports;
 use App\model\periods;
 use App\model\cencaps;
@@ -463,6 +465,27 @@ class ViewReports extends Controller
         $cencaps = new cencaps;
         $cencaps->where(['report_id' => $_POST['report_id'], 'building_id' =>  $_POST['building_id'], 'census' => $_POST['census'], 'capacity' =>  $_POST['capacity']])->delete();
         print_r('sccuss');
+    }
+    public function editprofile()
+    {
+        $id = DB::table('users')->leftjoin('logins', 'users.id', '=', 'logins.user_id')
+        ->where('users.email', '=', $_POST['oldemail'])
+        ->where('logins.username', '=', $_POST['oldname'])
+        ->get(
+            array(
+                'users.id'
+            )
+        )->toArray();
+        if(count($id) > 0) {
+            $_POST['value1'];
+            $pass = explode(',',Session::get('session'))[1];
+            Session::put('session', $_POST['value1'].','.$pass);
+            $users = new users;
+            $logins = new logins;
+            $users->where('id', '=', $id[0]->id)->update(array('email' => $_POST['value2']));
+            $logins->where('user_id', '=', $id[0]->id)->update(array('username' => $_POST['value1']));
+            // Session::put('session', $_POST['username']. ','. $password);
+        }
     }
 }
 

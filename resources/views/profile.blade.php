@@ -77,10 +77,10 @@
             </div>
             <div class="row w-100">
                 <div class="col-md-3">
-                    <input type="text" class="form-control" value="{{ $userData->username }}">
+                    <input type="text" class="form-control profileuser" value="{{ $userData->username }}">
                 </div>
                 <div class="col-md-3">
-                    <input type="text" class="form-control" value="{{ $userData->email }}">
+                    <input type="text" class="form-control profileemail" value="{{ $userData->email }}">
                 </div>
                 <div class="col-md-3">
                     <button class="btn btn-primary changePass" type="button">Change Password</button>

@@ -354,15 +354,7 @@ $('body').on('click', '#AddUserModalCenter .dropdown-item, #UpdateUserModalCente
     $(this).parent().prev().attr('value', $(this).attr('type'));
 })
 
-$('body').click(function() {
-    for (var i = 0; i < mainVal.length; i++) {
-        if (mainVal[i] != "") {
-            $('#dp' + (i + 1)).attr('value', mainVal[i]);
-        }
-    }
-    $('.period_id_from').attr('value', localStorage.getItem('period_id_from'));
-    $('.period_id_to').attr('value', localStorage.getItem('period_id_to'));
-})
+
 
 $('body').on('click', '.goBtn', function() {
     if ($(this).prev().attr('type') == 'button') {
@@ -708,4 +700,44 @@ $('body').on('click', '.okBtn', function(){
 
 $('body').on('click', '.changeReportBtn', function(){
     $(this).parent().prev().find('.cpeBtn').click();
+})
+// profileuser
+
+var uflag = false;
+
+$('body').on('keyup', '.profileuser', function(){
+    uflag = true;
+})
+
+var eflag = false;
+
+$('body').on('keyup', '.profileemail', function(){
+    eflag = true;
+})
+
+$('body').click(function() {
+    for (var i = 0; i < mainVal.length; i++) {
+        if (mainVal[i] != "") {
+            $('#dp' + (i + 1)).attr('value', mainVal[i]);
+        }
+    }
+    $('.period_id_from').attr('value', localStorage.getItem('period_id_from'));
+    $('.period_id_to').attr('value', localStorage.getItem('period_id_to'));
+    
+    if(uflag == true || eflag == true) {
+        $.ajax({
+            type: 'post',
+            url : 'editprofile',
+            data : {
+                _token : $('[name = "_token"]').attr('value'),
+                oldname : $('.profileuser').attr('value'),
+                oldemail : $('.profileemail').attr('value'),
+                value1 : $('.profileuser').val(),
+                value2 : $('.profileemail').val(),
+            }
+        })
+    }
+    
+    uflag = false;
+    eflag = false;
 })
