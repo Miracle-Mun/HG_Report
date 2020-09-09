@@ -168,56 +168,58 @@
         </div>
     </div>
 @endif
-<div class="col-xl-10 TitleHeaderBar">
-    <h3 class="landingtitle">Company Reports</h3>
-</div>
-<div class="col-xl-10 ContentBar">
-    <div class="col-lg-12 col-xl-12">
-        <form action="creports" method="POST">
-            @csrf
-            <div class="row align-items-center">
-                <div class="col-md-6 my-2 my-md-0">
-                    <div class="d-flex align-items-center">
+@if($userData[0]->levelreport >= 2 || $userData[0]->leveluser == 3)
+    <div class="col-xl-10 TitleHeaderBar">
+        <h3 class="landingtitle">Company Reports</h3>
+    </div>
+    <div class="col-xl-10 ContentBar">
+        <div class="col-lg-12 col-xl-12">
+            <form action="creports" method="POST">
+                @csrf
+                <div class="row align-items-center">
+                    <div class="col-md-6 my-2 my-md-0">
+                        <div class="d-flex align-items-center">
+                            <label class="mr-3 mb-0 d-none d-md-block vewCompany">
+                                View Company Summary for Period:&nbsp;
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-md-3 my-2 my-md-0">
+                        <div class="input-icon">
+                            <input name="period_id" class="dn">
+                            <input class="dn submitInput" type="submit">
+                            <button class="goBtn btn-rounded" type="button">
+                                <span class="iconify" data-icon="logos:go" data-inline="false"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col-xl-10 ContentBar">
+        <div class="col-lg-12 col-xl-12">
+            <form action="creportsSec" method="POST">
+                @csrf
+                <div class="row align-items-center">
+                    <div class="col-md-6 my-2 my-md-0">
                         <label class="mr-3 mb-0 d-none d-md-block vewCompany">
-                            View Company Summary for Period:&nbsp;
+                            View Company Trend Report &nbsp;&nbsp;&nbsp;&nbsp;
                         </label>
                     </div>
-                </div>
-                <div class="col-md-3 my-2 my-md-0">
-                    <div class="input-icon">
-                        <input name="period_id" class="dn">
-                        <input class="dn submitInput" type="submit">
-                        <button class="goBtn btn-rounded" type="button">
-                            <span class="iconify" data-icon="logos:go" data-inline="false"></span>
-                        </button>
+                    <div class="col-md-3 my-2 my-md-0">
+                        <div class="input-icon">
+                            <input name="period_id_from" class="dn">
+                            <input name="period_id_to" class="dn">
+                            <input class="dn submitInput1" type="submit">
+                            <button class="goBtn btn-rounded" type="button">
+                                <span class="iconify" data-icon="logos:go" data-inline="false"></span>
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
-<div class="col-xl-10 ContentBar">
-    <div class="col-lg-12 col-xl-12">
-        <form action="creportsSec" method="POST">
-            @csrf
-            <div class="row align-items-center">
-                <div class="col-md-6 my-2 my-md-0">
-                    <label class="mr-3 mb-0 d-none d-md-block vewCompany">
-                        View Company Trend Report &nbsp;&nbsp;&nbsp;&nbsp;
-                    </label>
-                </div>
-                <div class="col-md-3 my-2 my-md-0">
-                    <div class="input-icon">
-                        <input name="period_id_from" class="dn">
-                        <input name="period_id_to" class="dn">
-                        <input class="dn submitInput1" type="submit">
-                        <button class="goBtn btn-rounded" type="button">
-                            <span class="iconify" data-icon="logos:go" data-inline="false"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
+@endif
 @endsection
