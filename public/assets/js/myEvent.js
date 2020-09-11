@@ -378,7 +378,7 @@ $('body').on('click', '.goBtn', function() {
             var exDfrom = $('.period_id_from').attr('date');
             $(this).prev().prev().prev().attr('value', exDfrom);
             var exDto = $('.period_id_to').attr('date');
-            $(this).prev().prev().attr('value', exDfrom);
+            $(this).prev().prev().attr('value', exDto);
         }
         if ($(this).attr('option') == 'edit') {
             var exD = $('.period_id_from').attr('date') || $('.period_id_to').attr('date');
