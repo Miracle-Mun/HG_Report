@@ -21,12 +21,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     var df =  "<?php echo $oneItem[0]->caption; ?>";
+    var df1 =  "<?php echo $oneItem[0]->id; ?>";
     var dt =  "<?php echo $oneItem[0]->caption; ?>";
+    var dt1 =  "<?php echo $oneItem[0]->id; ?>";
     if(localStorage.getItem('period_id_from') == "" || localStorage.getItem('period_id_from') == null || localStorage.getItem('period_id_from') == 'Select correct date' ) {
         localStorage.setItem('period_id_from', df);
+        localStorage.setItem('period_id_from1', df1);
     }
     if(localStorage.getItem('period_id_to') == "" || localStorage.getItem('period_id_to') == null || localStorage.getItem('period_id_to') == 'Select correct date' ) {
         localStorage.setItem('period_id_to', dt);
+        localStorage.setItem('period_id_to1', dt1);
     }
 </script>
 <script> 
@@ -54,7 +58,9 @@
 </div>
 <script>
     $('.period_id_from').attr('value', localStorage.getItem('period_id_from'));
-    $('.period_id_to').attr('value', localStorage.getItem('period_id_to'));    
+    $('.period_id_from').attr('date', localStorage.getItem('period_id_from1'));
+    $('.period_id_to').attr('value', localStorage.getItem('period_id_to'));
+    $('.period_id_to').attr('date', localStorage.getItem('period_id_to1'));
 </script>
 <div class="col-xl-10 TitleHeaderBar">
     <h3 class="landingtitle">View Reports for Any Community</h3>
@@ -67,7 +73,7 @@
             <div class="row align-items-center">
                 <div class="col-md-6 my-2 my-md-0">
                     <div class="d-flex align-items-center">
-                        <label class="mr-3 mb-0 d-none d-md-block">View</label>
+                        <label class="mr-3 mb-0 d-none d-md-block" style="width: 25%;">View</label>
                         <div class="dropdown bootstrap-select form-control">
                             <div class="dropdown bootstrap-select form-control">
                                 <div class="row">
@@ -128,7 +134,7 @@
                     
                     <div class="col-md-6 my-2 my-md-0">
                         <div class="d-flex align-items-center">
-                            <label class="mr-3 mb-0 d-none d-md-block">View</label>
+                            <label class="mr-3 mb-0 d-none d-md-block" style="width: 25%;">Trend Report</label>
                             <div class="dropdown bootstrap-select form-control">
                                 <div class="dropdown bootstrap-select form-control">
                                     <div class="row">

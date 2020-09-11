@@ -8,11 +8,11 @@
                 <div id="kt_header_menu" class="header-menu header-menu-left header-menu-mobile  header-menu-layout-default ">
                     <ul class="menu-nav ">
                         <?php
+                            $Sessionuserinfo = Session::get('session');
+                            $infoarr = explode(",", $Sessionuserinfo);
                             try {
-                                $Sessionuserinfo = Session::get('session');
                                 $RealName = $RealCom = '';
                                 if($Sessionuserinfo) {
-                                    $infoarr = explode(",", $Sessionuserinfo);
                                     $myInfo = DB::table('logins')->where(['username' => $infoarr[0], 'encrypted' => $infoarr[1]])->get('user_id');
                                     $userId = json_decode($myInfo)[0]->user_id;
                                     $RealName = json_decode(DB::table('users')->where('id', $userId)->get())[0]->name;
@@ -23,9 +23,6 @@
                                 Session::forget('session');
                                 Session::flash('sessiondestroy','true');
                             }
-
-                            $Sessionuserinfo = Session::get('session');
-                            $infoarr = explode(",", $Sessionuserinfo);
                                 $user_level = DB::table('logins')
                                         ->leftjoin('users', 'logins.user_id','=','users.id')
                                         ->where('logins.username','=',$infoarr[0])

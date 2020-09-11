@@ -120,6 +120,7 @@ class HomeController extends Controller
             $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.*','logins.*']));
         }
 
+        // dd($result);
         foreach ($result as $key => $value) {
             $value->community = json_decode($Communities->where(['id'=>$value->community_id])->get())[0]->name;
         }

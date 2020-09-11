@@ -116,6 +116,7 @@ async function setValFrom(val) {
             $('.submitInput').next().attr('style', 'background: var(--main-color-one) !important;');
         }
         localStorage.setItem('period_id_from', finalVal['caption']);
+        localStorage.setItem('period_id_from1', finalVal['id']);
         $(val).attr({ 'value': finalVal['caption'], 'date': finalVal['id'] });
     }
     $('body').click();
@@ -155,6 +156,7 @@ async function setValTo(val) {
             $('.submitInput').next().attr('style', 'background: var(--main-color-one) !important;');
         }
         localStorage.setItem('period_id_to', finalVal['caption']);
+        localStorage.setItem('period_id_to1', finalVal['id']);
         $(val).attr({ 'value': finalVal['caption'], 'date': finalVal['id'] });
     }
     $('body').click();
@@ -732,7 +734,9 @@ $('body').click(function() {
         }
     }
     $('.period_id_from').attr('value', localStorage.getItem('period_id_from'));
+    $('.period_id_from').attr('date', localStorage.getItem('period_id_from1'));
     $('.period_id_to').attr('value', localStorage.getItem('period_id_to'));
+    $('.period_id_to').attr('date', localStorage.getItem('period_id_to1'));
     
     if(uflag == true || eflag == true) {
         $.ajax({

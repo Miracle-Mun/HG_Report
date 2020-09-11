@@ -19,7 +19,7 @@
                 </h3>
             </div>
         </div>
-        @if ($userData[0]->leveladd != 0)
+        @if ($userData[0]->leveladd != 0 || $userData[0]->leveluser == 3)
             <div class="card-toolbar">
                 <!--begin::Button-->
                 <a href="#" class="btn-rounded font-weight-bolder newUser">

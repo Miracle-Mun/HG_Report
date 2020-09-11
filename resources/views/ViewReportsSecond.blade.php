@@ -104,7 +104,9 @@
                             @foreach ($AllArr[0] as $mainkey => $one)
                                 <?php $allSum = 0; ?>
                                 @foreach ($AllArr as $key_val => $Arr)
-                                    <?php $allSum += $AllArr[$key_val][$mainkey]; ?>
+                                    @if(isset($AllArr[$key_val][$mainkey])) 
+                                        <?php $allSum += $AllArr[$key_val][$mainkey]; ?>
+                                    @endif
                                 @endforeach
                                 <?php array_push($sumArrFinal, $allSum); ?>
                                 <td>{{ $allSum }}</td>
@@ -137,7 +139,9 @@
                             @foreach ($AllArr[0] as $mainkey => $one)
                                 <?php $allSum = 0; ?>
                                 @foreach ($AllArr as $key_val => $Arr)
-                                    <?php $allSum += $AllArr[$key_val][$mainkey]; ?>
+                                    @if(isset($AllArr[$key_val][$mainkey])) 
+                                        <?php $allSum += $AllArr[$key_val][$mainkey]; ?>
+                                    @endif
                                 @endforeach
                                 <?php $sumArrFinal[$mainkey] = number_format( 100 * $sumArrFinal[$mainkey] / $allSum, 2, '.', "") ; ?>
                                 <td>{{ $allSum }}</td>
