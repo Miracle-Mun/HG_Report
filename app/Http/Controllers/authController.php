@@ -57,7 +57,9 @@ class authController extends Controller
             return redirect()->back();
         }
 
-        $_POST['community_id'] = (int)$_POST['community_id'] + 1;
+        if((int)$_POST['community_id'] == 0) {
+            $_POST['community_id'] = (int)$_POST['community_id'] + 1;
+        }
 
         $user = array(
             'name' => $_POST['name'],
