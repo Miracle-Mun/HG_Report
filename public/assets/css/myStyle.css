@@ -342,6 +342,10 @@ tbody tr:nth-child(1) {
 
 /* class */
 
+.f-s-16 {
+    font-size: 16px !important;
+}
+
 .w100 {
     width: 100% !important;
 }
