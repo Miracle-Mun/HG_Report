@@ -138,7 +138,7 @@
         </script>
         <!--end::Global Config-->
         <!--begin::Global Theme Bundle(used by all pages)-->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="/assets/js/jquery.min.js"></script>
         <script src="assets/plugins/global/plugins.bundle79e8.js?v=7.0.3"></script>
         <script src="assets/plugins/custom/prismjs/prismjs.bundle79e8.js?v=7.0.3"></script>
         <script src="assets/js/scripts.bundle79e8.js?v=7.0.3"></script>

@@ -342,6 +342,10 @@ tbody tr:nth-child(1) {
 
 /* class */
 
+.di {
+    display: inline-block !important;
+}
+
 .f-s-16 {
     font-size: 16px !important;
 }

@@ -47,6 +47,7 @@ Route::post('/creportsSec', 'ViewReports@getinfocreportsSecond')->middleware('Ch
 
 // getDateinfo
 Route::post('/getDateinfo', 'ViewReports@getDateinfo')->middleware('CheckSession');
+Route::post('/getchartinfodata', 'ViewReports@getchartinfodata')->middleware('CheckSession');
 
 // Edit action
 Route::post('/editaction', 'ViewReports@editaction')->middleware('CheckSession');

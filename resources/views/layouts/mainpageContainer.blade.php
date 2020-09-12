@@ -18,7 +18,7 @@
             )
         )->toArray();
 ?>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/assets/js/jquery.min.js"></script>
 <script>
     var df =  "<?php echo $oneItem[0]->caption; ?>";
     var df1 =  "<?php echo $oneItem[0]->id; ?>";
@@ -36,6 +36,9 @@
 <script> 
     var communities = <?php echo $viewitems; ?>;
 </script>
+<div class="col-xl-12 TitleHeaderBar">
+    <hr>
+</div>
 <div class="row jcfe w-100">
     <div class="col-md-3 my-2 my-md-0">
         <div class="d-flex align-items-center">
@@ -175,7 +178,7 @@
     </div>
 @endif
 @if($userData[0]->levelreport >= 2 || $userData[0]->leveluser == 3)
-    <div class="col-xl-10 TitleHeaderBar">
+    <div class="col-xl-12 TitleHeaderBar">
         <h3 class="landingtitle">Company Reports</h3>
     </div>
     <div class="col-xl-10 ContentBar">
@@ -228,4 +231,21 @@
         </div>
     </div>
 @endif
+<div class="col-xl-12">
+    <div class="col-xl-12 TitleHeaderBar">
+        <hr>
+    </div>
+    <div class="col-md-5 di">
+        <h3> <span style="color: #8950FC !important;">Current</span> <span style="color:#1BC5BD !important;">Census</span></h3>
+        <div id="chart_12" class="d-flex justify-content-center"></div>
+    </div>
+    <div class="col-md-6 di">
+        <h3> <span style="color: #1BC5BD !important;">Census</span> vs <span style="color:#8950FC !important;">Capacity</span></h3>
+        <div id="chart_3"></div>
+    </div>
+    <div class="col-xl-12 TitleHeaderBar">
+        <hr>
+    </div>
+</div>
+
 @endsection

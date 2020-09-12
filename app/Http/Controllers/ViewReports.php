@@ -511,5 +511,19 @@ class ViewReports extends Controller
             // Session::put('session', $_POST['username']. ','. $password);
         }
     }
+    public function getchartinfodata()
+    {
+        $cencaps = new cencaps;
+        $buildings = (new buildings)->get('name')->toArray();
+        $currentCensus = $cencaps
+        ->leftjoin('buildings', 'buildings.id', '=', 'cencaps.building_id')
+        ->take('500')
+        ->orderBy('report_id')
+        ->get()->toArray();
+        return compact(
+            'currentCensus',
+            'buildings'
+        );
+    }
 }
 

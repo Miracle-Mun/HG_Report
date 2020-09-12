@@ -28,7 +28,129 @@ try {
             disableWeekends(this.picker);
         };
     }
+    
 } catch {}
+
+const primary = "#6993FF",
+	success = "#1BC5BD",
+	info = "#8950FC",
+	warning = "#FFA800",
+    danger = "#F64E60";
+var realFlag = false;
+function chartDraw() {
+    try {
+        $.ajax({
+            url: '/getchartinfodata',
+            type: 'POST',
+            data: {
+                _token: $("[name='_token']").val()
+            },
+            success: function(data) {
+                var currentCensus = data['currentCensus'];
+                var buildings = data['buildings'];
+                var seriesArr = [], buildingName = [];
+                for(var i = 0 ; i < buildings.length ; i++) {
+                    buildingName.push(buildings[i]['name']);
+                    seriesArr.push(currentCensus.filter(item=>item.name == buildings[i]['name']).length);
+                }
+                var e = {
+                    series: seriesArr,
+                    chart: {
+                        width: 380,
+                        type: "pie"
+                    },
+                    labels: buildingName,
+                    responsive: [{
+                        breakpoint: 480,
+                        options: {
+                            chart: {
+                                width: 200
+                            },
+                            legend: {
+                                position: "left"
+                            }
+                        }
+                    }],
+                    colors: [primary, success, danger, info]
+                };
+                new ApexCharts(document.querySelector("#chart_12"), e).render();
+                var censusSum = [0,0,0,0], capacitySum = [0,0,0,0];
+        
+                for(var i = 0 ; i < currentCensus.length ; i++) {
+                    if(currentCensus[i]['building_id'] == 1) {
+                        censusSum[0] += currentCensus[i]['capacity'];
+                        capacitySum[0] += currentCensus[i]['census'];
+                    } else if (currentCensus[i]['building_id'] == 2) {
+                        censusSum[1] += currentCensus[i]['capacity'];
+                        capacitySum[1] += currentCensus[i]['census'];
+                    } else if (currentCensus[i]['building_id'] == 3) {
+                        censusSum[2] += currentCensus[i]['capacity'];
+                        capacitySum[2] += currentCensus[i]['census'];
+                    } else if (currentCensus[i]['building_id'] == 4) {
+                        censusSum[3] += currentCensus[i]['capacity'];
+                        capacitySum[3] += currentCensus[i]['census'];
+                    }
+                }
+        
+                var e1 = {
+                    series: [{
+                        name: "Current Census",
+                        data: censusSum
+                    }, {
+                        name: "Total capacity",
+                        data: capacitySum
+                    }],
+                    chart: {
+                        type: "bar",
+                        height: 500
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: !1,
+                            columnWidth: "55%",
+                            endingShape: "rounded"
+                        }
+                    },
+                    dataLabels: {
+                        enabled: !1
+                    },
+                    stroke: {
+                        show: !0,
+                        width: 2,
+                        colors: ["transparent"]
+                    },
+                    xaxis: {
+                        categories: buildingName
+                    },
+                    yaxis: {
+                        title: {
+                            text: ""
+                        }
+                    },
+                    fill: {
+                        opacity: 1
+                    },
+                    tooltip: {
+                        y: {
+                            formatter: function(e1) {
+                                return e1
+                            }
+                        }
+                    },
+                    colors: [primary, warning]
+                };
+                new ApexCharts(document.querySelector("#chart_3"), e1).render()
+        
+            }
+        })
+        realFlag = true;
+    } catch (error) {
+    }
+}
+
+if(realFlag == false) {
+    chartDraw();
+}
 
 var mainVal = ["", "", "", "", "", "", "", "", "", ""];
 

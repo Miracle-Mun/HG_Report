@@ -72,7 +72,7 @@
 	<link href="/assets/css/myStyle.css" rel="stylesheet" type="text/css"/>
 	<link href="/assets/css/newcss.css" rel="stylesheet" type="text/css"/>
 	<link href="/assets/css/front-end.css" rel="stylesheet" type="text/css"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/assets/js/jquery.min.js"></script>
 
 	<!-- Hotjar Tracking Code for keenthemes.com -->
 	<script>
