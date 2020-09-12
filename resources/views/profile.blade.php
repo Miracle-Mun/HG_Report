@@ -122,7 +122,7 @@
                 <div class="col-md-3">
                     <div class="card-label tac">
                         <span class="fwb">
-                            Last login : 
+                            last log in : 
                         </span>
                         <input type="text" class="form-control" disabled="disabled" value="last {{ $userData->login_num }}">
                     </div>

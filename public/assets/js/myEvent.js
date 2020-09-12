@@ -94,18 +94,16 @@ async function setValFrom(val) {
             $('.submitInput1').attr('type', 'button');
             $('.submitInput1').next().attr('style', 'background: #80808f !important;');
         }
-        if(localStorage.getItem('period_id_to') == "" || localStorage.getItem('period_id_to') == "Select correct date")  {
+        if(localStorage.getItem('period_id_to') == "" || localStorage.getItem('period_id_to') == "Select date")  {
             $('.submitInput').attr('type', 'button');
             $('.submitInput').next().attr('style', 'background: #80808f !important;');
             $('.submitInput1').attr('type', 'button');
             $('.submitInput1').next().attr('style', 'background: #80808f !important;');
-            $('.date-one').text("Select correct date");
         }
 
-        localStorage.setItem('period_id_from', 'Select correct date');
-        $('.date-from').text('Select correct date');
+        localStorage.setItem('period_id_from', 'Select date');
     } else {
-        if (localStorage.getItem('period_id_to') != "" && localStorage.getItem('period_id_to') != "Select correct date") {
+        if (localStorage.getItem('period_id_to') != "" && localStorage.getItem('period_id_to') != "Select date") {
             $('.submitInput1').attr('type', 'submit');
             $('.submitInput1').next().attr('style', 'background: var(--main-color-one) !important;');
 
@@ -117,8 +115,6 @@ async function setValFrom(val) {
             $('.submitInput').next().attr('style', 'background: var(--main-color-one) !important;');
         }
         localStorage.setItem('period_id_from', finalVal['caption']);
-        $('.date-from').text(finalVal['caption']);
-        $('.date-one').text(finalVal['caption']);
         localStorage.setItem('period_id_from1', finalVal['id']);
         $(val).attr({ 'value': finalVal['caption'], 'date': finalVal['id'] });
     }
@@ -137,19 +133,17 @@ async function setValTo(val) {
             $('.submitInput1').attr('type', 'button');
             $('.submitInput1').next().attr('style', 'background: #80808f !important;');
         }
-        if(localStorage.getItem('period_id_from') == "" || localStorage.getItem('period_id_from') == "Select correct date") {
+        if(localStorage.getItem('period_id_from') == "" || localStorage.getItem('period_id_from') == "Select date") {
             $('.submitInput').attr('type', 'button');
             $('.submitInput').next().attr('style', 'background: #80808f !important;');
             $('.submitInput1').attr('type', 'button');
             $('.submitInput1').next().attr('style', 'background: #80808f !important;');
-            $('.date-one').text("Select correct date");
         }
 
-        localStorage.setItem('period_id_to', 'Select correct date');
-        $('.date-to').text('Select correct date');
+        localStorage.setItem('period_id_to', 'Select date');
 
     } else {
-        if (localStorage.getItem('period_id_from') != "" && localStorage.getItem('period_id_from') != "Select correct date") {
+        if (localStorage.getItem('period_id_from') != "" && localStorage.getItem('period_id_from') != "Select date") {
             $('.submitInput1').attr('type', 'submit');
             $('.submitInput1').next().attr('style', 'background: var(--main-color-one) !important;');
 
@@ -161,8 +155,6 @@ async function setValTo(val) {
             $('.submitInput').next().attr('style', 'background: var(--main-color-one) !important;');
         }
         localStorage.setItem('period_id_to', finalVal['caption']);
-        $('.date-to').text(finalVal['caption']);
-        $('.date-one').text(finalVal['caption']);
         localStorage.setItem('period_id_to1', finalVal['id']);
         $(val).attr({ 'value': finalVal['caption'], 'date': finalVal['id'] });
     }
@@ -741,17 +733,13 @@ $('body').click(function() {
         }
     }
     $('.period_id_from').attr('value', localStorage.getItem('period_id_from'));
-    if(localStorage.getItem('period_id_from') != "Select correct date") {
-        $('.date-one').text(localStorage.getItem('period_id_from'));
+    if(localStorage.getItem('period_id_from') != "Select date") {
     }
     $('.period_id_from').attr('date', localStorage.getItem('period_id_from1'));
     $('.period_id_to').attr('value', localStorage.getItem('period_id_to'));
-    if(localStorage.getItem('period_id_to') != "Select correct date") {
-        $('.date-one').text(localStorage.getItem('period_id_to'));
+    if(localStorage.getItem('period_id_to') != "Select date") {
     }
     $('.period_id_to').attr('date', localStorage.getItem('period_id_to1'));
-    $('.date-from').text(localStorage.getItem('period_id_from'));
-    $('.date-to').text(localStorage.getItem('period_id_to'));
     
     if(uflag == true || eflag == true) {
         $.ajax({

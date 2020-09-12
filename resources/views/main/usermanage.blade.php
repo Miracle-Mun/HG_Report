@@ -260,13 +260,15 @@
                                         </select>
                                     </div>
                                 @else
-                                    <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="true" title="Bellingham">
-                                        <div class="filter-option">
-                                            <div class="filter-option-inner">
-                                                <div class="filter-option-inner-inner">Bellingham</div>
+                                    <div class="dropdown bootstrap-select form-control">
+                                        <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="true" title="Bellingham">
+                                            <div class="filter-option">
+                                                <div class="filter-option-inner">
+                                                    <div class="filter-option-inner-inner">Bellingham</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </button>
+                                        </button>
+                                    </div>
                                 @endif
                             </div>
                         </div>
@@ -457,7 +459,7 @@
                         <div class="form-group mb-5 communities mCommunity_id_value">
                             <div class="btn-group">
                                 {{-- <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administration</button> --}}
-                                <input style="display: none;" value="1" name="community_id" class="mLeveledit">
+                                <input style="display: none;" value="1" name="community_id">
                                 <?php $options = DB::table('communities')->get(['name', 'id']); ?>
                                 <script>communitiess = '<?php echo $options; ?>';</script>
                                 @if ($userData[0]->leveluser == 3)
@@ -476,13 +478,15 @@
                                         </select>
                                     </div>
                                 @else
-                                    <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="true" title="Bellingham">
-                                        <div class="filter-option">
-                                            <div class="filter-option-inner">
-                                                <div class="filter-option-inner-inner">Bellingham</div>
+                                    <div class="dropdown bootstrap-select form-control">
+                                        <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="true" title="Bellingham">
+                                            <div class="filter-option">
+                                                <div class="filter-option-inner">
+                                                    <div class="filter-option-inner-inner">Bellingham</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </button>
+                                        </button>
+                                    </div>
                                 @endif
                             </div>
                         </div>
