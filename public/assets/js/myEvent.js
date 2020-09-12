@@ -880,3 +880,7 @@ $('body').click(function() {
     uflag = false;
     eflag = false;
 })
+
+$('body').on('click', '.kt_login_signup_submit_Btn', function(){
+    $('.reportmanageqq').click();
+})

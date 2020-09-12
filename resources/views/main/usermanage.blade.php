@@ -425,6 +425,7 @@
                             </div>
                         </div>
                         <div class="form-group d-flex flex-wrap flex-center mt-10">
+                            <button type="button" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2 kt_login_signup_submit_Btn">Report Manager</button>
                             <button id="login_signup_submit" type="submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2">Add User</button>
                         </div>
                     </form>
@@ -652,6 +653,7 @@
                         </div>
 
                         <div class="form-group d-flex flex-wrap flex-center mt-10">
+                            <button type="button" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2 kt_login_signup_submit_Btn">Report Manager</button>
                             <button id="kt_login_signup_submit" type="submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2">Update User</button>
                         </div>
 
@@ -667,6 +669,10 @@
     <input name="type" id="sortType">
     <input name="sortTypeagain" id="sortTypeagain" value="null">
     <input type="submit" class="clickMeforReload" />
+</form>
+
+<form action="/usermanage">
+    <input type="submit" class="dn reportmanageqq">
 </form>
 
 @endsection
