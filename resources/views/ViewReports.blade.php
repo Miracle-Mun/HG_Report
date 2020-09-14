@@ -27,6 +27,16 @@
         }
         $viewitems = ( new Communities )->get();
         // dd($cencapsData);
+        $Sessionuserinfo = Session::get('session');
+
+        $infoarr = explode(",", $Sessionuserinfo);
+        $userData = DB::table('logins')
+                ->leftjoin('users', 'logins.user_id','=','users.id')
+                ->where('logins.username','=',$infoarr[0])
+                ->where('logins.encrypted','=',$infoarr[1])
+                ->get(
+                    'users.*'
+                )->toArray();
     ?>
 
     <script> 
@@ -46,19 +56,36 @@
                                     <input name="community_id" value={{ $item->id }} class="dn com">
                                 @endif
                             @endforeach
-                            <select class="form-control selectpicker w-20 viewreportcommon" data-live-search="true" tabindex="null">
-                                @foreach ($viewitems as $item)
-                                    @if($info[0] == $item->id)
-                                        <option data-tokens="mustard" selected="selected">
-                                            {{ $item->name }}
-                                        </option>
-                                    @else
-                                        <option data-tokens="mustard">
-                                            {{ $item->name }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </select>
+                            @if($userData[0]->levelreport == 1 )
+                                <div class="dropdown bootstrap-select form-control" style="width: 20%;">
+                                    @foreach ($viewitems as $item)
+                                        @if($item->id == $userData[0]->community_id)
+                                            <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="true" title="{{ $item->name }}">
+                                                <div class="filter-option">
+                                                    <div class="filter-option-inner">
+                                                        <div class="filter-option-inner-inner">{{ $item->name }}</div>
+                                                    </div>
+                                                </div>
+                                            </button>
+                                        @endif
+                                    @endforeach
+                                </div>
+                            @endif
+                            @if($userData[0]->levelreport > 1)
+                                <select class="form-control selectpicker w-20 viewreportcommon" data-live-search="true" tabindex="null">
+                                    @foreach ($viewitems as $item)
+                                        @if($info[0] == $item->id)
+                                            <option data-tokens="mustard" selected="selected">
+                                                {{ $item->name }}
+                                            </option>
+                                        @else
+                                            <option data-tokens="mustard">
+                                                {{ $item->name }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            @endif
                             from
                             <input class="dn" name="period_id" value="{{ json_decode($periods->where(['id' => $info[1]])->get())[0]->id }}">
                             <input class="dn" type="submit">

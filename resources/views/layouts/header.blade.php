@@ -19,15 +19,15 @@
                                     $RealCom = json_decode(DB::table('communities')->where('id', json_decode(DB::table('users')->where('id', $userId)->get())[0]->community_id)->get())[0]->name;
                                    
                                 }
-                            } catch (Exception $e) {
-                                Session::forget('session');
-                                Session::flash('sessiondestroy','true');
-                            }
                                 $user_level = DB::table('logins')
                                         ->leftjoin('users', 'logins.user_id','=','users.id')
                                         ->where('logins.username','=',$infoarr[0])
                                         ->where('logins.encrypted','=',$infoarr[1])
-                                        ->get('leveluser')->toArray();
+                                        ->get(array('leveluser','community_id'))->toArray();
+                            } catch (Exception $e) {
+                                Session::forget('session');
+                                Session::flash('sessiondestroy','true');
+                            }
 
                         ?>
                         @if (Session::get('sessiondestroy') == 'true')
@@ -62,7 +62,7 @@
                                         </span>
                                         <i class="menu-arrow"></i>
                                     </a>
-                                    @if ($user_level[0]->leveluser > 0 || $user_level[0]->leveluser < 4)
+                                    @if ($user_level[0]->leveluser > 0 || $user_level[0]->community_id == 10)
                                         <a href="usermanage" class="dropdown-item">
                                             <span class="menu-text boxed-btn btn-rounded">
                                                 <span class="iconify" data-icon="wpf:administrator" data-inline="false"></span>

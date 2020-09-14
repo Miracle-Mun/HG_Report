@@ -51,6 +51,7 @@ Route::post('/getchartinfodata', 'ViewReports@getchartinfodata')->middleware('Ch
 
 // Edit action
 Route::post('/editaction', 'ViewReports@editaction')->middleware('CheckSession');
+Route::get('/editaction', 'ViewReports@editaction')->middleware('CheckSession');
 Route::post('/savedata', 'ViewReports@savedata')->middleware('CheckSession');
 Route::post('/removeinquries', 'ViewReports@removeinquries')->middleware('CheckSession');
 Route::post('/removemoveouts', 'ViewReports@removemoveouts')->middleware('CheckSession');

@@ -71,7 +71,7 @@ class HomeController extends Controller
             }
             usort($reportsData, array($this,'cmp2'));
         }
-        $EditedData = ['Census and Capacity', 'moveouts', 'statics', 'Move ins'];
+        $EditedData = ['Census and Capacity', 'Inquiries', 'Moveouts', 'Statistics', 'Move In/Out'];
         return view('profile', compact(
             'result',
             'userData',
@@ -102,22 +102,28 @@ class HomeController extends Controller
                 ->get(
                     'users.*'
                 )->toArray();
-        if($userData[0]->leveluser != 3) {
+        if($userData[0]->community_id != 10) {
             $result = json_decode(
                 $users->leftJoin('logins', 'users.id', '=', 'logins.user_id')
                 ->where(
                     [
-                        'community_id' => $userData[0]->community_id,
-                        'leveledit' => $userData[0]->leveledit,
-                        'levelreport' => $userData[0]->levelreport,
-                        'levelcompany' => $userData[0]->levelcompany,
-                        'leveladd' => $userData[0]->leveladd
+                        'community_id' => $userData[0]->community_id
                     ]
                 )
                 ->get([ 'users.*','logins.*'])
             );
         } else {
-            $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.*','logins.*']));
+            if($userData[0]->leveluser == 1) {
+                $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')
+                ->where(
+                    [
+                        'community_id' => $userData[0]->community_id
+                    ]
+                )
+                ->get([ 'users.*','logins.*']));
+            } else {
+                $result = json_decode($users->leftJoin('logins', 'users.id', '=', 'logins.user_id')->get([ 'users.*','logins.*']));
+            }
         }
 
         // dd($result);
@@ -185,7 +191,7 @@ class HomeController extends Controller
             usort($data, array($this,'cmp'));
         }
 
-        $EditedData = ['Census and Capacity', 'moveouts', 'statics', 'Move ins'];
+        $EditedData = ['Census and Capacity', 'Inquiries', 'Moveouts', 'Statistics', 'Move In/Out'];
 
         if(Session::get('session') == null) {
             return view('auth/login');

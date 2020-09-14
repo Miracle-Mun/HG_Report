@@ -183,7 +183,14 @@
                             <td data-field="CompanyName" style="width: 15%;" aria-label="Casper-Kerluke" class="datatable-cell">
                                 <span>
                                     <div class="font-weight-bold ">
-                                        {{ $EditedData[(int)$item->whatedit] }}
+                                        @php $editchild = explode(',',$item->whatedit); @endphp
+                                        @foreach ($editchild as $key => $im)
+                                            @if($key == 0)
+                                                {{ $EditedData[(int)$im] }}
+                                            @else
+                                                , {{ $EditedData[(int)$im] }}
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </span>
                             </td>

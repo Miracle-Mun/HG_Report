@@ -87,13 +87,36 @@
                                                     <input name="community_id" value={{ $item->id }} class="dn com">
                                                 @endif
                                             @endforeach
-                                            <select class="form-control selectpicker" data-live-search="true" tabindex="null">
-                                                @foreach ($viewitems as $item)
-                                                    <option data-tokens="mustard">
-                                                        {{ $item->name }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
+                                            @if($userData[0]->levelreport == 1 )
+                                                <div class="dropdown bootstrap-select form-control">
+                                                    @foreach ($viewitems as $item)
+                                                        @if($item->id == $userData[0]->community_id)
+                                                            <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="true" title="{{ $item->name }}">
+                                                                <div class="filter-option">
+                                                                    <div class="filter-option-inner">
+                                                                        <div class="filter-option-inner-inner">{{ $item->name }}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </button>
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                            @endif
+                                            @if($userData[0]->levelreport > 1 )
+                                                <select class="form-control selectpicker" data-live-search="true" tabindex="null">
+                                                    @foreach ($viewitems as $item)
+                                                        @if($item->id == $userData[0]->community_id)
+                                                            <option data-tokens="mustard" selected="selected">
+                                                                {{ $item->name }}
+                                                            </option>
+                                                        @else
+                                                            <option data-tokens="mustard">
+                                                                {{ $item->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +124,7 @@
                         </div>
                     </div>
                 </div>
-                @if($userData[0]->levelreport >= 1 || $userData[0]->leveluser == 3)
+                @if($userData[0]->levelreport > 0 )
                     <div class="col-md-3 my-2 my-md-0">
                         <div class="input-icon">
                             <input name="period_id" class="dn period_id">
@@ -114,7 +137,7 @@
                 @else
                     <div><div><input name="period_id" class="dn period_id"></div></div>
                 @endif
-                @if($userData[0]->leveledit >= 2 || $userData[0]->leveluser == 3)
+                @if($userData[0]->leveledit >= 2 )
                     <div class="col-md-3 my-2 my-md-0">
                         <div class="input-icon">
                             <input class="dn submitInput" type="submit">
@@ -128,7 +151,7 @@
         </form>
     </div>
 </div>
-@if($userData[0]->levelreport >= 1 || $userData[0]->leveluser == 3)
+@if($userData[0]->levelreport > 0 )
     <div class="col-xl-10 ContentBar">
         <div class="col-lg-12 col-xl-12">
             <form action="/reportSummarySecond" method="post">
@@ -148,13 +171,36 @@
                                                         <input name="community_id" value={{ $item->id }} class="dn com">
                                                     @endif
                                                 @endforeach
-                                                <select class="form-control selectpicker" data-live-search="true" tabindex="null">
-                                                    @foreach ($viewitems as $item)
-                                                        <option data-tokens="mustard">
-                                                            {{ $item->name }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                @if($userData[0]->levelreport == 1 )
+                                                    <div class="dropdown bootstrap-select form-control">
+                                                        @foreach ($viewitems as $item)
+                                                            @if($item->id == $userData[0]->community_id)
+                                                                <button type="button" tabindex="-1" class="btn dropdown-toggle btn-light" data-toggle="dropdown" role="combobox" aria-owns="bs-select-2" aria-haspopup="listbox" aria-expanded="true" title="{{ $item->name }}">
+                                                                    <div class="filter-option">
+                                                                        <div class="filter-option-inner">
+                                                                            <div class="filter-option-inner-inner">{{ $item->name }}</div>
+                                                                        </div>
+                                                                    </div>
+                                                                </button>
+                                                            @endif
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+                                                @if($userData[0]->levelreport > 1 )
+                                                    <select class="form-control selectpicker" data-live-search="true" tabindex="null">
+                                                        @foreach ($viewitems as $item)
+                                                            @if($item->id == $userData[0]->community_id)
+                                                                <option data-tokens="mustard" selected="selected">
+                                                                    {{ $item->name }}
+                                                                </option>
+                                                            @else
+                                                                <option data-tokens="mustard">
+                                                                    {{ $item->name }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -177,7 +223,7 @@
         </div>
     </div>
 @endif
-@if($userData[0]->levelreport >= 2 || $userData[0]->leveluser == 3)
+@if($userData[0]->levelcompany > 1 )
     <div class="col-xl-12 TitleHeaderBar">
         <h3 class="landingtitle">Company Reports</h3>
     </div>

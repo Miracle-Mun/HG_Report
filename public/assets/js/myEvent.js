@@ -359,6 +359,15 @@ $('body').on('click', '.mainContainer ul li', function() {
         $(this).parent().parent().parent().prev().children().children().children().val($(this).attr('pId'));
     }
 })
+$('body').on('click', '#UpdateUserModalCenter ul li a', function() {
+    var mainValue = $(this).children().text().trim();
+    var ddd = JSON.parse(communitiess);
+    for(var i = 0 ; i < ddd.length ; i++) {
+        if(ddd[i]['name'].trim() == mainValue) {
+            $(this).parent().parent().parent().parent().parent().prev().attr('value', ddd[i]['id']);
+        }
+    }
+})
 
 $('body').on('click', '#kt_login_signup', function() {
     $('.login-class').hide('slow');
@@ -405,9 +414,7 @@ $('body').on('click', '.newUser', function() {
 })
 
 $('body').on('click', '.OrderName', function() {
-
     var mainValue = $($(this).parent().children()[$(this).parent().children().length - 1]).children();
-
     $('#mainIdUpdate').attr('value', $(this).parent().attr('id-value'));
     $('.mUsername').val(mainValue.attr('type0'));
 
@@ -424,22 +431,15 @@ $('body').on('click', '.OrderName', function() {
     $('.mPosition').val(mainValue.attr('type4'));
 
     $('.mLeveledit').attr('value', mainValue.attr('type5'));
-    $('.mLeveledit_value button').text($(".mLeveledit_value [type='" + mainValue.attr('type5') + "']").text());
 
     $('.mLevelreport').attr('value', mainValue.attr('type6'));
-    $('.mLevelreport_value button').text($(".mLevelreport_value [type='" + mainValue.attr('type6') + "']").text());
 
     $('.mLevelcompany').attr('value', mainValue.attr('type7'));
-    $('.mLevelcompany_value button').text($(".mLevelcompany_value [type='" + mainValue.attr('type7') + "']").text());
 
     $('.mLeveluser').attr('value', mainValue.attr('type8'));
-    $('.mLeveluser_value button').text($(".mLeveluser_value [type='" + mainValue.attr('type8') + "']").text());
 
     $('.mLeveladd').attr('value', mainValue.attr('type9'));
-    $('.mLeveladd_value button').text($(".mLeveladd_value [type='" + mainValue.attr('type9') + "']").text());
-
     $('body #UpdateUserModal').click();
-
 })
 $('body').on('click', '.inactiveBtn', function() {
     $('#activeId').attr('value', $(this).parent().parent().parent().attr('id-value'));
@@ -884,3 +884,14 @@ $('body').click(function() {
 $('body').on('click', '.kt_login_signup_submit_Btn', function(){
     $('.reportmanageqq').click();
 })
+var eTypeV = "";
+function whateditFunc(parent) {
+    var eT = $(parent).attr('eType');
+    if(eTypeV.length == 0) {
+        eTypeV += eT;
+    } else if(eTypeV.indexOf(eT) == -1){
+        eTypeV += ','+eT;
+    }
+    $(".whateditC").attr('value', eTypeV);
+    $(".whateditC").val(eTypeV);
+}

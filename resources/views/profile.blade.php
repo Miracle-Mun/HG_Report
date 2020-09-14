@@ -124,7 +124,7 @@
                         <span class="fwb">
                             last log in : 
                         </span>
-                        <input type="text" class="form-control" disabled="disabled" value="last {{ $userData->login_num }}">
+                        <input type="text" class="form-control" disabled="disabled" value="{{ $userData->last_login }}">
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -230,7 +230,14 @@
                                 <td data-field="CompanyName" style="width: 15%;" aria-label="Casper-Kerluke" class="datatable-cell">
                                     <span>
                                         <div class="font-weight-bold ">
-                                            {{ $EditedData[(int)$item->whatedit] }}
+                                            @php $editchild = explode(',',$item->whatedit); @endphp
+                                            @foreach ($editchild as $key => $im)
+                                                @if($key == 0)
+                                                    {{ $EditedData[(int)$im] }}
+                                                @else
+                                                    , {{ $EditedData[(int)$im] }}
+                                                @endif
+                                            @endforeach
                                         </div>
                                     </span>
                                 </td>

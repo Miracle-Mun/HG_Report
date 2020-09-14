@@ -1,7 +1,7 @@
 @extends('layouts.container')
 
 @section('contents')
-<script> var buildingsData = <?php echo $BD; ?>; var communities = JSON.parse('<?php echo $viewitems; ?>');</script>
+<script>var buildingsData = <?php echo $BD; ?>; var communities = JSON.parse('<?php echo $viewitems; ?>');</script>
 <form method="POST" action="editaction" class="w-100 editActionq">
 	@csrf
 	<h3 class="px-2 w-100">
@@ -32,6 +32,7 @@
 </form>
 <form method="POST" action="savedata" style="width: 100%;">
 	@csrf
+	<input type="text" class="dn whateditC" name="whatedit" value="{{ $userData[0]->whatedit }}">
 	@if (count($CCD) > 0)
 		<div class="card card-custom cb" style="width: 100%;">
 			<div class="card-header">
@@ -81,23 +82,23 @@
 									@endif
 									
 									@if($userData[0]->leveledit > 2 || $userData[0]->leveluser == 3)
-										<input value="{{ $item->building_id }}" name="_buildingid,{{ $key }},old" class="dn bId">
+										<input onkeypress="whateditFunc(this)" eType="0" value="{{ $item->building_id }}" name="_buildingid,{{ $key }},old" class="dn bId">
 									@else
-										<input value="{{ $item->building_id }}" readonly="true" name="_buildingid,{{ $key }},old" class="dn bId">
+										<input onkeypress="whateditFunc(this)" eType="0" value="{{ $item->building_id }}" readonly="true" name="_buildingid,{{ $key }},old" class="dn bId">
 									@endif
 								</td>
 								<td class="w-30">
 									@if($userData[0]->leveledit > 2 || $userData[0]->leveluser == 3) 
-										<input value="{{ $item->census }}" name="_census,{{ $key }},old" class="form-control form-control-solid">
+										<input onkeypress="whateditFunc(this)" eType="0" value="{{ $item->census }}" name="_census,{{ $key }},old" class="form-control form-control-solid">
 									@else
-										<input value="{{ $item->census }}" name="_census,{{ $key }},old" readonly="true" class="form-control form-control-solid">
+										<input onkeypress="whateditFunc(this)" eType="0" value="{{ $item->census }}" name="_census,{{ $key }},old" readonly="true" class="form-control form-control-solid">
 									@endif
 								</td>
 								<td class="w-30">
 									@if($userData[0]->leveledit > 2 || $userData[0]->leveluser == 3) 
-										<input value="{{ $item->capacity }}" name="_capacity,{{ $key }},old" class="form-control form-control-solid">
+										<input onkeypress="whateditFunc(this)" eType="0" value="{{ $item->capacity }}" name="_capacity,{{ $key }},old" class="form-control form-control-solid">
 									@else
-										<input value="{{ $item->capacity }}" name="_capacity,{{ $key }},old" readonly="true" class="form-control form-control-solid">
+										<input onkeypress="whateditFunc(this)" eType="0" value="{{ $item->capacity }}" name="_capacity,{{ $key }},old" readonly="true" class="form-control form-control-solid">
 									@endif
 								</td>
 								@if($userData[0]->leveledit > 2 || $userData[0]->leveluser == 3)
@@ -151,10 +152,10 @@
 						@foreach ($ID as $key => $item)
 							<tr>
 								<td class="w-45">
-									<input name="idesctiption_Inquiries_description,{{ $key }},{{ $item->id }}" value="{{ $item->description }}" class="form-control form-control-solid">
+									<input onkeypress="whateditFunc(this)" eType="1" name="idesctiption_Inquiries_description,{{ $key }},{{ $item->id }}" value="{{ $item->description }}" class="form-control form-control-solid">
 								</td>
 								<td class="w-45">
-									<input name="icount_Inquiries_count,{{ $key }},{{ $item->id }}" value="{{ $item->number }}" class="form-control form-control-solid">
+									<input onkeypress="whateditFunc(this)" eType="1" name="icount_Inquiries_count,{{ $key }},{{ $item->id }}" value="{{ $item->number }}" class="form-control form-control-solid">
 								</td>
 								<td class="w-10">
 									<a class="btn btn-sm btn-clean btn-icon delBtn" type="inquries" href="javascript:;" title="Delete">
@@ -203,10 +204,10 @@
 						@foreach ($MD as $key => $item)
 							<tr>
 								<td class="w-45">
-									<input name="md_moveouts_description,{{ $key }},{{ $item->description }}" value="{{ $item->description }}" class="form-control form-control-solid">
+									<input onkeypress="whateditFunc(this)" eType="2" name="md_moveouts_description,{{ $key }},{{ $item->description }}" value="{{ $item->description }}" class="form-control form-control-solid">
 								</td>
 								<td class="w-45">
-									<input name="md_moveouts_number,{{ $key }},{{ $item->description }}" value="{{ $item->number }}" class="form-control form-control-solid">
+									<input onkeypress="whateditFunc(this)" eType="2" name="md_moveouts_number,{{ $key }},{{ $item->description }}" value="{{ $item->number }}" class="form-control form-control-solid">
 								</td>
 								<td class="w-10">
 									<a class="btn btn-sm btn-clean btn-icon delBtn" type="moveouts" href="javascript:;" title="Delete">
@@ -248,15 +249,15 @@
 					<tr></tr>
 					<tr>
 						<th class="w-50">Unqualified</th>
-						<th class="w-50"><input value="{{ $reportsData['unqualified'] }}" name="unqualified" class="form-control form-control-solid"></th>
+						<th class="w-50"><input onkeypress="whateditFunc(this)" eType="3" value="{{ $reportsData['unqualified'] }}" name="unqualified" class="form-control form-control-solid"></th>
 					</tr>
 					<tr>
 						<th class="w-50">Tours</th>
-						<th class="w-50"><input value="{{ $reportsData['tours'] }}" name="tours" class="form-control form-control-solid"></th>
+						<th class="w-50"><input onkeypress="whateditFunc(this)" eType="3" value="{{ $reportsData['tours'] }}" name="tours" class="form-control form-control-solid"></th>
 					</tr>
 					<tr>
 						<th class="w-50">Deposits</th>
-						<th class="w-50"><input value="{{ $reportsData['deposits'] }}" name="deposits" class="form-control form-control-solid"></th>
+						<th class="w-50"><input onkeypress="whateditFunc(this)" eType="3" value="{{ $reportsData['deposits'] }}" name="deposits" class="form-control form-control-solid"></th>
 					</tr>
 				</tbody>
 			</table>
@@ -273,19 +274,19 @@
 					<tr></tr>
 					<tr>
 						<th class="w-50">WTD Move-Ins</th>
-						<th class="w-50"><input value="{{ $reportsData['wtd_movein'] }}" name="wtd_movein" class="form-control form-control-solid"></th>
+						<th class="w-50"><input onkeypress="whateditFunc(this)" eType="4" value="{{ $reportsData['wtd_movein'] }}" name="wtd_movein" class="form-control form-control-solid"></th>
 					</tr>
 					<tr>
 						<th class="w-50">WTD Move-Outs</th>
-						<th class="w-50"><input value="{{ $reportsData['wtd_moveout'] }}" name="wtd_moveout" class="form-control form-control-solid"></th>
+						<th class="w-50"><input onkeypress="whateditFunc(this)" eType="4" value="{{ $reportsData['wtd_moveout'] }}" name="wtd_moveout" class="form-control form-control-solid"></th>
 					</tr>
 					<tr>
 						<th class="w-50">YTD Move-Ins</th>
-						<th class="w-50"><input value="{{ $reportsData['ytd_movein'] }}" name="ytd_movein" class="form-control form-control-solid"></th>
+						<th class="w-50"><input onkeypress="whateditFunc(this)" eType="4" value="{{ $reportsData['ytd_movein'] }}" name="ytd_movein" class="form-control form-control-solid"></th>
 					</tr>
 					<tr>
 						<th class="w-50">YTD Move-Outs</th>
-						<th class="w-50"><input value="{{ $reportsData['ytd_moveout'] }}" name="ytd_moveout" class="form-control form-control-solid"></th>
+						<th class="w-50"><input onkeypress="whateditFunc(this)" eType="4" value="{{ $reportsData['ytd_moveout'] }}" name="ytd_moveout" class="form-control form-control-solid"></th>
 					</tr>
 				</tbody>
 			</table>
