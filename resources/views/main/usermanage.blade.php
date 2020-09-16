@@ -13,11 +13,13 @@
                     <a href="usermanage" class="bb">User Management</a>
                 </h3>
             </div>
-            <div class="col-md-6 manageheader">
-                <h3 class="card-label">
-                    <a href="reportmanage">Report Management</a>
-                </h3>
-            </div>
+            @if($userData[0]->levelreportm > 0)
+                <div class="col-md-6 manageheader">
+                    <h3 class="card-label">
+                        <a href="reportmanage">Report Management</a>
+                    </h3>
+                </div>
+            @endif
         </div>
         @if ($userData[0]->leveladd != 0 || $userData[0]->community_id == 10)
             <div class="card-toolbar">
@@ -47,33 +49,33 @@
         <!--begin: Datatable-->
         <div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded" id="kt_datatable" style="">
             <table class="datatable-table  table-sm table-hover" id="kt_datatable2" style="display: block;">
-                <thead class="datatable-head">
-                    <tr class="datatable-row spanloadtr" style="left: 0px;">
-                        <th data-field="RecordID" style="width: 5%;" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
+                <thead class="datatable-head p-r-1">
+                    <tr class="datatable-row sortEmotic" SDType="usermanageSD" style="left: 0px;">
+                        <th id="sortname0" data-field="RecordID" style="width: 5%;" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
                             <span>#</span>
                         </th>
-                        <th data-field="Name" style="width: 30%;" class="datatable-cell datatable-cell-sort thforsort" type="name">
+                        <th id="sortname1" data-field="Name" style="width: 20%;" class="datatable-cell datatable-cell-sort thforsort" type="name">
                             <span>Name</span>
                         </th>
-                        <th data-field="state" style="width: 5%;" class="datatable-cell datatable-cell-sort thforsort" type="state">
+                        <th id="sortname2" data-field="state" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="state">
                             <span>state</span>
                         </th>
-                        <th data-field="Community" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="Community">
+                        <th id="sortname3" data-field="Community" style="width: 11%;" class="datatable-cell datatable-cell-sort thforsort" type="Community">
                             <span>Community</span>
                         </th>
-                        <th data-field="Position" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="Position">
+                        <th id="sortname4" data-field="Position" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="Position">
                             <span>Position</span>
                         </th>
-                        <th data-field="password" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="Password">
+                        <th id="sortname5" data-field="password" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="Password">
                             <span>Password</span>
                         </th>
-                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="Status">
+                        <th id="sortname6" data-field="Status" style="width: 9%;" class="datatable-cell datatable-cell-sort thforsort" type="Status">
                             <span>Status</span>
                         </th>
-                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="CreatedDate">
+                        <th id="sortname7" data-field="Status" style="width: 15%;" class="datatable-cell datatable-cell-sort thforsort" type="CreatedDate">
                             <span>Created Date</span>
                         </th>
-                        <th data-field="Status" style="width: 10%;" class="datatable-cell datatable-cell-sort thforsort" type="LastLogin">
+                        <th id="sortname8" data-field="Status" style="width: 15%;" class="datatable-cell datatable-cell-sort thforsort" type="LastLogin">
                             <span>Last Login</span>
                         </th>
                     </tr>
@@ -81,13 +83,13 @@
                 <tbody class="datatable-body" style="">
                     <tr></tr>
                     @foreach ($result as $item)
-                        <tr data-row="0" class="datatable-row spanloadtr" style="left: 0px;" nameValue = "{{ $item->name }}" id-value = "{{ $item->user_id }}">
+                        <tr data-row="0" class="datatable-row" style="left: 0px;" nameValue = "{{ $item->name }}" id-value = "{{ $item->user_id }}">
                             <td class="datatable-cell-sorted datatable-cell-left datatable-cell" style="width: 5%;" data-field="RecordID" aria-label="1">
                                 <span>
-                                    <span class="font-weight-bolder">{{ $iNum++ }}</span>
+                                    <span class="font-weight-bolder">{{ ++$iNum }}</span>
                                 </span>
                             </td>
-                            <td data-field="OrderID" aria-label="64616-103" style="width: 30%; word-break: break-word;" class="datatable-cell OrderName">
+                            <td data-field="OrderID" style="width: 20%; word-break: break-word;" aria-label="64616-103" class="datatable-cell OrderName">
                                 <span>
                                     <div class="d-flex align-items-center">
                                         <div class="symbol symbol-40 symbol-light-{{ $arr[rand(0,3)] }} flex-shrink-0">
@@ -100,12 +102,12 @@
                                     </div>
                                 </span>
                             </td>
-                            <td data-field="Country" aria-label="Brazil" style="width: 5%;" class="datatable-cell">
+                            <td data-field="Country" style="width: 10%;" aria-label="Brazil" class="datatable-cell">
                                 <span>
                                     <div class="font-weight-bolder font-size-lg mb-0">{{ $item->state }}</div>
                                 </span>
                             </td>
-                            <td data-field="Country" aria-label="Brazil" style="width: 10%;" class="datatable-cell">
+                            <td data-field="Country" style="width: 11%;" aria-label="Brazil" class="datatable-cell">
                                 <span>
                                     <div class="font-weight-bolder font-size-lg mb-0">
                                         @if ($item->community_id == 10)
@@ -138,7 +140,7 @@
                                     </a>
                                 </span>
                             </td>
-                            <td data-field="CompanyName" style="width: 10%;" aria-label="Casper-Kerluke" class="datatable-cell">
+                            <td data-field="CompanyName" style="width: 9%;" aria-label="Casper-Kerluke" class="datatable-cell">
                                 <span>
                                     <div class="font-weight-bold inactiveBtn">
                                         @if ( $item->inactive == 0 )
@@ -149,14 +151,14 @@
                                     </div>
                                 </span>
                             </td>
-                            <td data-field="CompanyName" style="width: 10%;" aria-label="Casper-Kerluke" class="datatable-cell">
+                            <td data-field="CompanyName" style="width: 15%;" aria-label="Casper-Kerluke" class="datatable-cell">
                                 <span>
                                     <div class="font-weight-bold ">
                                         {{ $item->created_date }}
                                     </div>
                                 </span>
                             </td>
-                            <td data-field="CompanyName" style="width: 10%;" aria-label="Casper-Kerluke" class="datatable-cell">
+                            <td data-field="CompanyName" style="width: 15%;" aria-label="Casper-Kerluke" class="datatable-cell">
                                 <span>
                                     <div class="font-weight-bold ">
                                         {{ $item->last_login }}
@@ -164,7 +166,7 @@
                                 </span>
                             </td>
                             <td class="dn">
-                                <span id="infoCenter" type0="{{ $item->username }}" type1="{{ $item->community_id }}" type2="{{ $item->name }}" type3="{{ $item->email }}" type4="{{ $item->position }}" type5="{{ $item->leveledit }}" type6="{{ $item->levelreport }}" type7="{{ $item->levelcompany }}" type8="{{ $item->leveluser }}" type9="{{ $item->leveladd }}"></span>
+                                <span id="infoCenter" type0="{{ $item->username }}" type1="{{ $item->community_id }}" type2="{{ $item->name }}" type3="{{ $item->email }}" type4="{{ $item->position }}" type5="{{ $item->leveledit }}" type6="{{ $item->levelreport }}" type7="{{ $item->levelcompany }}" type8="{{ $item->leveluser }}" type9="{{ $item->leveladd }}" type10="{{ $item->levelreportm }}"></span>
                             </td>
                         </tr>
                     @endforeach
@@ -292,7 +294,7 @@
                             <input class="form-control h-auto form-control-solid py-4 px-8" type="text" placeholder="Position" name="position" required />
                         </div>
                         <div class="form-group mb-5 edits">
-                            <div class="btn-group leveladdDropdown">
+                            <div class="btn-group">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Adds</button>
                                 <input class="dn" value="0" name="leveladd">
                                 <div class="dropdown-menu">
@@ -337,27 +339,27 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group mb-5 reports">
+                        <div class="form-group mb-5 reports ">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Reports</button>
                                 <input class="dn" value="0" name="levelreport">
                                 <div class="dropdown-menu">
-                                    @if ($userData[0]->leveledit >= 0)
+                                    @if ($userData[0]->levelreport >= 0)
                                         <a class="dropdown-item" type="0" href="#">No Reports</a>
                                     @endif
-                                    @if ($userData[0]->leveledit >= 1)
+                                    @if ($userData[0]->levelreport >= 1)
                                         <a class="dropdown-item" type="1" href="#">Local Report</a>
                                     @endif
-                                    @if ($userData[0]->leveledit >= 2)
+                                    @if ($userData[0]->levelreport >= 2)
                                         <a class="dropdown-item" type="2" href="#">Any Location</a>
                                     @endif
-                                    @if ($userData[0]->leveledit >= 3)
+                                    @if ($userData[0]->levelreport >= 3)
                                         <a class="dropdown-item" type="3" href="#">Any Location (root)</a>
                                     @endif
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group mb-5 companyReports">
+                        <div class="form-group mb-5 companyReports ">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Company Reports</button>
                                 <input class="dn" value="0" name="levelcompany">
@@ -366,21 +368,21 @@
                                         <a class="dropdown-item" type="0" href="#">No Company Reports</a>
                                     @endif
                                     @if ($userData[0]->levelcompany >= 1)
-                                        <a class="dropdown-item" type="1" href="#">Local Report</a>
+                                        <a class="dropdown-item" type="1" href="#">Local Company Report</a>
                                     @endif
                                     @if ($userData[0]->levelcompany >= 2)
                                         <a class="dropdown-item" type="2" href="#">Company Wide</a>
                                     @endif
                                     @if ($userData[0]->levelcompany >= 3)
-                                        <a class="dropdown-item" type="3" href="#">All Reports (root)</a>
+                                        <a class="dropdown-item" type="3" href="#">All Company Reports (root)</a>
                                     @endif
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group mb-5 role">
+                        <div class="form-group mb-5 role ">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No User Administration</button>
-                                <input class="dn" value="0" name="leveluser">
+                                <input class="mLeveluser dn" value="0" name="leveluser">
                                 <div class="dropdown-menu">
                                     @if ($userData[0]->leveluser >= 0)
                                         <a class="dropdown-item" type="0" href="#">No User Administration</a>
@@ -397,8 +399,27 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group mb-5 role ">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No User Administration</button>
+                                <input class="mLevelreportm dn" value="0" name="levelreportm">
+                                <div class="dropdown-menu">
+                                    @if ($userData[0]->levelreportm >= 0)
+                                        <a class="dropdown-item" type="0" href="#">No Report Administration</a>
+                                    @endif
+                                    @if ($userData[0]->levelreportm >= 1)
+                                        <a class="dropdown-item" type="1" href="#">Local Report Only</a>
+                                    @endif
+                                    @if ($userData[0]->levelreportm >= 2)
+                                        <a class="dropdown-item" type="2" href="#">All Report Locations</a>
+                                    @endif
+                                    @if ($userData[0]->levelreportm >= 3)
+                                        <a class="dropdown-item" type="3" href="#">All Report Locations (root)</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group d-flex flex-wrap flex-center mt-10">
-                            <button type="button" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2 kt_login_signup_submit_Btn">Report Manager</button>
                             <button id="login_signup_submit" type="submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2">Add User</button>
                         </div>
                     </form>
@@ -482,7 +503,7 @@
                         </div>
                         
                         <div class="form-group mb-5 adds">
-                            <div class="btn-group mLeveladd_value">
+                            <div class="btn-group leveladdDropdown">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Adds</button>
                                 <input class="mLeveladd dn" value="0" name="leveladd">
                                 <div class="dropdown-menu">
@@ -506,7 +527,7 @@
                         </div>
                         
                         <div class="form-group mb-5 edits">
-                            <div class="btn-group mLeveledit_value">
+                            <div class="btn-group leveleditDropdown">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Edits</button>
                                 <input class="mLeveledit dn" value="0" name="leveledit">
                                 <div class="dropdown-menu">
@@ -530,28 +551,28 @@
                         </div>
                         
                         <div class="form-group mb-5 reports">
-                            <div class="btn-group mLevelreport_value">
+                            <div class="btn-group levelreportDropdown">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Reports</button>
                                 <input value="0" class="mLevelreport dn" name="levelreport">
                                 <div class="dropdown-menu">
-                                    @if ($userData[0]->leveledit >= 0)
+                                    @if ($userData[0]->levelreport >= 0)
                                         <a class="dropdown-item" type="0" href="#">No Reports</a>
                                     @endif
-                                    @if ($userData[0]->leveledit >= 1)
+                                    @if ($userData[0]->levelreport >= 1)
                                         <a class="dropdown-item" type="1" href="#">Local Report</a>
                                     @endif
-                                    @if ($userData[0]->leveledit >= 2)
+                                    @if ($userData[0]->levelreport >= 2)
                                         <a class="dropdown-item" type="2" href="#">Any Location</a>
                                     @endif
-                                    @if ($userData[0]->leveledit >= 3)
+                                    @if ($userData[0]->levelreport >= 3)
                                         <a class="dropdown-item" type="3" href="#">Any Location (root)</a>
                                     @endif
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group mb-5 companyReports mLevelcompany_value">
-                            <div class="btn-group">
+                        <div class="form-group mb-5 companyReports">
+                            <div class="btn-group levelcompanyDropdown">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No Company Reports</button>
                                 <input value="0" class="mLevelcompany dn" name="levelcompany">
                                 <div class="dropdown-menu">
@@ -559,22 +580,22 @@
                                         <a class="dropdown-item" type="0" href="#">No Company Reports</a>
                                     @endif
                                     @if ($userData[0]->levelcompany >= 1)
-                                        <a class="dropdown-item" type="1" href="#">Local Report</a>
+                                        <a class="dropdown-item" type="1" href="#">Local Company Report</a>
                                     @endif
                                     @if ($userData[0]->levelcompany >= 2)
                                         <a class="dropdown-item" type="2" href="#">Company Wide</a>
                                     @endif
                                     @if ($userData[0]->levelcompany >= 3)
-                                        <a class="dropdown-item" type="3" href="#">All Reports (root)</a>
+                                        <a class="dropdown-item" type="3" href="#">All Company Reports (root)</a>
                                     @endif
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group mb-5 role">
-                            <div class="btn-group mLeveluser_value">
+                        <div class="form-group mb-5 role ">
+                            <div class="btn-group leveluserDropdown">
                                 <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No User Administration</button>
-                                <input value="0" class="mLeveluser dn" name="leveluser">
+                                <input class="mLeveluser dn" value="0" name="leveluser">
                                 <div class="dropdown-menu">
                                     @if ($userData[0]->leveluser >= 0)
                                         <a class="dropdown-item" type="0" href="#">No User Administration</a>
@@ -592,8 +613,28 @@
                             </div>
                         </div>
 
+                        <div class="form-group mb-5 role">
+                            <div class="btn-group levelreportmrDropdown">
+                                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">No User Administration</button>
+                                <input class="mLevelreportm dn" value="0" name="levelreportm">
+                                <div class="dropdown-menu">
+                                    @if ($userData[0]->levelreportm >= 0)
+                                        <a class="dropdown-item" type="0" href="#">No Report Administration</a>
+                                    @endif
+                                    @if ($userData[0]->levelreportm >= 1)
+                                        <a class="dropdown-item" type="1" href="#">Local Report Only</a>
+                                    @endif
+                                    @if ($userData[0]->levelreportm >= 2)
+                                        <a class="dropdown-item" type="2" href="#">All Report Locations</a>
+                                    @endif
+                                    @if ($userData[0]->levelreportm >= 3)
+                                        <a class="dropdown-item" type="3" href="#">All Report Locations (root)</a>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group d-flex flex-wrap flex-center mt-10">
-                            <button type="button" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2 kt_login_signup_submit_Btn">Report Manager</button>
                             <button id="kt_login_signup_submit" type="submit" class="btn btn-primary font-weight-bold px-9 py-4 my-3 mx-2">Update User</button>
                         </div>
 
@@ -609,10 +650,6 @@
     <input name="type" id="sortType">
     <input name="sortTypeagain" id="sortTypeagain" value="null">
     <input type="submit" class="clickMeforReload" />
-</form>
-
-<form action="/usermanage">
-    <input type="submit" class="dn reportmanageqq">
 </form>
 
 @endsection

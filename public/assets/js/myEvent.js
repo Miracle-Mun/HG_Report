@@ -14,7 +14,8 @@ function disableWeekends($this) {
 try {
     for (var i = 1; i < 3; i++) {
         $('#dp' + i).datepicker({
-            format: 'yyyy-mm-dd'
+            format: 'yyyy-mm-dd',
+            "autoclose": true
         });
         var datepicker = $('#dp' + i).data('datepicker');
 
@@ -238,10 +239,10 @@ async function setValFrom(val) {
         }
         localStorage.setItem('period_id_from', finalVal['caption']);
         localStorage.setItem('period_id_from1', finalVal['id']);
+        localStorage.setItem('period_id_from2', finalVal['starting']);
         $(val).attr({ 'value': finalVal['caption'], 'date': finalVal['id'] });
     }
     $('body').click();
-    $('.datepicker').remove();
     $("#inp_temp").focus();
 }
 
@@ -278,10 +279,10 @@ async function setValTo(val) {
         }
         localStorage.setItem('period_id_to', finalVal['caption']);
         localStorage.setItem('period_id_to1', finalVal['id']);
+        localStorage.setItem('period_id_to2', finalVal['starting']);
         $(val).attr({ 'value': finalVal['caption'], 'date': finalVal['id'] });
     }
     $('body').click();
-    $('.datepicker').remove();
     $("#inp_temp").focus();
 }
 
@@ -425,20 +426,40 @@ $('body').on('click', '.OrderName', function() {
             $('.mCommunity_id_value button').children().children().children().text(ddd[i]['name']);
         }
     }
-
     $('.mName').val(mainValue.attr('type2'));
     $('.mEmail').val(mainValue.attr('type3'));
     $('.mPosition').val(mainValue.attr('type4'));
+    
+    $('.mLeveladd').attr('value', mainValue.attr('type9'));
+    if($(".leveladdDropdown [type='"+mainValue.attr('type9')+"']").text() != "") {
+        $('.leveladdDropdown button').text($(".leveladdDropdown [type='"+mainValue.attr('type9')+"']").text());
+    }
 
     $('.mLeveledit').attr('value', mainValue.attr('type5'));
+    if($(".leveleditDropdown [type='"+mainValue.attr('type5')+"']").text() != "") {
+        $('.leveleditDropdown button').text($(".leveleditDropdown [type='"+mainValue.attr('type5')+"']").text());
+    }
 
     $('.mLevelreport').attr('value', mainValue.attr('type6'));
+    if($(".levelreportDropdown [type='"+mainValue.attr('type6')+"']").text() != "") {
+        $('.levelreportDropdown button').text($(".levelreportDropdown [type='"+mainValue.attr('type6')+"']").text());
+    }
 
     $('.mLevelcompany').attr('value', mainValue.attr('type7'));
+    if($(".levelcompanyDropdown [type='"+mainValue.attr('type7')+"']").text() != "") {
+        $('.levelcompanyDropdown button').text($(".levelcompanyDropdown [type='"+mainValue.attr('type7')+"']").text());
+    }
 
     $('.mLeveluser').attr('value', mainValue.attr('type8'));
+    if($(".leveluserDropdown [type='"+mainValue.attr('type8')+"']").text() != "") {
+        $('.leveluserDropdown button').text($(".leveluserDropdown [type='"+mainValue.attr('type8')+"']").text());
+    }
 
-    $('.mLeveladd').attr('value', mainValue.attr('type9'));
+    $('.mLevelreportm').attr('value', mainValue.attr('type10'));
+    if($(".levelreportmrDropdown [type='"+mainValue.attr('type10')+"']").text() != "") {
+        $('.levelreportmrDropdown button').text($(".levelreportmrDropdown [type='"+mainValue.attr('type10')+"']").text());
+    }
+
     $('body #UpdateUserModal').click();
 })
 $('body').on('click', '.inactiveBtn', function() {
@@ -669,96 +690,92 @@ $('body').on('click', '.EditactionCencaps a', function() {
 })
 
 async function refresh(parent) {
-    $('.datepicker').hide();
-    var finalVal = await getExactlyDate(parent);
-    if(finalVal == null) {
-        hgreportAlert("Date is missing!");
-    } else {
+    if(localStorage.getItem('setDatelocal') == "true") {
+        localStorage.setItem('setDatelocal', 'false');
+        var finalVal = await getExactlyDate(parent);
+        $(parent).attr('value', finalVal['caption']);
+        $(parent).val(finalVal['caption']);
         $(parent).prev().prev().attr('value', finalVal['id']);
-        $(parent).prev().click();
-        $('#randomBtn').click();
+    } else {
+        var finalVal = await getExactlyDate(parent);
+        if(finalVal == null) {
+            hgreportAlert("Date is missing!");
+        } else {
+            localStorage.setItem('period_from', finalVal['caption']);
+            localStorage.setItem('period_from1', finalVal['id']);
+            $(parent).prev().prev().attr('value', finalVal['id']);
+            $(parent).prev().click();
+            $('#randomBtn').click();
+        }
     }
 }
-
-$('body').on('click', '.leveladdDropdown dropdown-item', function() {
-    console.log($(this).attr('type'));
-})
-
 $('body').on('click', '.addBtn', function(){
     $('body .uploadBtn').click();
 })
+// '<span class="iconify sortEm" data-icon="fa-solid:sort-amount-down" data-inline="false"></span>'
+// '<span class="iconify sortEm" data-icon="fa-solid:sort-amount-up-alt" data-inline="false"></span>'
+function sortTable(f,n){
+	var rows = $('#kt_datatable2 tbody  tr').get();
 
-$('body').on('click',".locationReport1", function() {
-    document.getElementById('sortType').value = 'locationReport1';
-    if(localStorage.getItem('sortType') == 'locationReport1') {
-        document.getElementById('sortTypeagain').value = 'locationReport1';
-        localStorage.clear();
-    } else {
-        localStorage.setItem('sortType','locationReport1');
-    }
-    $('body .clickMeforReload').click();
-});
-$('body').on('click',".dateofreport1", function() {
-    document.getElementById('sortType').value = 'dateofreport1';
-    if(localStorage.getItem('sortType') == 'dateofreport1') {
-        document.getElementById('sortTypeagain').value = 'dateofreport1';
-        localStorage.clear();
-    } else {
-        localStorage.setItem('sortType','dateofreport1');
-    }
-    $('body .clickMeforReload').click();
-});
-$('body').on('click',".user1", function() {
-    document.getElementById('sortType').value = 'user1';
-    if(localStorage.getItem('sortType') == 'user1') {
-        document.getElementById('sortTypeagain').value = 'user1';
-        localStorage.clear();
-    } else {
-        localStorage.setItem('sortType','user1');
-    }
-    $('body .clickMeforReload').click();
-});
-$('body').on('click',".status", function() {
-    document.getElementById('sortType').value = 'status';
-    if(localStorage.getItem('sortType') == 'status') {
-        document.getElementById('sortTypeagain').value = 'status';
-        localStorage.clear();
-    } else {
-        localStorage.setItem('sortType','status');
-    }
-    $('body .clickMeforReload').click();
-});
-$('body').on('click',".timeoftheedit1", function() {
-    document.getElementById('sortType').value = 'timeoftheedit1';
-    if(localStorage.getItem('sortType') == 'timeoftheedit1') {
-        document.getElementById('sortTypeagain').value = 'timeoftheedit1';
-        localStorage.clear();
-    } else {
-        localStorage.setItem('sortType','timeoftheedit1');
-    }
-    $('body .clickMeforReload').click();
-});
-$('body').on('click',".whatwasedit1", function() {
-    document.getElementById('sortType').value = 'timeoftheedit1';
-    if(localStorage.getItem('sortType') == 'timeoftheedit1') {
-        document.getElementById('sortTypeagain').value = 'timeoftheedit1';
-        localStorage.clear();
-    } else {
-        localStorage.setItem('sortType','whatwasedit1');
-    }
-    $('body .clickMeforReload').click();
-});
+	rows.sort(function(a, b) {
 
-$('body').on('click', '.thforsort', function(){
-    var typeName = $(this).attr('type');
-    $('#sortType').attr('value', typeName);
-    if(localStorage.getItem('sortType') == typeName) {
-        $('#sortTypeagain').attr('value','true');
+		var A = getVal(a);
+		var B = getVal(b);
+
+		if(A < B) {
+			return -1*f;
+		}
+		if(A > B) {
+			return 1*f;
+		}
+		return 0;
+	});
+
+	function getVal(elm){
+		var v = $(elm).children('td').eq(n).text().toUpperCase();
+		if($.isNumeric(v)){
+			v = parseInt(v,10);
+		}
+		return v;
+	}
+
+	$.each(rows, function(index, row) {
+		$('#kt_datatable2').children('tbody').append(row);
+	});
+}
+var SortArr = [];
+var localValue = null;
+try {
+    localValue = $('.sortEmotic').attr('SDType');
+    var sortValA = localStorage.getItem(localValue).split(',');
+    if(sortValA[0] === '1') {
+        $('#sortname'+sortValA[1]).append('<span class="iconify sortEm" data-icon="fa-solid:sort-amount-down" data-inline="false" style="color: #7236f1 !important;"></span>');
     } else {
-        localStorage.setItem('sortType',typeName);
+        $('#sortname'+sortValA[1]).append('<span class="iconify sortEm" data-icon="fa-solid:sort-amount-up-alt" data-inline="false" style="color: #7236f1 !important;"></span>');
     }
-    $('body .clickMeforReload').click();
+    sortTable(parseInt(sortValA[0]), parseInt(sortValA[1]));
+} catch (error) {}
+
+for(var i = 0 ; i <= $('.sortEmotic').children().length ; i++) {
+	var obj = {};
+    obj['name'] = 'sortname'+i;
+    obj['value'] = 1;
+	SortArr.push(obj);
+}
+$('body').on('click', '#kt_datatable2 th', function() {
+    var index = SortArr.findIndex(item => item.name === $(this).attr('id'));
+    SortArr[index]['value'] *= -1;
+    var n = $(this).prevAll().length;
+    localStorage.setItem(localValue, SortArr[index]['value'] +','+ n);
+    $('.sortEm').remove();
+    if(SortArr[index]['value'] === 1) {
+        $('#sortname'+n).append('<span class="iconify sortEm" data-icon="fa-solid:sort-amount-down" data-inline="false" style="color: #7236f1 !important;"></span>');
+    } else {
+        $('#sortname'+n).append('<span class="iconify sortEm" data-icon="fa-solid:sort-amount-up-alt" data-inline="false" style="color: #7236f1 !important;"></span>');
+    }
+    sortTable(SortArr[index]['value'],n);
 })
+
 
 var KTLayoutStretchedCard=function() {
 	// Private properties
@@ -855,12 +872,10 @@ $('body').click(function() {
         }
     }
     $('.period_id_from').attr('value', localStorage.getItem('period_id_from'));
-    if(localStorage.getItem('period_id_from') != "Select date") {
-    }
+
     $('.period_id_from').attr('date', localStorage.getItem('period_id_from1'));
     $('.period_id_to').attr('value', localStorage.getItem('period_id_to'));
-    if(localStorage.getItem('period_id_to') != "Select date") {
-    }
+
     $('.period_id_to').attr('date', localStorage.getItem('period_id_to1'));
     
     if(uflag == true || eflag == true) {

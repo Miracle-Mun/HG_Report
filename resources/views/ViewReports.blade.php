@@ -20,6 +20,7 @@
         $Communities = new Communities;
         $info = explode(',', Session::get('info'));
         $reportsData = json_decode($reports->where(['community_id' => $info[0], 'period_id' => $info[1]])->get());
+        Session::flash('info', $info[0].','.$info[1]);
         if(count($reportsData) != 0) {
             $cencapsData = json_decode($cencaps->where(['report_id' => $reportsData[0]->id])->get());
             $moveoutsData = json_decode($moveouts->where(['report_id' => $reportsData[0]->id])->get());
@@ -90,6 +91,16 @@
                             <input class="dn" name="period_id" value="{{ json_decode($periods->where(['id' => $info[1]])->get())[0]->id }}">
                             <input class="dn" type="submit">
                             <input type="button" class="span2 btn-rounded period_id" date="{{ json_decode($periods->where(['id' => $info[1]])->get())[0]->id }}" value="{{ json_decode($periods->where(['id' => $info[1]])->get())[0]->caption }}" onchange="refresh(this)" id="dp1">
+                            <script src="/assets/js/jquery.min.js"></script>
+                            <script>
+                                var ndate = "<?php echo json_decode($periods->where(['id' => $info[1]])->get())[0]->starting ?>";
+                                ndate = ndate.split('-');
+                                setTimeout(function(){
+                                    localStorage.setItem('setDatelocal','true');
+                                    $('#dp1').datepicker('setDate', new Date(parseInt(ndate[0]), parseInt(ndate[1]) - 1, parseInt(ndate[2])));
+                                    $('#dp1').datepicker('update');
+                                },500)
+                            </script>
                         </h3>
                     </form>
                 </tr>

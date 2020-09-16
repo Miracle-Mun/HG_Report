@@ -57,6 +57,7 @@ class HomeController extends Controller
             }
         }
         $GLOBALS['field1'] = null;
+
         if(count($_POST) > 0) {
             if($_POST['type1'] == 'locationReport1') {
                 $GLOBALS['field1'] = 'locationReport1';
@@ -152,22 +153,49 @@ class HomeController extends Controller
         }
     }
     public function reportmanage(){
-
-        $data = DB::table('reports')
-                ->leftjoin('communities', 'reports.community_id', '=', 'communities.id')
-                ->leftjoin('periods', 'reports.period_id', '=', 'periods.id')
-                ->leftjoin('users', 'reports.report_user', '=', 'users.id')
-                ->orderBy('periods.id', 'DESC')
-                ->take(20)
-                ->get(
-                    array(
-                        'users.name as username',
-                        'users.whatedit as whatedit',
-                        'reports.*',
-                        'periods.*',
-                        'communities.*'
-                    )
-                )->toArray();
+        $Sessionuserinfo = Session::get('session');
+        $info = explode(',', $Sessionuserinfo);
+        $userData = DB::table('users')->leftjoin('logins', 'logins.user_id', '=', 'users.id')
+            ->where([
+                'logins.username' => $info[0],
+                'logins.encrypted' => $info[1],
+            ])->get()->toArray()[0];
+        if($userData->levelreportm == 1) {
+            $data = DB::table('reports')
+                    ->leftjoin('communities', 'reports.community_id', '=', 'communities.id')
+                    ->leftjoin('periods', 'reports.period_id', '=', 'periods.id')
+                    ->leftjoin('users', 'reports.report_user', '=', 'users.id')
+                    ->orderBy('periods.id', 'DESC')
+                    ->where([
+                        'reports.community_id' => $userData->community_id
+                    ])
+                    ->take(30)
+                    ->get(
+                        array(
+                            'users.name as username',
+                            'users.whatedit as whatedit',
+                            'reports.*',
+                            'periods.*',
+                            'communities.*'
+                        )
+                    )->toArray();
+        } else if($userData->levelreportm == 2 || $userData->levelreportm == 3) {
+            $data = DB::table('reports')
+            ->leftjoin('communities', 'reports.community_id', '=', 'communities.id')
+            ->leftjoin('periods', 'reports.period_id', '=', 'periods.id')
+            ->leftjoin('users', 'reports.report_user', '=', 'users.id')
+            ->orderBy('periods.id', 'DESC')
+            ->take(30)
+            ->get(
+                array(
+                    'users.name as username',
+                    'users.whatedit as whatedit',
+                    'reports.*',
+                    'periods.*',
+                    'communities.*'
+                )
+            )->toArray();
+        }
         if(isset($_POST['sortTypeagain'])) {
             if($_POST['sortTypeagain'] != 'null') {
                 $GLOBALS['before'] = $_POST['sortTypeagain'];

@@ -82,28 +82,28 @@
     <div class="card-body">
         <!--begin: Datatable-->
         <div class="datatable datatable-bordered datatable-head-custom datatable-default datatable-primary datatable-loaded" id="kt_datatable" style="">
-            <table class="datatable-table  table-sm table-hover" id="kt_datatable23" style="display: block;">
+            <table class="datatable-table  table-sm table-hover" id="kt_datatable2" style="display: block;">
                 <thead class="datatable-head">
-                    <tr class="datatable-row spanloadtrfir" style="left: 0px;">
-                        <th data-field="RecordID" style="width: 5%;" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
+                    <tr class="datatable-row sortEmotic" SDType="reportmanageSD" style="left: 0px;">
+                        <th id="sortname0" data-field="RecordID" style="width: 5%;" class="datatable-cell-left datatable-cell datatable-cell-sort datatable-cell-sorted" data-sort="asc">
                             <span>#</span>
                         </th>
-                        <th data-field="Name" style="width: 25%;" class="datatable-cell datatable-cell-sort locationReport1">
+                        <th id="sortname1" data-field="Name" style="width: 25%;" class="datatable-cell datatable-cell-sort">
                             <span>Location of the report</span>
                         </th>
-                        <th data-field="Community" style="width: 20%;" class="datatable-cell datatable-cell-sort dateofreport1">
+                        <th id="sortname2" data-field="Community" style="width: 20%;" class="datatable-cell datatable-cell-sort">
                             <span>Date of the report</span>
                         </th>
-                        <th data-field="Community" style="width: 15%;" class="datatable-cell datatable-cell-sort user1">
+                        <th id="sortname3" data-field="Community" style="width: 15%;" class="datatable-cell datatable-cell-sort">
                             <span>User</span>
                         </th>
-                        <th data-field="Position" style="width: 5%;" class="datatable-cell datatable-cell-sort status">
+                        <th id="sortname4" data-field="Position" style="width: 5%;" class="datatable-cell datatable-cell-sort">
                             <span>Status</span>
                         </th>
-                        <th data-field="password" style="width: 15%;" class="datatable-cell datatable-cell-sort timeoftheedit1">
+                        <th id="sortname5" data-field="password" style="width: 15%;" class="datatable-cell datatable-cell-sort">
                             <span>Time of the edit</span>
                         </th>
-                        <th data-field="Status" style="width: 15%;" class="datatable-cell datatable-cell-sort whatwasedit1">
+                        <th id="sortname6" data-field="Status" style="width: 15%;" class="datatable-cell datatable-cell-sort">
                             <span>What was edit</span>
                         </th>
                     </tr>
@@ -111,7 +111,7 @@
                 <tbody class="datatable-body" style="">
                     <tr></tr>
                     @foreach ($data as $key => $item)
-                        <tr data-row="0" class="datatable-row spanloadtrfir" style="left: 0px;">
+                        <tr data-row="0" class="datatable-row" style="left: 0px;">
                             <td class="datatable-cell-sorted datatable-cell-left datatable-cell" style="width: 5%;" data-field="RecordID" aria-label="1">
                                 <span>
                                     <span class="font-weight-bolder">{{ $key + 1 }}</span>

@@ -39,10 +39,6 @@
     height: 100%;
 }
 
-.mainContainer * {
-    color: black !important;
-}
-
 .landingtitle {
     padding-left: 1%;
     font-weight: bold;
@@ -284,6 +280,15 @@ body::-webkit-scrollbar-thumb {
     color: black;
 }
 
+.sortEmotic th span {
+    display: inline-block !important;
+}
+
+.sortEmotic th {
+    height: 20px !important;
+    overflow: hidden !important;
+}
+
 .headergroup span {
     width: 100% !important;
 }
@@ -426,4 +431,8 @@ tbody tr:nth-child(1) {
 
 .tac {
     text-align: center !important;
+}
+
+.p-r-1 {
+    padding-right: 1% !important;
 }
